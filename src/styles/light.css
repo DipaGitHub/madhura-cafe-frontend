@@ -1,0 +1,1856 @@
+/* ========================================================
+   CAFERT LIGHT THEME - EXACT PIXEL-ACCURATE DESIGN SYSTEM
+   ======================================================== */
+
+:root {
+  --cafert-bg: #F5EFEB;
+  --cafert-white: #FFFFFF;
+  --cafert-brown: #9E6B43;
+  --cafert-brown-dark: #784B29;
+  --cafert-text-dark: #221B17;
+  --cafert-text-muted: #786C63;
+  --cafert-border: rgba(158, 107, 67, 0.18);
+  --cafert-border-light: #ECE5DD;
+}
+
+.cafert-exact-theme {
+  background-color: #FFFFFF;
+  color: var(--cafert-text-dark);
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+.cafert-exact-theme p {
+  text-align: justify;
+}
+
+.cafert-exact-theme h1,
+.cafert-exact-theme h2,
+.cafert-exact-theme h3,
+.cafert-exact-theme h4,
+.cafert-exact-theme .serif-font {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  color: var(--cafert-text-dark);
+}
+
+/* Common Container */
+.cafert-main-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Common Section Headers */
+.cafert-section-header {
+  margin-bottom: 44px;
+}
+
+.cafert-section-header.text-center {
+  text-align: center;
+}
+
+.cafert-tag-subtitle {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cafert-brown);
+  margin-bottom: 12px;
+  background: rgba(158, 107, 67, 0.08);
+  padding: 4px 14px;
+  border-radius: 999px;
+}
+
+.cafert-tag-subtitle-plain {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cafert-brown);
+  margin-bottom: 10px;
+}
+
+.cafert-heading-title {
+  font-size: 2.8rem;
+  line-height: 1.18;
+  margin-bottom: 16px;
+}
+
+.cafert-heading-desc {
+  font-size: 0.96rem;
+  color: var(--cafert-text-muted);
+  line-height: 1.7;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+/* ----------------- Header ----------------- */
+.cafert-top-header {
+  background: var(--cafert-bg);
+  padding: 24px 0 10px;
+  position: relative;
+  z-index: 100;
+}
+
+.cafert-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cafert-brand-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--cafert-text-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cafert-brand-logo span.the-script {
+  font-family: 'Cormorant Garamond', cursive;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: var(--cafert-brown);
+}
+
+.cafert-nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+}
+
+.cafert-nav-item {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--cafert-text-dark);
+  position: relative;
+  padding: 6px 0;
+  letter-spacing: 0.02em;
+}
+
+.cafert-nav-item:hover,
+.cafert-nav-item.active {
+  color: var(--cafert-brown);
+}
+
+.btn-cafert-filled {
+  background: var(--cafert-brown);
+  color: #FFFFFF;
+  padding: 13px 30px;
+  border-radius: 4px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border: 1.5px solid var(--cafert-brown);
+}
+
+.btn-cafert-filled:hover {
+  background: var(--cafert-brown-dark);
+  border-color: var(--cafert-brown-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(120, 75, 41, 0.25);
+}
+
+.btn-cafert-bordered {
+  background: transparent;
+  color: var(--cafert-brown);
+  border: 1.5px solid var(--cafert-brown);
+  padding: 13px 30px;
+  border-radius: 4px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.btn-cafert-bordered:hover {
+  background: var(--cafert-brown);
+  color: #FFFFFF;
+}
+
+/* ----------------- Section 1: Hero Section ----------------- */
+.cafert-hero-section {
+  background: var(--cafert-bg);
+  position: relative;
+  overflow: hidden;
+  padding: 50px 0 0;
+}
+
+.cafert-hero-wrapper {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: center;
+  gap: 40px;
+  position: relative;
+}
+
+.cafert-hero-left {
+  padding: 40px 0 90px;
+  position: relative;
+  z-index: 10;
+}
+
+.cafert-hero-main-title {
+  font-size: 4.2rem;
+  line-height: 1.08;
+  margin: 18px 0 24px;
+  color: var(--cafert-text-dark);
+}
+
+.cafert-hero-paragraph {
+  font-size: 1.05rem;
+  color: var(--cafert-text-muted);
+  line-height: 1.8;
+  max-width: 490px;
+  margin-bottom: 38px;
+}
+
+.cafert-hero-btn-group {
+  display: flex;
+  gap: 16px;
+}
+
+/* Right hero edge-to-edge photo with dual cups */
+.cafert-hero-right-media {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  height: 600px;
+}
+
+.cafert-hero-full-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px 0 0 0;
+  box-shadow: -15px 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.cafert-plus-badge {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cafert-brown);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* ----------------- Section 2: Banner Motto ----------------- */
+.cafert-banner-section {
+  padding: 80px 0;
+  background: #FFFFFF;
+  position: relative;
+}
+
+.cafert-banner-text {
+  font-size: 1.85rem;
+  line-height: 1.45;
+  font-family: 'Playfair Display', serif;
+  color: var(--cafert-text-dark);
+  max-width: 820px;
+  font-weight: 600;
+}
+
+/* ----------------- Section 3: Why Choose Us (About) ----------------- */
+.cafert-about-section {
+  padding: 40px 0 100px;
+  background: #FFFFFF;
+}
+
+.cafert-about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.cafert-about-media {
+  position: relative;
+}
+
+.cafert-about-media img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.cafert-about-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.cafert-about-content-top {
+  margin-bottom: 40px;
+}
+
+/* 3-Tone Distinct Brown Stats Counter */
+.cafert-stats-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+}
+
+.cafert-stat-box {
+  padding: 28px 20px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.cafert-stat-box.tone-light {
+  background-color: #B99F87;
+}
+
+.cafert-stat-box.tone-mid {
+  background-color: #8E6544;
+}
+
+.cafert-stat-box.tone-dark {
+  background-color: #5C3D26;
+}
+
+.cafert-stat-number {
+  font-size: 2.2rem;
+  font-weight: 800;
+  font-family: 'Playfair Display', serif;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.cafert-stat-title {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.92;
+}
+
+/* ----------------- Section 4: Special Menu ----------------- */
+.cafert-menu-section {
+  background: var(--cafert-bg);
+  padding: 110px 0;
+  position: relative;
+}
+
+.cafert-menu-tab-nav {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  margin-bottom: 60px;
+  border-bottom: 1px solid rgba(158, 107, 67, 0.2);
+  padding-bottom: 14px;
+}
+
+.cafert-tab-link {
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  color: var(--cafert-text-muted);
+  position: relative;
+  padding-bottom: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.cafert-tab-link.active {
+  color: var(--cafert-text-dark);
+}
+
+.cafert-tab-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--cafert-brown);
+}
+
+.cafert-menu-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px 64px;
+}
+
+.cafert-menu-row {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 18px;
+  border-bottom: 1px dashed rgba(158, 107, 67, 0.25);
+}
+
+.cafert-menu-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+
+.cafert-dish-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: var(--cafert-text-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cafert-dish-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--cafert-brown-dark);
+}
+
+.cafert-dish-desc {
+  font-size: 0.88rem;
+  color: var(--cafert-text-muted);
+}
+
+/* ----------------- Section 5: We Hold Events ----------------- */
+.cafert-events-section {
+  padding: 110px 0 90px;
+  background: #FFFFFF;
+}
+
+.cafert-events-split {
+  display: grid;
+  grid-template-columns: 1.1fr 1.9fr;
+  gap: 32px;
+  margin-bottom: 70px;
+}
+
+.cafert-event-banner-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 100%;
+  min-height: 420px;
+}
+
+.cafert-event-banner-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cafert-event-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(34, 27, 23, 0.1) 0%, rgba(34, 27, 23, 0.88) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 40px;
+  color: #FFFFFF;
+}
+
+.cafert-event-banner-overlay h3 {
+  font-size: 2.1rem;
+  color: #FFFFFF;
+  line-height: 1.25;
+  margin-bottom: 24px;
+}
+
+.cafert-services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.cafert-service-card {
+  border: 1px solid var(--cafert-border-light);
+  border-radius: 8px;
+  padding: 32px 28px;
+  background: #FFFFFF;
+  transition: all 0.3s ease;
+}
+
+.cafert-service-card:hover {
+  box-shadow: 0 14px 30px rgba(158, 107, 67, 0.12);
+  border-color: var(--cafert-brown);
+  transform: translateY(-4px);
+}
+
+.cafert-service-card .sub {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cafert-brown);
+  margin-bottom: 10px;
+}
+
+.cafert-service-card h4 {
+  font-size: 1.35rem;
+  margin-bottom: 12px;
+}
+
+.cafert-service-card p {
+  font-size: 0.88rem;
+  color: var(--cafert-text-muted);
+  line-height: 1.65;
+}
+
+/* Happy Moments Mini Slider */
+.cafert-happy-moments-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 40px;
+  border-top: 1px solid var(--cafert-border-light);
+}
+
+.cafert-happy-moments-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.cafert-happy-photos {
+  display: flex;
+  gap: 16px;
+}
+
+.cafert-happy-photos img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.cafert-arrow-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--cafert-border);
+  color: var(--cafert-brown);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  transition: all 0.25s;
+}
+
+.cafert-arrow-btn:hover {
+  background: var(--cafert-brown);
+  color: #FFFFFF;
+}
+
+/* ----------------- Section 6: Testimonials ----------------- */
+.cafert-testimonials-section {
+  padding: 100px 0;
+  background: var(--cafert-bg);
+}
+
+.cafert-testi-split {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.cafert-testi-macaron-img {
+  width: 100%;
+  height: 460px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.cafert-testi-card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 56px 48px;
+  position: relative;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04);
+}
+
+.cafert-quote-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  font-style: italic;
+  color: var(--cafert-text-dark);
+  margin-bottom: 28px;
+}
+
+.cafert-quote-author {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--cafert-brown-dark);
+}
+
+/* ----------------- Section 7: Aesthetics of Interior ----------------- */
+.cafert-interior-section {
+  padding: 110px 0;
+  background: #FFFFFF;
+}
+
+.cafert-interior-split {
+  display: grid;
+  grid-template-columns: 1fr 1.8fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.cafert-interior-main-img {
+  width: 100%;
+  height: 440px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* ----------------- Section 8: Our Experts ----------------- */
+.cafert-team-section {
+  padding: 110px 0 70px;
+  background: #FFFFFF;
+  text-align: center;
+}
+
+.cafert-team-cards-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 50px;
+}
+
+.cafert-expert-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #FFFFFF;
+  border: 1px solid var(--cafert-border-light);
+  transition: all 0.3s ease;
+}
+
+.cafert-expert-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 36px rgba(158, 107, 67, 0.15);
+}
+
+.cafert-expert-card img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+}
+
+.cafert-expert-body {
+  padding: 24px 20px;
+  text-align: center;
+}
+
+.cafert-expert-body .role {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--cafert-brown);
+  letter-spacing: 0.12em;
+}
+
+.cafert-expert-body h4 {
+  font-size: 1.4rem;
+  margin: 6px 0 10px;
+}
+
+.cafert-expert-body p {
+  font-size: 0.86rem;
+  color: var(--cafert-text-muted);
+}
+
+/* ----------------- Section 9: 5-Photo Instagram Mosaic ----------------- */
+.cafert-mosaic-5col {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 100%;
+}
+
+.cafert-mosaic-item {
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.cafert-mosaic-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.cafert-mosaic-item:hover img {
+  transform: scale(1.08);
+}
+
+/* ----------------- Section 10: Footer ----------------- */
+.cafert-exact-footer {
+  background: #1C1612;
+  color: #D3C8BE;
+  padding: 80px 0 40px;
+}
+
+.cafert-footer-four-col {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.1fr;
+  gap: 40px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cafert-footer-four-col h4 {
+  color: #FFFFFF;
+  font-size: 1.15rem;
+  margin-bottom: 20px;
+}
+
+.cafert-footer-four-col p {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: #B2A69C;
+}
+
+.cafert-footer-copyright {
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  color: #7D736A;
+}
+
+/* ========================================================
+   CAFERT ABOUT US SPECIFIC EXACT STYLES
+   ======================================================== */
+
+.light-theme-cafert {
+  background: #fff;
+  font-family: 'Montserrat', sans-serif;
+  color: #5c5c5c;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.light-theme-cafert .section {
+  padding: 70px 0;
+}
+
+.light-theme-cafert .section--nopb {
+  padding: 70px 0 0;
+}
+
+.light-theme-cafert .section_header {
+  margin-bottom: 30px;
+}
+
+.light-theme-cafert .section_header.centered {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.light-theme-cafert .section_header-title {
+  margin-bottom: 8px;
+  font-family: 'Raleway', sans-serif;
+  color: #534931;
+  font-weight: 600;
+}
+
+.light-theme-cafert .section_header-subtitle {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #534931;
+}
+
+.light-theme-cafert .section_header-text {
+  max-width: 750px;
+  color: #5c5c5c;
+  line-height: 1.6;
+}
+
+.light-theme-cafert .h1,
+.light-theme-cafert .h2,
+.light-theme-cafert .h3,
+.light-theme-cafert .h4 {
+  font-family: 'Raleway', sans-serif;
+  color: #534931;
+  font-weight: 600;
+}
+
+.light-theme-cafert .btn {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 14px;
+  background: #b38e6a;
+  color: #fff;
+  height: 60px;
+  padding: 0 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: .3s ease-in-out;
+}
+
+.light-theme-cafert .btn:hover {
+  background: #534931;
+  color: #fff;
+}
+
+.light-theme-cafert .btn--play {
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+  background: #b38e6a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.light-theme-cafert .btn--play:hover {
+  background: #534931;
+}
+
+/* Header */
+.light-theme-cafert .header {
+  position: relative;
+  width: 100%;
+  z-index: 100;
+  background: #fdfbf7;
+  border-bottom: 1px solid #ECE5DD;
+}
+
+.light-theme-cafert .header .container {
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 40px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.light-theme-cafert .logo {
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  gap: 12px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #534931;
+  text-decoration: none;
+}
+
+.light-theme-cafert .logo_img svg {
+  height: 48px;
+  width: auto;
+  color: #b38e6a;
+}
+
+.light-theme-cafert .header_nav-list {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.light-theme-cafert .header_nav-list_item .nav-link {
+  color: #534931;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.light-theme-cafert .header_nav-list_item .nav-link:hover,
+.light-theme-cafert .header_nav-list_item .nav-link.current {
+  color: #b38e6a !important;
+}
+
+.light-theme-cafert .header_nav-socials {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.light-theme-cafert .header_nav-socials .link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f7f7f7;
+  color: #534931;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.light-theme-cafert .header_nav-socials .link:hover {
+  background: #b38e6a;
+  color: #fff;
+}
+
+.light-theme-cafert .header_trigger {
+  display: none;
+}
+
+/* Page Banner */
+.light-theme-cafert .page_cover {
+  padding: 0 20px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.light-theme-cafert .page_breadcrumbs {
+  background: #e5dcd2;
+  padding: 16px 20px;
+  text-align: center;
+}
+
+.light-theme-cafert .page_breadcrumbs-list {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-size: 16px;
+  font-family: 'Raleway', sans-serif;
+}
+
+/* Benefits Section */
+.light-theme-cafert .benefits {
+  background: #f7f7f7;
+  padding: 70px 0;
+}
+
+.light-theme-cafert .benefits .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.light-theme-cafert .benefits_list {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.light-theme-cafert .benefits_list-item {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.light-theme-cafert .benefits_list-item .main_title {
+  margin-bottom: 8px;
+  font-size: 22px;
+  font-family: 'Raleway', sans-serif;
+  color: #534931;
+}
+
+.light-theme-cafert .benefits_list-item .main_text {
+  font-size: 15px;
+  color: #786C63;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Promo Video Section */
+.light-theme-cafert .promo {
+  padding: 70px 0;
+}
+
+.light-theme-cafert .promo .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.light-theme-cafert .promo_video {
+  position: relative;
+  height: 520px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* 4-Tone Counter Metric Strip */
+.light-theme-cafert .counter {
+  display: flex;
+  width: 100%;
+}
+
+.light-theme-cafert .counter_block {
+  flex: 1;
+  padding: 45px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.light-theme-cafert .counter_block:first-of-type {
+  background: #e5dcd2;
+  text-align: left;
+}
+
+.light-theme-cafert .counter_block:nth-of-type(2) {
+  background: #c3b2a5;
+}
+
+.light-theme-cafert .counter_block:nth-of-type(3) {
+  background: #b38e6a;
+}
+
+.light-theme-cafert .counter_block:last-of-type {
+  background: #534931;
+}
+
+.light-theme-cafert .counter_block.num .countNum {
+  font-size: 42px;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  color: #fff !important;
+  margin-bottom: 4px;
+}
+
+.light-theme-cafert .counter_block.num span {
+  color: #fff !important;
+}
+
+/* Team Section */
+.light-theme-cafert .team {
+  padding: 90px 0 0;
+  background: #fff;
+}
+
+.light-theme-cafert .team .section_header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 50px;
+}
+
+.light-theme-cafert .team_list {
+  display: flex;
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.light-theme-cafert .team_list-item {
+  flex: 1;
+  position: relative;
+  height: 480px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.light-theme-cafert .team_list-item .media {
+  width: 100%;
+  height: 100%;
+}
+
+.light-theme-cafert .team_list-item .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.light-theme-cafert .team_list-item:hover .media img {
+  transform: scale(1.05);
+}
+
+.light-theme-cafert .team_list-item .main {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: rgba(247, 247, 247, 0.92);
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.light-theme-cafert .team_list-item:hover .main {
+  opacity: 1;
+}
+
+.light-theme-cafert .team_list-item .main_position {
+  text-transform: uppercase;
+  color: #b38e6a;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.light-theme-cafert .team_list-item .main_name {
+  margin: 8px 0 12px;
+  font-size: 26px;
+  font-family: 'Raleway', sans-serif;
+  color: #534931;
+}
+
+.light-theme-cafert .team_list-item .main_socials {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+  margin-top: 15px;
+  padding: 0;
+  font-size: 20px;
+}
+
+.light-theme-cafert .team_list-item .main_socials .link {
+  color: #534931;
+  transition: color 0.3s;
+}
+
+.light-theme-cafert .team_list-item .main_socials .link:hover {
+  color: #b38e6a;
+}
+
+/* Invitation Section */
+.light-theme-cafert .invitation {
+  padding: 90px 0 70px;
+  background: #fff;
+}
+
+.light-theme-cafert .invitation .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  gap: 70px;
+  align-items: center;
+}
+
+.light-theme-cafert .invitation .main {
+  flex: 1;
+}
+
+.light-theme-cafert .invitation .main_media {
+  height: 280px;
+  margin-bottom: 35px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.light-theme-cafert .invitation .main_media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.light-theme-cafert .invitation .media {
+  flex: 1;
+  position: relative;
+  max-width: 500px;
+}
+
+.light-theme-cafert .invitation .media img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  border-radius: 4px;
+  position: relative;
+  z-index: 2;
+}
+
+.light-theme-cafert .invitation .media_oval {
+  position: absolute;
+  z-index: 1;
+  color: #f7f7f7;
+  top: -100px;
+  left: -140px;
+  pointer-events: none;
+}
+
+/* Brands Section */
+.light-theme-cafert .brands {
+  background: #f7f7f7;
+  padding: 60px 0;
+}
+
+.light-theme-cafert .brands .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Instagram Gallery Slider */
+.light-theme-cafert .gallery_slider {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  width: 100%;
+}
+
+.light-theme-cafert .gallery_slider-slide {
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+
+.light-theme-cafert .gallery_slider-slide .link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.light-theme-cafert .gallery_slider-slide .link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.light-theme-cafert .gallery_slider-slide .link:hover img {
+  transform: scale(1.08);
+}
+
+/* Footer */
+.light-theme-cafert .footer {
+  background: #fdfbf7;
+  border-top: 1px solid #ECE5DD;
+  padding: 80px 0 50px;
+}
+
+.light-theme-cafert .footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.light-theme-cafert .footer_about {
+  max-width: 320px;
+}
+
+.light-theme-cafert .footer_block-title {
+  font-size: 20px;
+  font-family: 'Raleway', sans-serif;
+  color: #534931;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.light-theme-cafert .footer_block-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 15px;
+  color: #5c5c5c;
+}
+
+.light-theme-cafert .footer_block-list .link {
+  color: #5c5c5c;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s;
+}
+
+.light-theme-cafert .footer_block-list .link:hover {
+  color: #b38e6a;
+}
+
+.light-theme-cafert .footer_block-socials {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0 0;
+  display: flex;
+  gap: 12px;
+}
+
+.light-theme-cafert .footer_block-socials .link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #f7f7f7;
+  color: #534931;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.light-theme-cafert .footer_block-socials .link:hover {
+  background: #b38e6a;
+  color: #fff;
+}
+
+@media (max-width: 992px) {
+
+  .light-theme-cafert .benefits_list,
+  .light-theme-cafert .counter,
+  .light-theme-cafert .team_list,
+  .light-theme-cafert .invitation .container,
+  .light-theme-cafert .gallery_slider,
+  .light-theme-cafert .footer .container {
+    flex-direction: column;
+  }
+
+  .light-theme-cafert .gallery_slider {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ========================================================
+   LIGHT THEME: FULL-BLEED 50/50 HERO (EXACT CAFERT INDEX2)
+   ======================================================== */
+.light-hero-split-section {
+  background: #ECE5DD;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.light-hero-split-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  min-height: 85vh;
+}
+
+.light-hero-left-content {
+  background: #ECE5DD;
+  padding: 100px 70px 100px max(50px, calc((100vw - 1320px) / 2 + 40px));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.light-hero-subtitle {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #786C63;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.light-hero-main-title {
+  font-family: 'Raleway', 'Playfair Display', Georgia, serif;
+  font-size: 5rem;
+  line-height: 1.05;
+  color: #534931;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.light-hero-text {
+  font-size: 1.15rem;
+  color: #786C63;
+  line-height: 1.75;
+  max-width: 480px;
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.light-hero-btn-group {
+  display: flex;
+  gap: 20px;
+}
+
+.light-hero-btn-solid {
+  background: #9E6B43;
+  color: #FFFFFF;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 18px 36px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  border: 1.5px solid #9E6B43;
+}
+
+.light-hero-btn-solid:hover {
+  background: #784B29;
+  border-color: #784B29;
+  color: #FFFFFF;
+}
+
+.light-hero-btn-outline {
+  background: transparent;
+  color: #9E6B43;
+  border: 1.5px solid #9E6B43;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 18px 36px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.light-hero-btn-outline:hover {
+  background: #9E6B43;
+  color: #FFFFFF;
+}
+
+.light-hero-right-media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.light-hero-split-img {
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.light-hero-fade {
+  animation: heroLightFade 0.6s ease-in-out forwards;
+}
+
+@keyframes heroLightFade {
+  from {
+    opacity: 0.3;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.light-hero-slider-dots {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.light-hero-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.light-hero-dot.active {
+  background: #9E6B43;
+  border-color: #FFFFFF;
+  transform: scale(1.2);
+}
+
+@media (max-width: 992px) {
+  .light-hero-split-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .light-hero-left-content {
+    padding: 60px 24px;
+  }
+
+  .light-hero-main-title {
+    font-size: 3.5rem;
+  }
+
+  .light-hero-right-media {
+    height: 450px;
+  }
+}
+
+/* ========================================================
+   LIGHT THEME: WHY CHOOSE US (50/50 FULL-BLEED SPLIT)
+   ======================================================== */
+.light-about-split-section {
+  background: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.light-about-split-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  min-height: 600px;
+}
+
+.light-about-left-media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.light-about-split-img {
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.light-about-right-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #FFFFFF;
+}
+
+.light-about-text-wrap {
+  padding: 80px max(50px, calc((100vw - 1320px) / 2 + 40px)) 40px 70px;
+}
+
+.light-about-counter-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  gap: 0;
+  margin: 0;
+}
+
+.light-counter-box {
+  padding: 35px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: none;
+}
+
+.light-counter-1 {
+  background: #c3b2a5;
+}
+
+.light-counter-2 {
+  background: #b38e6a;
+}
+
+.light-counter-3 {
+  background: #534931;
+}
+
+.light-counter-num {
+  font-family: 'Raleway', sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.light-counter-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+
+@media (max-width: 992px) {
+  .light-about-split-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .light-about-left-media {
+    height: 400px;
+    min-height: auto;
+  }
+
+  .light-about-text-wrap {
+    padding: 60px 24px 30px;
+  }
+
+  .light-about-counter-strip {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========================================================
+   LIGHT THEME: TESTIMONIALS (50/50 FULL-BLEED SPLIT)
+   ======================================================== */
+.light-testimonials-split-section {
+  background: #FAF7F2;
+  border-top: 1px solid #ECE5DD;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.light-testimonials-split-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  min-height: 540px;
+}
+
+.light-testimonials-left-media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 540px;
+  overflow: hidden;
+}
+
+.light-testimonials-split-img {
+  width: 100%;
+  height: 100%;
+  min-height: 540px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.light-testimonials-right-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px max(50px, calc((100vw - 1320px) / 2 + 40px)) 80px 70px;
+}
+
+.light-testimonials-inner {
+  max-width: 540px;
+}
+
+.light-quote-mark {
+  font-size: 42px;
+  color: #b38e6a;
+  line-height: 1;
+  display: block;
+}
+
+.light-testimonial-quote-text {
+  font-size: 19px;
+  color: #5c5c5c;
+  font-style: italic;
+  line-height: 1.75;
+  text-align: left;
+  animation: heroLightFade 0.6s ease-in-out forwards;
+}
+
+.light-testimonial-dots {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.light-testi-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  background: #c3b2a5;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.light-testi-dot.active {
+  background: #b38e6a;
+  transform: scale(1.25);
+}
+
+/* ========================================================
+   LIGHT THEME: INTERIOR PRESENTATION GALLERY CAROUSEL
+   ======================================================== */
+.light-carousel-arrow-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid #b38e6a;
+  background: #FFFFFF;
+  color: #b38e6a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.light-carousel-arrow-btn:hover {
+  background: #b38e6a;
+  color: #FFFFFF;
+}
+
+.light-interior-carousel-wrapper {
+  height: 500px;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(83, 73, 49, 0.08);
+}
+
+.light-interior-carousel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.light-interior-dots {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+
+.light-interior-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.light-interior-dot.active {
+  background: #b38e6a;
+  border-color: #FFFFFF;
+  transform: scale(1.25);
+}
+
+@media (max-width: 992px) {
+  .light-testimonials-split-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .light-testimonials-left-media {
+    height: 400px;
+    min-height: auto;
+  }
+
+  .light-testimonials-right-content {
+    padding: 60px 24px;
+  }
+
+  .light-interior-carousel-wrapper {
+    height: 380px;
+  }
+}
+
+/* ========================================================
+   LIGHT THEME: BRANDS CONTINUOUS AUTO-SLIDING MARQUEE
+   ======================================================== */
+.light-brands-marquee-wrap {
+  width: 100%;
+  overflow: hidden;
+  padding: 30px 0 50px;
+  position: relative;
+  display: flex;
+}
+
+.light-brands-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  animation: lightBrandMarquee 26s linear infinite;
+  white-space: nowrap;
+}
+
+.light-brands-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.light-brand-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.75;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.light-brand-item:hover {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+@keyframes lightBrandMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
