@@ -1,0 +1,202 @@
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .spice-line {
+        fill: none;
+        stroke: #E5A93C;
+        stroke-width: 1;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        opacity: 0.10;
+      }
+      .spice-fill {
+        fill: #E5A93C;
+        opacity: 0.014;
+      }
+      .spice-dot {
+        fill: #E5A93C;
+        opacity: 0.015;
+      }
+    </style>
+  </defs>
+
+  <!-- ================= 1. MORTAR & PESTLE (Top Left: 50, 60) ================= -->
+  <g transform="translate(40, 45)">
+    <!-- Mortar Bowl -->
+    <path class="spice-line" d="M10,35 C10,55 25,65 45,65 C65,65 80,55 80,35 C80,30 10,30 10,35 Z" />
+    <path class="spice-fill" d="M10,35 C10,55 25,65 45,65 C65,65 80,55 80,35 C80,30 10,30 10,35 Z" />
+    <!-- Mortar Rim -->
+    <ellipse class="spice-line" cx="45" cy="32" rx="35" ry="7" />
+    <!-- Mortar Base -->
+    <path class="spice-line" d="M30,65 L25,72 L65,72 L60,65" />
+    <!-- Pestle -->
+    <path class="spice-line" d="M38,10 L56,42 C57,45 52,48 48,46 L30,14 C28,10 34,7 38,10 Z" />
+    <ellipse class="spice-fill" cx="45" cy="32" rx="25" ry="4" />
+    <!-- Crushed herbs in bowl -->
+    <circle class="spice-dot" cx="42" cy="38" r="1.5" />
+    <circle class="spice-dot" cx="48" cy="39" r="1.2" />
+    <circle class="spice-dot" cx="45" cy="43" r="1.5" />
+  </g>
+
+  <!-- ================= 2. TULSI / HOLY BASIL BRANCH (Top Right: 260, 40) ================= -->
+  <g transform="translate(260, 35) rotate(15)">
+    <!-- Stem -->
+    <path class="spice-line" d="M40,85 Q45,45 50,10" />
+    <!-- Leaves -->
+    <!-- Leaf 1 (Left top) -->
+    <path class="spice-line" d="M48,25 C30,18 25,32 46,38 C48,32 48,25 48,25 Z" />
+    <path class="spice-line" d="M48,25 Q35,28 30,26" />
+    <!-- Leaf 2 (Right top) -->
+    <path class="spice-line" d="M50,22 C68,14 74,28 52,35 C50,30 50,22 50,22 Z" />
+    <path class="spice-line" d="M50,22 Q62,25 68,23" />
+    <!-- Leaf 3 (Left mid) -->
+    <path class="spice-line" d="M45,50 C22,42 18,60 43,65 C45,58 45,50 45,50 Z" />
+    <!-- Leaf 4 (Right mid) -->
+    <path class="spice-line" d="M46,47 C70,38 78,56 48,62 C47,54 46,47 46,47 Z" />
+    <!-- Manjari (Seed Spire at tip) -->
+    <circle class="spice-dot" cx="50" cy="8" r="1.5" />
+    <circle class="spice-dot" cx="48" cy="4" r="1.2" />
+    <circle class="spice-dot" cx="52" cy="4" r="1.2" />
+    <circle class="spice-dot" cx="50" cy="0" r="1" />
+  </g>
+
+  <!-- ================= 3. STAR ANISE (Center: 175, 175) ================= -->
+  <g transform="translate(170, 165)">
+    <!-- 8 Petals radiating out -->
+    <!-- Petal 0 deg (Up) -->
+    <path class="spice-line" d="M30,30 C26,18 20,6 30,0 C40,6 34,18 30,30 Z" />
+    <ellipse class="spice-fill" cx="30" cy="10" rx="3" ry="5" />
+    <circle class="spice-dot" cx="30" cy="10" r="2" />
+    <!-- Petal 45 deg (Up-Right) -->
+    <path class="spice-line" d="M30,30 C38,22 48,15 52,22 C50,32 40,32 30,30 Z" />
+    <circle class="spice-dot" cx="44" cy="22" r="2" />
+    <!-- Petal 90 deg (Right) -->
+    <path class="spice-line" d="M30,30 C42,26 54,20 60,30 C54,40 42,34 30,30 Z" />
+    <circle class="spice-dot" cx="50" cy="30" r="2" />
+    <!-- Petal 135 deg (Down-Right) -->
+    <path class="spice-line" d="M30,30 C38,38 48,46 42,52 C32,50 32,40 30,30 Z" />
+    <circle class="spice-dot" cx="40" cy="43" r="2" />
+    <!-- Petal 180 deg (Down) -->
+    <path class="spice-line" d="M30,30 C34,42 40,54 30,60 C20,54 26,42 30,30 Z" />
+    <circle class="spice-dot" cx="30" cy="49" r="2" />
+    <!-- Petal 225 deg (Down-Left) -->
+    <path class="spice-line" d="M30,30 C22,38 12,46 8,40 C10,30 20,30 30,30 Z" />
+    <circle class="spice-dot" cx="17" cy="39" r="2" />
+    <!-- Petal 270 deg (Left) -->
+    <path class="spice-line" d="M30,30 C18,34 6,40 0,30 C6,20 18,26 30,30 Z" />
+    <circle class="spice-dot" cx="10" cy="30" r="2" />
+    <!-- Petal 315 deg (Up-Left) -->
+    <path class="spice-line" d="M30,30 C22,22 12,14 18,8 C28,10 28,20 30,30 Z" />
+    <circle class="spice-dot" cx="20" cy="18" r="2" />
+    <!-- Star Center Core -->
+    <circle class="spice-line" cx="30" cy="30" r="5" />
+    <circle class="spice-dot" cx="30" cy="30" r="2.5" />
+  </g>
+
+  <!-- ================= 4. CINNAMON STICKS & CLOVES (Mid Left: 30, 210) ================= -->
+  <g transform="translate(25, 200) rotate(-20)">
+    <!-- Cinnamon Stick 1 -->
+    <path class="spice-line" d="M15,10 C22,7 28,12 25,18 L55,75 C58,81 52,86 45,82 Z" />
+    <ellipse class="spice-line" cx="20" cy="14" rx="5" ry="4" />
+    <path class="spice-line" d="M18,15 C20,13 22,15 21,17" />
+    <!-- Cinnamon Stick 2 (Overlapping) -->
+    <path class="spice-line" d="M28,8 C35,5 42,10 38,16 L68,72 C71,78 65,83 58,80" />
+    <ellipse class="spice-line" cx="33" cy="12" rx="5" ry="4" />
+    <!-- Cloves nearby -->
+    <g transform="translate(65, 30) rotate(45)">
+      <!-- Clove Head -->
+      <circle class="spice-dot" cx="10" cy="10" r="3.5" />
+      <path class="spice-line" d="M6,10 L14,10 M10,6 L10,14" />
+      <!-- Clove Body -->
+      <path class="spice-line" d="M8,14 L7,28 L13,28 L12,14" />
+    </g>
+    <g transform="translate(5, 60) rotate(-40)">
+      <circle class="spice-dot" cx="8" cy="8" r="3" />
+      <path class="spice-line" d="M6,11 L5,23 L11,23 L10,11" />
+    </g>
+  </g>
+
+  <!-- ================= 5. TURMERIC / GINGER RHIZOME (Bottom Left: 70, 310) ================= -->
+  <g transform="translate(50, 300)">
+    <!-- Main Root Segment -->
+    <path class="spice-line" d="M20,40 C15,25 30,15 45,22 C55,10 75,15 80,30 C95,28 105,45 95,60 C80,75 50,70 35,65 C20,62 12,50 20,40 Z" />
+    <path class="spice-fill" d="M20,40 C15,25 30,15 45,22 C55,10 75,15 80,30 C95,28 105,45 95,60 C80,75 50,70 35,65 C20,62 12,50 20,40 Z" />
+    <!-- Rings / Ridges on Root -->
+    <path class="spice-line" d="M30,30 C32,38 35,45 32,55" />
+    <path class="spice-line" d="M50,22 C52,32 55,42 48,58" />
+    <path class="spice-line" d="M68,26 C72,36 70,48 65,62" />
+    <path class="spice-line" d="M85,38 C84,46 80,54 78,58" />
+    <!-- Turmeric Finger sprout -->
+    <path class="spice-line" d="M65,18 C70,5 82,8 80,22" />
+  </g>
+
+  <!-- ================= 6. CARDAMOM PODS (Mid-Right: 310, 190) ================= -->
+  <g transform="translate(290, 170)">
+    <!-- Elaichi Pod 1 -->
+    <g transform="rotate(-15)">
+      <path class="spice-line" d="M30,10 C15,25 15,45 30,60 C45,45 45,25 30,10 Z" />
+      <path class="spice-fill" d="M30,10 C15,25 15,45 30,60 C45,45 45,25 30,10 Z" />
+      <!-- Ridges -->
+      <path class="spice-line" d="M30,10 L30,60" />
+      <path class="spice-line" d="M30,10 C24,25 24,45 30,60" />
+      <path class="spice-line" d="M30,10 C36,25 36,45 30,60" />
+      <!-- Tip -->
+      <path class="spice-line" d="M28,8 L30,4 L32,8" />
+    </g>
+    <!-- Elaichi Pod 2 -->
+    <g transform="translate(30, 25) rotate(40)">
+      <path class="spice-line" d="M25,8 C12,20 12,36 25,48 C38,36 38,20 25,8 Z" />
+      <path class="spice-line" d="M25,8 L25,48" />
+      <path class="spice-line" d="M25,8 C20,20 20,36 25,48" />
+      <path class="spice-line" d="M25,8 C30,20 30,36 25,48" />
+    </g>
+    <!-- Little seeds escaping -->
+    <circle class="spice-dot" cx="65" cy="15" r="2" />
+    <circle class="spice-dot" cx="72" cy="22" r="1.8" />
+    <circle class="spice-dot" cx="60" cy="28" r="1.5" />
+  </g>
+
+  <!-- ================= 7. KASHAYAM / AYURVEDIC DECOCTION BOWL (Bottom Right: 260, 290) ================= -->
+  <g transform="translate(250, 280)">
+    <!-- Bowl Body -->
+    <path class="spice-line" d="M15,45 C15,75 35,90 60,90 C85,90 105,75 105,45" />
+    <path class="spice-fill" d="M15,45 C15,75 35,90 60,90 C85,90 105,75 105,45 Z" />
+    <!-- Bowl Rim -->
+    <ellipse class="spice-line" cx="60" cy="45" rx="45" ry="10" />
+    <ellipse class="spice-fill" cx="60" cy="45" rx="38" ry="7" />
+    <!-- Traditional Base Foot -->
+    <path class="spice-line" d="M42,90 L38,98 L82,98 L78,90" />
+    <!-- Traditional Kashti side handles/ridges -->
+    <path class="spice-line" d="M12,48 C5,48 5,58 15,60" />
+    <path class="spice-line" d="M108,48 C115,48 115,58 105,60" />
+    <!-- Steaming Swirls of Herbal Vapor -->
+    <path class="spice-line" d="M48,32 C42,22 55,15 48,5" />
+    <path class="spice-line" d="M62,30 C56,18 70,12 65,0" />
+    <path class="spice-line" d="M75,34 C70,24 82,18 78,8" />
+  </g>
+
+  <!-- ================= 8. FLOATING ACCENTS (Black Pepper, Mustard, Cumin Seeds) ================= -->
+  <!-- Pepper Corns / Mustard Seeds floating across canvas for organic flow -->
+  <circle class="spice-dot" cx="170" cy="70" r="2.5" />
+  <circle class="spice-dot" cx="180" cy="62" r="1.8" />
+  <circle class="spice-dot" cx="160" cy="78" r="2" />
+
+  <!-- Cumin / Jeera Seeds -->
+  <g transform="translate(130, 270) rotate(35)">
+    <ellipse class="spice-line" cx="10" cy="10" rx="6" ry="1.8" />
+    <path class="spice-line" d="M6,10 L14,10" />
+  </g>
+  <g transform="translate(145, 285) rotate(-20)">
+    <ellipse class="spice-line" cx="10" cy="10" rx="5" ry="1.6" />
+    <path class="spice-line" d="M7,10 L13,10" />
+  </g>
+  <g transform="translate(225, 120) rotate(70)">
+    <ellipse class="spice-line" cx="10" cy="10" rx="5.5" ry="1.7" />
+  </g>
+
+  <!-- Coriander / Dhaniya seed -->
+  <circle class="spice-line" cx="340" cy="120" r="3.5" />
+  <path class="spice-line" d="M337,120 L343,120 M340,117 L340,123" />
+  <circle class="spice-line" cx="120" cy="130" r="3" />
+  <path class="spice-line" d="M117,130 L123,130" />
+</svg>

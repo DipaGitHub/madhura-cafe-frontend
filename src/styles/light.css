@@ -881,6 +881,14 @@
   color: #b38e6a;
 }
 
+.light-theme-cafert .logo_img img,
+.light-theme-cafert .logo img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
 .light-theme-cafert .header_nav-list {
   display: flex;
   align-items: center;

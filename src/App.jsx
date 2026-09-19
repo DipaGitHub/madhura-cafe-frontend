@@ -4,38 +4,39 @@ import LightHome from './pages/LightHome';
 import LightAbout from './pages/LightAbout';
 import DarkHome from './pages/DarkHome';
 import DarkAbout from './pages/DarkAbout';
-import ConceptToggle from './components/common/ConceptToggle';
+import DarkMenu from './pages/DarkMenu';
+import DarkMenuDetails from './pages/DarkMenuDetails';
+import DarkBlog from './pages/DarkBlog';
+import DarkBlogDetails from './pages/DarkBlogDetails';
+import DarkContact from './pages/DarkContact';
 
 export default function App() {
   return (
     <BrowserRouter>
-      {/* Floating Concept Toggle for Presentation / Review */}
-      <ConceptToggle />
-
       <Routes>
-        {/* Default route redirect to Design 1 */}
-        <Route path="/" element={<Navigate to="/design-1" replace />} />
-        
-        {/* Design 1 (Light Artisanal - Cafert Inspired) */}
-        <Route path="/design-1" element={<LightHome />} />
-        <Route path="/design-1/about" element={<LightAbout />} />
-        <Route path="/about" element={<Navigate to="/design-1/about" replace />} />
+        {/* Primary Dark Theme Routes */}
+        <Route path="/" element={<DarkHome />} />
+        <Route path="/home" element={<Navigate to="/" replace />} />
+        <Route path="/about" element={<DarkAbout />} />
+        <Route path="/menu" element={<DarkMenu />} />
+        <Route path="/menu-details" element={<DarkMenuDetails />} />
+        <Route path="/menu/:id" element={<DarkMenuDetails />} />
+        <Route path="/blog" element={<DarkBlog />} />
+        <Route path="/blog-details" element={<DarkBlogDetails />} />
+        <Route path="/contact" element={<DarkContact />} />
 
-        {/* Design 2 (Dark Luxury - Elegencia Inspired) */}
-        <Route path="/design-2" element={<DarkHome />} />
-        <Route path="/design-2/about" element={<DarkAbout />} />
-        <Route path="/dark" element={<Navigate to="/design-2" replace />} />
-        <Route path="/dark/about" element={<Navigate to="/design-2/about" replace />} />
-
-        {/* Support /madhura-cafe/* prefix if hosted on subdirectory or custom path */}
-        <Route path="/madhura-cafe/design-1" element={<LightHome />} />
-        <Route path="/madhura-cafe/design-1/about" element={<LightAbout />} />
-        <Route path="/madhura-cafe/design-2" element={<DarkHome />} />
-        <Route path="/madhura-cafe/design-2/about" element={<DarkAbout />} />
+        {/* Route aliases redirecting to dark theme */}
+        <Route path="/design-2" element={<Navigate to="/" replace />} />
+        <Route path="/design-2/about" element={<Navigate to="/about" replace />} />
+        <Route path="/dark" element={<Navigate to="/" replace />} />
+        <Route path="/design-1" element={<Navigate to="/" replace />} />
+        <Route path="/design-1/about" element={<Navigate to="/about" replace />} />
+        <Route path="/light" element={<Navigate to="/" replace />} />
 
         {/* Catch-all fallback */}
-        <Route path="*" element={<Navigate to="/design-1" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
 }
+

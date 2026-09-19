@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <!-- Tulsi (Holy Basil) Leaf -->
+  <path d="M16 28 C16 28, 6 22, 10 12 C12 7, 16 4, 16 4 C16 4, 20 7, 22 12 C26 22, 16 28, 16 28 Z" fill="#FFD28D" opacity="0.12"/>
+  <!-- Leaf outline -->
+  <path d="M16 28 C16 28, 6 22, 10 12 C12 7, 16 4, 16 4 C16 4, 20 7, 22 12 C26 22, 16 28, 16 28 Z" stroke="#FFD28D" stroke-width="1.2" opacity="0.4"/>
+  <!-- Center vein -->
+  <path d="M16 4 Q 18 16, 16 28" stroke="#FFD28D" stroke-width="1.2" opacity="0.5"/>
+  <!-- Side veins -->
+  <path d="M16 12 Q 13 14, 11 14" stroke="#FFD28D" stroke-width="1" opacity="0.3"/>
+  <path d="M16 17 Q 12 18, 10 18" stroke="#FFD28D" stroke-width="1" opacity="0.3"/>
+  <path d="M16 22 Q 13 23, 12 24" stroke="#FFD28D" stroke-width="1" opacity="0.3"/>
+  <path d="M16 11 Q 19 13, 21 13" stroke="#FFD28D" stroke-width="1" opacity="0.3"/>
+  <path d="M16 16 Q 20 17, 22 17" stroke="#FFD28D" stroke-width="1" opacity="0.3"/>
+  <path d="M16 21 Q 19 22, 20 23" stroke="#FFD28D" stroke-width="1" opacity="0.3"/>
+</svg>

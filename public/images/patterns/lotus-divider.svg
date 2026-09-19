@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="40" viewBox="0 0 200 40" fill="none">
+  <!-- Left ornamental line -->
+  <line x1="0" y1="20" x2="60" y2="20" stroke="url(#goldGradL)" stroke-width="1"/>
+  <!-- Left small petals -->
+  <ellipse cx="68" cy="20" rx="4" ry="8" fill="#FFD28D" opacity="0.3" transform="rotate(-30 68 20)"/>
+  <ellipse cx="72" cy="20" rx="4" ry="8" fill="#FFD28D" opacity="0.3" transform="rotate(30 72 20)"/>
+  <!-- Center lotus flower -->
+  <!-- Outer petals -->
+  <path d="M100 6 C96 12, 88 16, 88 20 C88 24, 96 28, 100 34 C104 28, 112 24, 112 20 C112 16, 104 12, 100 6Z" fill="#FFD28D" opacity="0.15"/>
+  <path d="M100 6 C96 12, 88 16, 88 20 C88 24, 96 28, 100 34 C104 28, 112 24, 112 20 C112 16, 104 12, 100 6Z" fill="none" stroke="#FFD28D" stroke-width="0.5" opacity="0.5"/>
+  <!-- Left petal -->
+  <path d="M100 10 C94 14, 82 17, 80 20 C82 23, 94 26, 100 30" fill="#FFD28D" opacity="0.1"/>
+  <path d="M100 10 C94 14, 82 17, 80 20 C82 23, 94 26, 100 30" fill="none" stroke="#FFD28D" stroke-width="0.5" opacity="0.4"/>
+  <!-- Right petal -->
+  <path d="M100 10 C106 14, 118 17, 120 20 C118 23, 106 26, 100 30" fill="#FFD28D" opacity="0.1"/>
+  <path d="M100 10 C106 14, 118 17, 120 20 C118 23, 106 26, 100 30" fill="none" stroke="#FFD28D" stroke-width="0.5" opacity="0.4"/>
+  <!-- Center circle -->
+  <circle cx="100" cy="20" r="3" fill="#FFD28D" opacity="0.5"/>
+  <circle cx="100" cy="20" r="1.5" fill="#FFD28D" opacity="0.8"/>
+  <!-- Right small petals -->
+  <ellipse cx="128" cy="20" rx="4" ry="8" fill="#FFD28D" opacity="0.3" transform="rotate(-30 128 20)"/>
+  <ellipse cx="132" cy="20" rx="4" ry="8" fill="#FFD28D" opacity="0.3" transform="rotate(30 132 20)"/>
+  <!-- Right ornamental line -->
+  <line x1="140" y1="20" x2="200" y2="20" stroke="url(#goldGradR)" stroke-width="1"/>
+  <defs>
+    <linearGradient id="goldGradL" x1="0" y1="0" x2="60" y2="0">
+      <stop offset="0%" stop-color="#FFD28D" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#FFD28D" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="goldGradR" x1="140" y1="0" x2="200" y2="0">
+      <stop offset="0%" stop-color="#FFD28D" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FFD28D" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>

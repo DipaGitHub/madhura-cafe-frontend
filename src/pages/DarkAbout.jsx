@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import DarkHeader from '../components/common/DarkHeader';
+import DarkFooter from '../components/common/DarkFooter';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
 import '../styles/dark.css';
-
 const darkTestimonials = [
   {
     name: 'Steven K. Roberts',
@@ -25,51 +30,38 @@ const darkTestimonials = [
 ];
 
 export default function DarkAbout() {
-  const [testiIdx, setTestiIdx] = useState(0);
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  // Setup intersection observer for animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+          } else {
+            entry.target.classList.remove('in-view');
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    const elements = document.querySelectorAll(
+      '.ak-reveal, .ak-reveal-left, .ak-reveal-right, .ak-reveal-scale, .ak-reveal-fade'
+    );
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="elegencia-dark-theme">
       {/* 2-Tier Header */}
-      <header className="ak-sticky_header">
-        <div className="header-top">
-          <div className="wrapper">
-            <div className="header-logo">
-              <Link className="logo" to="/design-2#reservations">reservations</Link>
-            </div>
-
-            <div className="center-log">
-              <Link to="/design-2" className="center-brand-title">
-                <span className="crest">✦</span>
-                <span>MADHURA CAFE</span>
-              </Link>
-            </div>
-
-            <div className="nav-toggles">
-              <div className="ak-munu_toggles-top">
-                <span></span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="ak-main_header">
-          <div className="ak-nav-container">
-            <ul className="ak-nav_list">
-              <li><Link to="/design-2">Home</Link></li>
-              <li><Link to="/design-2/about" className="active">About</Link></li>
-              <li><Link to="/design-2#menu">Menu</Link></li>
-              <li><Link to="/design-2#specialties">Chef</Link></li>
-              <li><Link to="/design-2#showcase">Portfolio</Link></li>
-              <li><Link to="/design-2#testimonials">Blog</Link></li>
-              <li><a href="#contact">Pages</a></li>
-            </ul>
-          </div>
-        </div>
-      </header>
+      <DarkHeader />
 
       {/* Hero / Page Title Banner with Ambient Glass Table Background */}
       <section className="about-hero-banner">
@@ -85,46 +77,48 @@ export default function DarkAbout() {
       {/* Spacing Gap between Banner and Exquisite Dining */}
       <div className="ak-height-150"></div>
 
-      {/* Section 1: Exquisite Dining Experience Fit for Royalty */}
+      {/* Section 1: Our Ayurvedic Heritage */}
       <section className="ak-about-bg-color ak-royalty-fullbleed">
         <div className="about-section ak-about-1">
-          <div className="about-text-section">
+          <div className="about-text-section ak-reveal-right">
             <div className="ak-section-heading">
+              <div className="ak-section-subtitle">Roots & Traditions</div>
               <h2 className="ak-section-title">
-                <span className="text-white">Exquisite Dining</span>
+                <span className="text-white">Our Ayurvedic</span>
                 <br />
-                <span className="text-white">Experience Fit for</span>
-                <br />
-                <span className="gold-accent">Royalty</span>
+                <span className="gold-accent">Heritage</span>
               </h2>
             </div>
             <div className="ak-height-30"></div>
-            <p className="about-subtext">
-              Welcome to our restaurant, where culinary artistry meets exceptional dining experiences. At, we strive to create a gastronomic haven that tantalizes your taste buds and leaves you with unforgettable memories.
+            <img src="/images/patterns/lotus-divider.svg" alt="Lotus" style={{ width: '80px', marginBottom: '20px' }} />
+            <p className="about-subtext" style={{ color: 'var(--ak-text-muted)' }}>
+              Welcome to Madhura's Cafe, where ancient Vedic wisdom meets modern culinary artistry. We believe that food is not just nourishment for the body, but medicine for the soul.
             </p>
             <div className="ak-height-30"></div>
-            <p className="about-subtext">
-              Lorem to our restaurant, where culinary artistry meets exceptional dining experiences. At, we strive to create a gastronomic haven that.
+            <p className="about-subtext" style={{ color: 'var(--ak-text-muted)' }}>
+              Rooted in deep Ayurvedic traditions, our kitchen exclusively uses pristine sattvic ingredients, stone-ground heritage millets, and therapeutic botanicals to restore your inner balance and vitality.
             </p>
             <div className="ak-height-50"></div>
             <div className="text-btn">
-              <Link className="text-btn1" to="/design-2/about">Discover The Kitchen</Link>
+              <Link className="text-btn1" to="/menu">Discover Our Menu</Link>
             </div>
           </div>
 
-          <div className="about-media-right">
+          <div className="about-media-right ak-parallax-img-wrap ak-reveal-left">
             <img
-              src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=85"
-              alt="Exquisite Steak Dish"
+              src="https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=1200&q=85"
+              alt="Traditional Indian Culinary Preparation"
+              className="ak-parallax-img"
+              style={{ transform: 'scale(1.05)' }}
             />
           </div>
         </div>
       </section>
 
       {/* Section 2: Testimonials & Client Endorsement */}
-      <section id="testimonials" className="ak-testimonial-section">
+      <section id="testimonials" className="ak-testimonial-section ak-reveal-scale">
         <div className="ak-height-150"></div>
-        <div className="container ak-testimonial-container">
+        <div className="container ak-testimonial-container" style={{ position: 'relative', border: '1px solid var(--ak-border-gold)', padding: '40px', borderRadius: '8px', background: 'rgba(10, 13, 14, 0.4)' }}>
           {/* Left Decorative Quote Icon */}
           <div className="testimonial-quote-icon">
             <svg width="60" height="70" viewBox="0 0 60 70" fill="none">
@@ -132,19 +126,31 @@ export default function DarkAbout() {
             </svg>
           </div>
 
-          <div>
-            <img
-              src={darkTestimonials[testiIdx].img}
-              className="testimonial-info-img"
-              alt={darkTestimonials[testiIdx].name}
-            />
-            <h6 className="testimonial-info-title">{darkTestimonials[testiIdx].name}</h6>
-            <p className="short-title">{darkTestimonials[testiIdx].role}</p>
-            <p className="testimonial-info-subtitle">{darkTestimonials[testiIdx].quote}</p>
-          </div>
+          <Swiper
+            modules={[Autoplay, Navigation]}
+            slidesPerView={1}
+            autoplay={{ delay: 3500, disableOnInteraction: false }}
+            navigation={{ nextEl: '.about-testi-next', prevEl: '.about-testi-prev' }}
+            loop={true}
+          >
+            {darkTestimonials.map((testi, idx) => (
+              <SwiperSlide key={idx}>
+                <div className="ak-reveal-fade in-view">
+                  <img
+                    src={testi.img}
+                    className="testimonial-info-img"
+                    alt={testi.name}
+                  />
+                  <h6 className="testimonial-info-title">{testi.name}</h6>
+                  <p className="short-title">{testi.role}</p>
+                  <p className="testimonial-info-subtitle">{testi.quote}</p>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
 
           {/* Right Decorative Quote Icon */}
-          <div className="testimonial-quote-icon">
+          <div className="testimonial-quote-icon" style={{ position: 'absolute', right: 0, top: '40px' }}>
             <svg width="60" height="70" viewBox="0 0 60 70" fill="none">
               <path d="M4 68L9 58C23 52 30 38 30 18V0H4V26H8C8 40 2 50 4 68ZM38 68L43 58C57 52 64 38 64 18V0H38V26H42C42 40 36 50 38 68Z" fill="#FFD28D" fillOpacity="0.25"/>
             </svg>
@@ -153,16 +159,14 @@ export default function DarkAbout() {
 
         <div style={{ display: 'flex', justifyContent: 'center', gap: 16, marginTop: 30 }}>
           <button
-            onClick={() => setTestiIdx((prev) => (prev - 1 + darkTestimonials.length) % darkTestimonials.length)}
-            className="hero-swiper-btn"
+            className="hero-swiper-btn about-testi-prev"
             style={{ width: 48, height: 48 }}
             aria-label="Previous Testimonial"
           >
             <ChevronLeft size={20} />
           </button>
           <button
-            onClick={() => setTestiIdx((prev) => (prev + 1) % darkTestimonials.length)}
-            className="hero-swiper-btn"
+            className="hero-swiper-btn about-testi-next"
             style={{ width: 48, height: 48 }}
             aria-label="Next Testimonial"
           >
@@ -173,7 +177,7 @@ export default function DarkAbout() {
 
       {/* Section 3: Opening Hours Split Layout */}
       <div className="ak-height-150"></div>
-      <div className="ak-bg-secendary ak-opening-fullbleed">
+      <div className="ak-bg-secendary ak-opening-fullbleed ak-reveal-fade">
         <div className="opening-hour-grid">
           <div className="opening-hour-img-section">
             <img
@@ -182,13 +186,13 @@ export default function DarkAbout() {
             />
           </div>
 
-          <div className="opening-hour-text-section">
+          <div className="opening-hour-text-section ak-reveal-right">
             <div className="ak-section-heading">
               <h2 className="ak-section-title">Opening Hours</h2>
             </div>
             <div className="ak-height-30"></div>
             <p className="opening-hour-subtext">
-              Lorem to our restaurant, where culinary artistry meets exceptional dining experiences. At, we strive to create a gastronomic haven that.
+              Experience the tranquility and warmth of traditional Indian wellness hospitality throughout our open hours.
             </p>
             <div className="ak-height-30"></div>
             <div className="opening-hour-date">
@@ -196,86 +200,26 @@ export default function DarkAbout() {
               <div className="opening-hour-hr"></div>
               <p>FRIDAY & SATURDAY: 11:30AM - 12AM</p>
             </div>
-            <div className="ak-height-50"></div>
-            <div className="text-btn">
-              <a className="text-btn1" href="/design-2#reservations">Reservation</a>
-            </div>
           </div>
         </div>
       </div>
 
       {/* Section 4: Cinematic Video Tour Strip */}
       <div className="ak-height-150"></div>
-      <section className="about-video-strip-section">
+      <section className="about-video-strip-section ak-reveal-scale">
         <img
-          src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1600&q=85"
-          alt="Artisanal Noodle Preparation"
+          src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=85"
+          alt="Ayurvedic Spice Preparation"
           className="about-video-strip-img"
         />
-        <div className="about-video-strip-overlay"></div>
+        <div className="about-video-strip-overlay" style={{ background: 'linear-gradient(rgba(10,13,14,0.4), rgba(10,13,14,0.7))' }}></div>
         <button className="video-section-btn about-video-play" aria-label="Play video tour">
           <Play size={28} fill="#FFD28D" />
         </button>
       </section>
 
       {/* Section 5: Elegencia Footer */}
-      <footer id="contact" className="ak-footer ak-style-1">
-        <div className="container">
-          <div className="footer-top-crest">
-            <button
-              onClick={scrollToTop}
-              style={{ background: 'none', border: 'none', color: 'var(--ak-gold)', cursor: 'pointer', display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 auto', gap: 8 }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="13" viewBox="0 0 30 13" fill="none">
-                <path d="M28.991 12.2063L14.8322 1L0.67334 12.2063" stroke="#FFD28D" strokeLinecap="round" strokeWidth="2" />
-              </svg>
-              <span style={{ fontSize: '0.82rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#FFFFFF', fontFamily: 'Cinzel, serif' }}>
-                MADHURA CAFE
-              </span>
-            </button>
-          </div>
-
-          <div className="footer-main">
-            <div className="footer-eamil-menu">
-              <div className="footer-email">
-                <a href="mailto:info@example.com">info@example.com</a>
-              </div>
-              <ul className="footer-menu">
-                <li><Link to="/design-2">HOME</Link></li>
-                <li><Link to="/design-2/about">ABOUT</Link></li>
-                <li><a href="/design-2#menu">MENU</a></li>
-                <li><a href="/design-2#specialties">CHEF</a></li>
-                <li><a href="#contact">CONTACT</a></li>
-              </ul>
-            </div>
-
-            <div className="footer-info">
-              <div className="footer-info-item">
-                <p className="footer-info-subtitle">1-800-915-6271</p>
-                <p className="footer-info-subtitle">1-800-915-6271</p>
-              </div>
-              <div className="footer-info-item">
-                <p className="footer-info-subtitle">2726 AK PAPINEAUMONTREAL</p>
-                <p className="footer-info-subtitle">H2K 4J6, CANADA</p>
-              </div>
-              <div className="footer-info-item">
-                <p className="footer-info-subtitle">SUNDAY - THURSDAY: 11:30AM - 11PM</p>
-                <p className="footer-info-subtitle">FRIDAY & SATURDAY: 11:30AM - 12AM</p>
-              </div>
-              <div className="footer-btn">
-                <a href="/design-2#reservations" className="ak-btn style-5 color-yellow-bg">RESERVATIONS</a>
-              </div>
-            </div>
-          </div>
-
-          <div className="ak-height-70"></div>
-          <div className="copy-right-section">
-            <p className="text-white text-uppercase" style={{ fontSize: '0.78rem', letterSpacing: '0.14em', opacity: 0.7 }}>
-              COPYRIGHT 2025 ALL RIGHT RESERVED
-            </p>
-          </div>
-        </div>
-      </footer>
+      <DarkFooter />
     </div>
   );
 }
