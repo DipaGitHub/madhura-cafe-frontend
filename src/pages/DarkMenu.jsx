@@ -4,112 +4,11 @@ import DarkHeader from '../components/common/DarkHeader';
 import DarkFooter from '../components/common/DarkFooter';
 import '../styles/dark.css';
 
-const menuData = [
-  {
-    id: 'beverages',
-    title: 'Beverages',
-    subtitle: 'Healing Elixirs & Traditional Drinks',
-    parallaxImg: '/images/parallax/kanji_sherbet_1789821913031.jpg',
-    items: [
-      {
-        id: 1,
-        name: 'Brahmi Infused Herbal Brew',
-        price: '₹180',
-        description: 'Ancient Ayurvedic memory and focus enhancement herbal decoction brewed with fresh Brahmi and wildflower honey.',
-        badge: 'Enhances cognitive clarity',
-        img: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80',
-      },
-      {
-        id: 2,
-        name: 'Ashwagandha Golden Milk',
-        price: '₹220',
-        description: 'Slow-simmered farm-fresh A2 milk with organic turmeric root, black pepper extract, and restorative Ashwagandha.',
-        badge: 'Deep stress relief',
-        img: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=600&q=80',
-      },
-      {
-        id: 3,
-        name: 'Traditional Kanji Sherbet',
-        price: '₹150',
-        description: 'A fermented probiotic drink made from black carrots, mustard seeds, and Himalayan pink salt. Excellent for gut health.',
-        badge: 'Probiotic & Digestive',
-        img: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80',
-      }
-    ]
-  },
-  {
-    id: 'appetizers',
-    title: 'Appetizers',
-    subtitle: 'Crisp & Wholesome Starters',
-    parallaxImg: '/images/parallax/indian_appetizers_1789821998310.jpg',
-    items: [
-      {
-        id: 4,
-        name: 'Sprouted Moong & Moringa Tikki',
-        price: '₹280',
-        description: 'Crisp golden patties made with protein-rich sprouted lentils, drumstick leaves, and digestive cumin seeds.',
-        badge: 'Rich in plant protein',
-        img: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=600&q=80',
-      },
-      {
-        id: 5,
-        name: 'Beetroot & Peanut Samosa',
-        price: '₹240',
-        description: 'Baked rustic samosas filled with earthy beetroot, crushed roasted peanuts, and tempered with mustard seeds.',
-        badge: 'High in Iron',
-        img: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=600&q=80',
-      }
-    ]
-  },
-  {
-    id: 'main-course',
-    title: 'Main Course',
-    subtitle: 'Sattvic & Nourishing Meals',
-    parallaxImg: '/images/parallax/indian_thali_main_1789822013314.jpg',
-    items: [
-      {
-        id: 6,
-        name: 'Sattvic Ragi & Vegetable Platter',
-        price: '₹340',
-        description: 'Nutritious finger millet dumplings served alongside freshly pressed coconut curry and organic farm greens.',
-        badge: 'High fiber',
-        img: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=600&q=80',
-      },
-      {
-        id: 7,
-        name: 'Panchmel Dal & Bajra Roti',
-        price: '₹320',
-        description: 'A slow-cooked blend of five lentils tempered with pure cow ghee, served with pearl millet flatbreads.',
-        badge: 'Complete Protein',
-        img: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=600&q=80',
-      }
-    ]
-  },
-  {
-    id: 'desserts',
-    title: 'Desserts',
-    subtitle: 'Guilt-Free Sweet Indulgence',
-    parallaxImg: '/images/parallax/indian_desserts_1789822033184.jpg',
-    items: [
-      {
-        id: 8,
-        name: 'Jaggery & Cardamom Amla Halwa',
-        price: '₹210',
-        description: 'Slow-cooked Indian gooseberry compote sweetened with chemical-free palm jaggery and green cardamom.',
-        badge: 'Loaded with Vitamin C',
-        img: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=600&q=80',
-      },
-      {
-        id: 9,
-        name: 'Saffron & Pistachio Kheer',
-        price: '₹250',
-        description: 'Fragrant rice pudding cooked in almond milk, infused with Kashmiri saffron strands and crushed pistachios.',
-        badge: 'Cooling & Rejuvenating',
-        img: 'https://images.unsplash.com/photo-1551881192-002d02cb146e?auto=format&fit=crop&w=600&q=80',
-      }
-    ]
-  }
-];
+// Dynamic data fetched from API
+import { apiUrl, imageUrl } from '../config/api';
+
+// Fallback parallax image if a category has no image set
+const FALLBACK_PARALLAX = '/images/parallax/indian_thali_main_1789822013314.jpg';
 
 // Reusable Menu Row Component with Hover Portal and Scroll-linked Animation
 const MenuRow = ({ item, idx }) => {
@@ -144,7 +43,7 @@ const MenuRow = ({ item, idx }) => {
 
   return (
     <Link 
-      to="/menu-details" 
+      to={`/menu-details/${item.id}`}
       className="ak-menu-list-section-1 ak-interactive-menu-row ak-reveal"
       style={{ animationDelay: `${idx * 0.08}s` }}
       onMouseMove={handleMouseMove}
@@ -187,6 +86,75 @@ const MenuRow = ({ item, idx }) => {
 };
 
 export default function DarkMenu() {
+  const [scrollY, setScrollY] = useState(0);
+  const [menuData, setMenuData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Smooth Scroll Listener
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Fetch Menu Data
+  useEffect(() => {
+    const fetchMenus = async () => {
+      try {
+        const [catRes, itemsRes] = await Promise.all([
+          fetch(apiUrl('/api/menus/categories')),
+          fetch(apiUrl('/api/menus'))
+        ]);
+        
+        const catResult = await catRes.json();
+        const itemsResult = await itemsRes.json();
+        
+        if (catResult.success && itemsResult.success) {
+          const categories = catResult.data;
+          const items = itemsResult.data;
+          
+          // Group items by category
+          const groupedData = categories.map(cat => {
+            const catItems = items.filter(item => item.category_id === cat.id);
+            return {
+              id: cat.id,
+              title: cat.name,
+              subtitle: cat.description,
+              parallaxImg: cat.image_url
+                ? (cat.image_url.startsWith('http') ? cat.image_url : cat.image_url)
+                : FALLBACK_PARALLAX,
+              items: catItems.map(item => ({
+                id: item.id,
+                name: item.title,
+                price: item.price,
+                description: item.short_description,
+                badge: item.benefit,
+                img: item.image_url.startsWith('http') ? item.image_url : imageUrl(item.image_url)
+              }))
+            };
+          }).filter(group => group.items.length > 0); // Only show categories with items
+          
+          setMenuData(groupedData);
+        }
+      } catch (err) {
+        console.error('Failed to fetch menu:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchMenus();
+  }, []);
+
   // IntersectionObserver for all reveal animations site-wide
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -194,8 +162,7 @@ export default function DarkMenu() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('in-view');
-          } else {
-            entry.target.classList.remove('in-view');
+            observer.unobserve(entry.target);
           }
         });
       },
@@ -208,7 +175,7 @@ export default function DarkMenu() {
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, []);
+  }, [menuData]);
 
   return (
     <div className="elegencia-dark-theme">
@@ -226,8 +193,16 @@ export default function DarkMenu() {
       </section>
 
       {/* Categories with Parallax */}
-      {menuData.map((category) => (
-        <section key={category.id} id={category.id}>
+      {isLoading ? (
+        <div className="container" style={{ padding: '100px 0', textAlign: 'center' }}>
+          <p className="text-amber-500 font-serif text-xl">Preparing our artisanal menu...</p>
+        </div>
+      ) : menuData.map((category, catIdx) => (
+        <section
+          key={category.id}
+          id={category.id.toString()}
+          className="ak-menu-category-section"
+        >
           {/* Category Parallax Banner */}
           <div 
             className="ak-menu-category-parallax" 

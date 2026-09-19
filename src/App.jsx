@@ -20,6 +20,7 @@ export default function App() {
         <Route path="/about" element={<DarkAbout />} />
         <Route path="/menu" element={<DarkMenu />} />
         <Route path="/menu-details" element={<DarkMenuDetails />} />
+        <Route path="/menu-details/:id" element={<DarkMenuDetails />} />
         <Route path="/menu/:id" element={<DarkMenuDetails />} />
         <Route path="/blog" element={<DarkBlog />} />
         <Route path="/blog-details" element={<DarkBlogDetails />} />

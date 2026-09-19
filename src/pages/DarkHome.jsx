@@ -8,85 +8,29 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { apiUrl, imageUrl } from '../config/api';
 import '../styles/dark.css';
 
-const foodShowcaseItems = [
-  { 
+const fallbackFoodShowcaseItems = [
+  {
     id: 'ashwagandha-latte',
-    title: 'Ashwagandha Golden Elixir', 
-    category: 'Immunity & Rejuvenation', 
+    title: 'Ashwagandha Golden Elixir',
+    category: 'Immunity & Rejuvenation',
     benefit: 'Reduces cortisol, boosts vitality & natural calmness',
     desc: 'Pure A2 organic milk brewed with therapeutic Ashwagandha, organic turmeric, cardamom, and wild forest honey.',
-    img: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=600&q=80' 
+    img: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=600&q=80'
   },
-  { 
+  {
     id: 'moringa-khichdi',
-    title: 'Moringa & Millet Khichdi', 
-    category: 'Detox & Digestive Health', 
+    title: 'Moringa & Millet Khichdi',
+    category: 'Detox & Digestive Health',
     benefit: 'Nutrient-dense superfood, eases digestion & restores gut flora',
     desc: 'Ancient foxtail millet and sprouted moong slow-cooked with drumstick leaves, cumin, and fragrant desi ghee.',
-    img: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=600&q=80' 
-  },
-  { 
-    id: 'triphala-dosa',
-    title: 'Triphala Fermented Dosa', 
-    category: 'Gut Vitality & Balance', 
-    benefit: 'Tri-doshic balance, rich in prebiotics and bio-available iron',
-    desc: 'Stone-ground heritage millet crepe crisped in cold-pressed sesame oil, served with digestive herbal chutneys.',
-    img: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=600&q=80' 
-  },
-  { 
-    id: 'brahmi-sattvic-thali',
-    title: 'Brahmi Sattvic Platter', 
-    category: 'Cognitive Harmony & Vitality', 
-    benefit: 'Enhances memory, cognitive focus & cell rejuvenation',
-    desc: 'Brahmi herb infusions with seasonal organic vegetables, hand-churned Vedic butter, and steamed red rice.',
-    img: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=600&q=80' 
-  },
-  {
-    id: 'tulsi-ginger-rasam',
-    title: 'Tulsi & Ginger Rasam',
-    category: 'Respiratory Wellness',
-    benefit: 'Soothes throat, builds immunity & aids digestion',
-    desc: 'A healing South Indian broth infused with Holy Basil, freshly crushed black pepper, and cold-pressed tamarind.',
-    img: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80'
-  },
-  {
-    id: 'amla-cumin-cooler',
-    title: 'Amla Cumin Cooler',
-    category: 'Detox & Skin Health',
-    benefit: 'Rich in Vitamin C, purifies blood & cools the system',
-    desc: 'Fresh Indian gooseberry extract blended with roasted cumin, mint, and a touch of black salt.',
-    img: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=600&q=80'
-  },
-  {
-    id: 'sattvic-paneer-tikka',
-    title: 'Sattvic Paneer Tikka',
-    category: 'Protein & Gut Health',
-    benefit: 'Easily digestible protein, balances doshas',
-    desc: 'Fresh farm cottage cheese marinated in hung curd, turmeric, and gentle aromatic spices, grilled to perfection.',
-    img: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=600&q=80'
-  },
-  {
-    id: 'makhana-almond-kheer',
-    title: 'Makhana & Almond Kheer',
-    category: 'Energy & Calm Mind',
-    benefit: 'Heart healthy, promotes peaceful sleep & energy',
-    desc: 'Fox nuts and crushed almonds slow-cooked in A2 milk, sweetened lightly with natural jaggery and saffron strands.',
-    img: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80'
+    img: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=600&q=80'
   },
 ];
 
-const appetizersData = [
-  { name: 'KASHMIRI KAHWA ELIXIR', sub: 'Saffron, Green Cardamom & Crushed Almonds', price: '₹220', extra: 'Immunity Booster', img: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=300&q=80' },
-  { name: 'RAGI & METHI CHEELA', sub: 'Spiced Finger Millet Crepe with Mint Chutney', price: '₹280', extra: 'High Fiber & Protein', img: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=300&q=80' },
-  { name: 'VITALITY SPROUT SALAD', sub: 'Sprouted Moong, Pomegranate & Rock Salt', price: '₹260', extra: 'Digestive Enzymes', img: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=300&q=80' },
-  { name: 'HERBAL TULSI INFUSION', sub: 'Fresh Holy Basil, Ginger & Wild Honey', price: '₹180', extra: 'Respiratory Wellness', img: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=300&q=80' },
-  { name: 'ORGANIC TURMERIC LATTE', sub: 'Stone-ground Turmeric with A2 Desi Milk', price: '₹240', extra: 'Anti-inflammatory', img: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=300&q=80' },
-  { name: 'JOWAR ROTI & KADHI', sub: 'Sorghum Flatbread with Probiotic Herb Kadhi', price: '₹340', extra: 'Gut Microbiome', img: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=300&q=80' },
-  { name: 'AMLA & GINGER SHOOTER', sub: 'Fresh Indian Gooseberry & Cold-pressed Ginger', price: '₹160', extra: 'Vitamin C Boost', img: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=300&q=80' },
-  { name: 'TRIPHALA DETOX SOUP', sub: 'Lentil & Triphala Consommé with Ghee Tadka', price: '₹290', extra: 'Metabolism Cleanse', img: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=300&q=80' },
-];
+// Fallback data removed - now fully dynamic
 
 const darkTestimonials = [
   {
@@ -109,7 +53,7 @@ const darkTestimonials = [
   }
 ];
 
-const heroSlides = [
+const defaultHeroSlides = [
   {
     subtitle: "Madhura's Cafe Offers You",
     title: 'Traditional Indian Wellness',
@@ -151,23 +95,23 @@ const MenuRow = ({ item, idx, scrollY }) => {
     if (!rowRef.current) return;
     const rect = rowRef.current.getBoundingClientRect();
     const windowHeight = window.innerHeight;
-    
-    let progress = (windowHeight - rect.top) / (windowHeight * 0.4); 
+
+    let progress = (windowHeight - rect.top) / (windowHeight * 0.4);
     progress = Math.max(0, Math.min(1, progress));
-    
+
     setLineWidth(progress * 100);
   }, [scrollY]);
 
   return (
-    <Link 
-      to="/menu-details" 
+    <Link
+      to={`/menu-details/${item.id}`}
       className="ak-menu-list-section-1 ak-interactive-menu-row"
       style={{ animationDelay: `${idx * 0.08}s` }}
       onMouseMove={handleMouseMove}
       ref={rowRef}
     >
       {/* Floating Curved Glassmorphism Preview Portal */}
-      <div 
+      <div
         className="ak-menu-hover-portal"
         style={{ left: mouseX }}
       >
@@ -185,8 +129,8 @@ const MenuRow = ({ item, idx, scrollY }) => {
             <p>{item.name}</p>
           </div>
           <div className="food-menu-hr-wrap">
-            <div 
-              className="food-menu-hr style-1" 
+            <div
+              className="food-menu-hr style-1"
               style={{ width: `${lineWidth}%`, opacity: lineWidth > 0 ? 1 : 0 }}
             ></div>
           </div>
@@ -204,9 +148,14 @@ const MenuRow = ({ item, idx, scrollY }) => {
 };
 
 export default function DarkHome() {
+  const [heroSlides, setHeroSlides] = useState(defaultHeroSlides);
+  const [updates, setUpdates] = useState([]);
+  const [aboutData, setAboutData] = useState(null);
   const [heroIdx, setHeroIdx] = useState(0);
   const [slideDirection, setSlideDirection] = useState('next');
   const [testiIdx, setTestiIdx] = useState(0);
+  const [showcaseItems, setShowcaseItems] = useState(fallbackFoodShowcaseItems);
+  const [homeMenuItems, setHomeMenuItems] = useState([]);
   const [showcaseIdx, setShowcaseIdx] = useState(0);
   const [scrollY, setScrollY] = useState(0);
 
@@ -227,15 +176,112 @@ export default function DarkHome() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Fetch dynamic banners from API
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const res = await fetch(apiUrl('/api/banners'));
+        const result = await res.json();
+        if (result.status === 200 && result.data.length > 0) {
+          const mappedSlides = result.data.map((banner) => ({
+            subtitle: banner.title2 || '',
+            title: banner.title1 || '',
+            text: banner.description || '',
+            bg: imageUrl(banner.image_url),
+            btn1: 'Explore Menu',
+            btn2: 'Book A Table'
+          }));
+          setHeroSlides(mappedSlides);
+        }
+      } catch (err) {
+        console.error('Failed to fetch banners:', err);
+      }
+    };
+
+    const fetchUpdates = async () => {
+      try {
+        const res = await fetch(apiUrl('/api/latestUpdates'));
+        const result = await res.json();
+        if (result.success && result.data && result.data.length > 0) {
+          setUpdates(result.data);
+        } else {
+          setUpdates([{ id: 'default', title: 'Embark on a gastronomic adventure', description: 'guided our by exquisite dishes' }]);
+        }
+      } catch (err) {
+        console.error('Failed to fetch updates:', err);
+        setUpdates([{ id: 'default', title: 'Embark on a gastronomic adventure', description: 'guided our by exquisite dishes' }]);
+      }
+    };
+
+    const fetchAbout = async () => {
+      try {
+        const res = await fetch(apiUrl('/api/aboutUs'));
+        const result = await res.json();
+        if (result.success && result.data) {
+          setAboutData(result.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch about us data:', err);
+      }
+    };
+
+    const fetchFeatured = async () => {
+      try {
+        const res = await fetch(apiUrl('/api/menus?featured=true'));
+        const result = await res.json();
+        if (result.success && result.data && result.data.length > 0) {
+          const formatted = result.data.map(item => ({
+            id: item.id,
+            title: item.title,
+            category: item.category_name || 'Featured',
+            benefit: item.benefit,
+            desc: item.short_description,
+            img: item.image_url.startsWith('http') ? item.image_url : imageUrl(item.image_url)
+          }));
+          setShowcaseItems(formatted);
+        }
+      } catch (err) {
+        console.error('Failed to fetch featured menu items:', err);
+      }
+    };
+
+    const fetchHomeMenuItems = async () => {
+      try {
+        const res = await fetch(apiUrl('/api/menus?popular=true'));
+        const result = await res.json();
+        if (result.success && result.data && result.data.length > 0) {
+          const formatted = result.data.map(item => ({
+            id: item.id,
+            name: item.title,
+            sub: item.short_description,
+            price: item.price,
+            extra: item.benefit,
+            img: item.image_url.startsWith('http') ? item.image_url : imageUrl(item.image_url)
+          }));
+          setHomeMenuItems(formatted);
+        }
+      } catch (err) {
+        console.error('Failed to fetch menu items:', err);
+      }
+    };
+
+    fetchBanners();
+    fetchUpdates();
+    fetchAbout();
+    fetchFeatured();
+    fetchHomeMenuItems();
+  }, []);
+
   // Automatic hero slider rotation (faster)
   useEffect(() => {
+    if (heroSlides.length === 0) return;
     const timer = setInterval(() => {
       setSlideDirection('next');
       setHeroIdx((prev) => (prev === heroSlides.length - 1 ? 0 : prev + 1));
     }, 4500);
 
     return () => clearInterval(timer);
-  }, [heroIdx]);
+  }, [heroIdx, heroSlides.length]);
 
   // IntersectionObserver for all reveal animations site-wide
   useEffect(() => {
@@ -244,8 +290,7 @@ export default function DarkHome() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('in-view');
-          } else {
-            entry.target.classList.remove('in-view');
+            observer.unobserve(entry.target);
           }
         });
       },
@@ -258,7 +303,7 @@ export default function DarkHome() {
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, []);
+  }, [homeMenuItems, showcaseItems, aboutData]);
 
   const prevHeroSlide = () => {
     setSlideDirection('prev');
@@ -282,7 +327,7 @@ export default function DarkHome() {
       {/* Hero Section with Full Background & Animation */}
       <section className="ak-hero-wrapper-section hero-fullbleed-stage">
         {/* Full Hero Background Image with Ken Burns animation */}
-        <div 
+        <div
           className={`hero-fullbleed-bg-slide animate-${slideDirection}`}
           key={`hero-bg-${heroIdx}`}
           style={{ backgroundImage: `url(${heroSlides[heroIdx].bg})` }}
@@ -291,16 +336,16 @@ export default function DarkHome() {
         </div>
 
         {/* Side Arrow Navigation (Left & Right) */}
-        <button 
-          className="hero-arrow-nav hero-arrow-nav-left" 
-          onClick={prevHeroSlide} 
+        <button
+          className="hero-arrow-nav hero-arrow-nav-left"
+          onClick={prevHeroSlide}
           aria-label="Previous Slide"
         >
           <ChevronLeft size={24} />
         </button>
-        <button 
-          className="hero-arrow-nav hero-arrow-nav-right" 
-          onClick={nextHeroSlide} 
+        <button
+          className="hero-arrow-nav hero-arrow-nav-right"
+          onClick={nextHeroSlide}
           aria-label="Next Slide"
         >
           <ChevronRight size={24} />
@@ -339,12 +384,17 @@ export default function DarkHome() {
       {/* Marquee Section attached directly to banner */}
       <div className="ak-moving-section-wrap text-uppercase">
         <div className="ak-moving-section-in">
-          <div className="ak-moving-section">
-            <h2>Embark on a gastronomic adventure <span>guided our by exquisite dishes</span></h2>
-          </div>
-          <div className="ak-moving-section">
-            <h2>Embark on a gastronomic adventure <span>guided our by exquisite dishes</span></h2>
-          </div>
+          {updates.map((update, idx) => (
+            <div className="ak-moving-section" key={update.id || idx}>
+              <h2>{update.title} <span>{update.description}</span></h2>
+            </div>
+          ))}
+          {/* Duplicate for seamless infinite scrolling */}
+          {updates.map((update, idx) => (
+            <div className="ak-moving-section" key={`dup-${update.id || idx}`}>
+              <h2>{update.title} <span>{update.description}</span></h2>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -356,20 +406,34 @@ export default function DarkHome() {
             <div className="ak-section-heading">
               <div className="ak-section-subtitle">About Us</div>
               <h2 className="ak-section-title">
-                <span className="text-white">Our Ayurvedic</span>
-                <br />
-                <span className="gold-accent">Heritage</span>
+                {aboutData ? aboutData.title : (
+                  <>
+                    <span className="text-white">Our Ayurvedic</span>
+                    <br />
+                    <span className="gold-accent">Heritage</span>
+                  </>
+                )}
               </h2>
             </div>
             <div className="ak-height-30"></div>
             <img src="/images/patterns/lotus-divider.svg" alt="Lotus" style={{ width: '80px', marginBottom: '20px' }} />
-            <p className="about-subtext" style={{ color: 'var(--ak-text-muted)' }}>
-              Welcome to Madhura's Cafe, where ancient Vedic wisdom meets modern culinary artistry. We believe that food is not just nourishment for the body, but medicine for the soul.
-            </p>
-            <div className="ak-height-30"></div>
-            <p className="about-subtext" style={{ color: 'var(--ak-text-muted)' }}>
-              Rooted in deep Ayurvedic traditions, our kitchen exclusively uses pristine sattvic ingredients, stone-ground heritage millets, and therapeutic botanicals to restore your inner balance and vitality.
-            </p>
+            
+            {aboutData ? (
+              <p className="about-subtext" style={{ color: 'var(--ak-text-muted)', whiteSpace: 'pre-wrap' }}>
+                {aboutData.description}
+              </p>
+            ) : (
+              <>
+                <p className="about-subtext" style={{ color: 'var(--ak-text-muted)' }}>
+                  Welcome to Madhura's Cafe, where ancient Vedic wisdom meets modern culinary artistry. We believe that food is not just nourishment for the body, but medicine for the soul.
+                </p>
+                <div className="ak-height-30"></div>
+                <p className="about-subtext" style={{ color: 'var(--ak-text-muted)' }}>
+                  Rooted in deep Ayurvedic traditions, our kitchen exclusively uses pristine sattvic ingredients, stone-ground heritage millets, and therapeutic botanicals to restore your inner balance and vitality.
+                </p>
+              </>
+            )}
+
             <div className="ak-height-50"></div>
             <div className="text-btn">
               <Link className="text-btn1" to="/about">View More</Link>
@@ -378,8 +442,8 @@ export default function DarkHome() {
 
           <div className="about-media-right ak-parallax-img-wrap ak-reveal-left">
             <img
-              src="https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=1200&q=85"
-              alt="Traditional Indian Culinary Preparation"
+              src={aboutData?.image_url ? imageUrl(aboutData.image_url) : "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=1200&q=85"}
+              alt={aboutData?.title || "Traditional Indian Culinary Preparation"}
               className="ak-parallax-img"
               style={{ transform: `scale(1.15) translateY(${Math.min(Math.max((scrollY - 500) * 0.08, -40), 40)}px)` }}
             />
@@ -410,17 +474,17 @@ export default function DarkHome() {
             className="ak-slider-food-grid ak-staggered-grid"
             style={{ paddingBottom: '20px' }}
           >
-            {foodShowcaseItems.map((item, idx) => (
+            {showcaseItems.map((item, idx) => (
               <SwiperSlide key={item.id}>
-                <Link 
-                  to={`/menu-details?item=${item.id}`} 
+                <Link
+                  to={`/menu-details/${item.id}`}
                   className="ak-food-showcase-item"
                   style={{ animationDelay: `${idx * 0.15}s` }}
                 >
                   <div className="ak-showcase-img-holder">
                     <img src={item.img} alt={item.title} className="ak-showcase-img" />
                     <span className="ak-showcase-pill-badge">{item.category}</span>
-                    
+
                     {/* Dark Vignette & Hover Reveal Card */}
                     <div className="ak-showcase-hover-overlay">
                       <div className="ak-showcase-hover-card">
@@ -454,11 +518,11 @@ export default function DarkHome() {
       {/* Ayurvedic Delicacies Menu Section: Positioned directly after Food Items with Magnetic Hover Animation */}
       <section id="menu" className="ak-menu-parallax-section">
         {/* Subtle Parallax Botanical Background Pattern */}
-        <div 
-          className="ak-menu-parallax-bg-texture" 
+        <div
+          className="ak-menu-parallax-bg-texture"
           style={{ transform: `translateY(${Math.min(Math.max((scrollY - 1200) * 0.07, -40), 40)}px)` }}
         />
-        
+
         <div className="ak-height-120"></div>
         <div className="container ak-menu-container-relative">
           <div className="ak-section-heading ak-type-1">
@@ -467,9 +531,11 @@ export default function DarkHome() {
           </div>
 
           <div className="ak-menu-list ak-interactive-menu-list">
-            {appetizersData.map((item, idx) => (
+            {homeMenuItems.length > 0 ? homeMenuItems.map((item, idx) => (
               <MenuRow key={idx} item={item} idx={idx} scrollY={scrollY} />
-            ))}
+            )) : (
+              <div className="text-center py-10 text-muted-foreground">Loading menu items...</div>
+            )}
           </div>
 
           <div className="ak-height-50"></div>

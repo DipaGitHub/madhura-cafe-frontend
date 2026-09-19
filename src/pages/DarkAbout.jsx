@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { apiUrl, imageUrl } from '../config/api';
 import '../styles/dark.css';
 const darkTestimonials = [
   {
@@ -30,9 +31,24 @@ const darkTestimonials = [
 ];
 
 export default function DarkAbout() {
+  const [aboutData, setAboutData] = useState(null);
+
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    const fetchAbout = async () => {
+      try {
+        const res = await fetch(apiUrl('/api/aboutUs'));
+        const result = await res.json();
+        if (result.success && result.data) {
+          setAboutData(result.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch about us data:', err);
+      }
+    };
+    fetchAbout();
   }, []);
 
   // Setup intersection observer for animations
@@ -84,20 +100,34 @@ export default function DarkAbout() {
             <div className="ak-section-heading">
               <div className="ak-section-subtitle">Roots & Traditions</div>
               <h2 className="ak-section-title">
-                <span className="text-white">Our Ayurvedic</span>
-                <br />
-                <span className="gold-accent">Heritage</span>
+                {aboutData ? aboutData.title : (
+                  <>
+                    <span className="text-white">Our Ayurvedic</span>
+                    <br />
+                    <span className="gold-accent">Heritage</span>
+                  </>
+                )}
               </h2>
             </div>
             <div className="ak-height-30"></div>
             <img src="/images/patterns/lotus-divider.svg" alt="Lotus" style={{ width: '80px', marginBottom: '20px' }} />
-            <p className="about-subtext" style={{ color: 'var(--ak-text-muted)' }}>
-              Welcome to Madhura's Cafe, where ancient Vedic wisdom meets modern culinary artistry. We believe that food is not just nourishment for the body, but medicine for the soul.
-            </p>
-            <div className="ak-height-30"></div>
-            <p className="about-subtext" style={{ color: 'var(--ak-text-muted)' }}>
-              Rooted in deep Ayurvedic traditions, our kitchen exclusively uses pristine sattvic ingredients, stone-ground heritage millets, and therapeutic botanicals to restore your inner balance and vitality.
-            </p>
+            
+            {aboutData ? (
+              <p className="about-subtext" style={{ color: 'var(--ak-text-muted)', whiteSpace: 'pre-wrap' }}>
+                {aboutData.description}
+              </p>
+            ) : (
+              <>
+                <p className="about-subtext" style={{ color: 'var(--ak-text-muted)' }}>
+                  Welcome to Madhura's Cafe, where ancient Vedic wisdom meets modern culinary artistry. We believe that food is not just nourishment for the body, but medicine for the soul.
+                </p>
+                <div className="ak-height-30"></div>
+                <p className="about-subtext" style={{ color: 'var(--ak-text-muted)' }}>
+                  Rooted in deep Ayurvedic traditions, our kitchen exclusively uses pristine sattvic ingredients, stone-ground heritage millets, and therapeutic botanicals to restore your inner balance and vitality.
+                </p>
+              </>
+            )}
+            
             <div className="ak-height-50"></div>
             <div className="text-btn">
               <Link className="text-btn1" to="/menu">Discover Our Menu</Link>
@@ -106,8 +136,8 @@ export default function DarkAbout() {
 
           <div className="about-media-right ak-parallax-img-wrap ak-reveal-left">
             <img
-              src="https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=1200&q=85"
-              alt="Traditional Indian Culinary Preparation"
+              src={aboutData?.image_url ? imageUrl(aboutData.image_url) : "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=1200&q=85"}
+              alt={aboutData?.title || "Traditional Indian Culinary Preparation"}
               className="ak-parallax-img"
               style={{ transform: 'scale(1.05)' }}
             />

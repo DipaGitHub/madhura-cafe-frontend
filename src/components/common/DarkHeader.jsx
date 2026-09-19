@@ -10,7 +10,6 @@ export default function DarkHeader() {
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Menu', path: '/menu' },
-    { name: 'Menu Details', path: '/menu-details' },
     { name: 'Blog', path: '/blog' },
     { name: 'Contact Us', path: '/contact' },
   ];
