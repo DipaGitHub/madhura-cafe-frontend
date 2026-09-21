@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import DarkHeader from '../components/common/DarkHeader';
 import DarkFooter from '../components/common/DarkFooter';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -33,6 +33,10 @@ const darkTestimonials = [
 export default function DarkAbout() {
   const [aboutData, setAboutData] = useState(null);
 
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [selectedGalleryImage, setSelectedGalleryImage] = useState(null);
+  const [openingHours, setOpeningHours] = useState(null);
+
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -48,8 +52,42 @@ export default function DarkAbout() {
         console.error('Failed to fetch about us data:', err);
       }
     };
+
+    const fetchGallery = async () => {
+      try {
+        const res = await fetch(apiUrl('/api/gallery'));
+        const result = await res.json();
+        if (result.success && result.data) {
+          setGalleryImages(result.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch gallery:', err);
+      }
+    };
+
+    const fetchOpeningHours = async () => {
+      try {
+        const res = await fetch(apiUrl('/api/openingHours'));
+        const result = await res.json();
+        if (result.success && result.data) {
+          setOpeningHours(result.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch opening hours:', err);
+      }
+    };
+
     fetchAbout();
+    fetchGallery();
+    fetchOpeningHours();
   }, []);
+
+  let displayGalleryImages = [...galleryImages];
+  if (displayGalleryImages.length > 0) {
+    while (displayGalleryImages.length < 6) {
+      displayGalleryImages = [...displayGalleryImages, ...galleryImages];
+    }
+  }
 
   // Setup intersection observer for animations
   useEffect(() => {
@@ -72,7 +110,7 @@ export default function DarkAbout() {
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, []);
+  }, [aboutData, galleryImages, openingHours]);
 
   return (
     <div className="elegencia-dark-theme">
@@ -211,45 +249,134 @@ export default function DarkAbout() {
         <div className="opening-hour-grid">
           <div className="opening-hour-img-section">
             <img
-              src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=85"
-              alt="Opening Hours Table Ambiance"
+              src={openingHours?.image_url ? (openingHours.image_url.startsWith('http') ? openingHours.image_url : imageUrl(openingHours.image_url)) : "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=85"}
+              alt={openingHours?.title || "Opening Hours Table Ambiance"}
             />
           </div>
 
           <div className="opening-hour-text-section ak-reveal-right">
             <div className="ak-section-heading">
-              <h2 className="ak-section-title">Opening Hours</h2>
+              <h2 className="ak-section-title">{openingHours?.title || "Opening Hours"}</h2>
             </div>
             <div className="ak-height-30"></div>
             <p className="opening-hour-subtext">
-              Experience the tranquility and warmth of traditional Indian wellness hospitality throughout our open hours.
+              {openingHours?.description || "Experience the tranquility and warmth of traditional Indian wellness hospitality throughout our open hours."}
             </p>
             <div className="ak-height-30"></div>
             <div className="opening-hour-date">
-              <p>SUNDAY - THURSDAY: 11:30AM - 11PM</p>
-              <div className="opening-hour-hr"></div>
-              <p>FRIDAY & SATURDAY: 11:30AM - 12AM</p>
+              <p>{openingHours?.hours_1 || "SUNDAY - THURSDAY: 11:30AM - 11PM"}</p>
+              {openingHours?.hours_2 && (
+                <>
+                  <div className="opening-hour-hr"></div>
+                  <p>{openingHours.hours_2}</p>
+                </>
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Section 4: Cinematic Video Tour Strip */}
       <div className="ak-height-150"></div>
-      <section className="about-video-strip-section ak-reveal-scale">
-        <img
-          src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=85"
-          alt="Ayurvedic Spice Preparation"
-          className="about-video-strip-img"
-        />
-        <div className="about-video-strip-overlay" style={{ background: 'linear-gradient(rgba(10,13,14,0.4), rgba(10,13,14,0.7))' }}></div>
-        <button className="video-section-btn about-video-play" aria-label="Play video tour">
-          <Play size={28} fill="#FFD28D" />
-        </button>
-      </section>
 
-      {/* Section 5: Elegencia Footer */}
+      {/* Dynamic Gallery Section (Slider) */}
+      {displayGalleryImages.length > 0 && (
+        <section className="ak-gallery-section">
+          <div className="container">
+            <div className="ak-gallery-heading-wrap ak-reveal">
+              <div className="ak-gallery-ornament">
+                <div className="ak-gallery-ornament-line"></div>
+                <div className="ak-gallery-ornament-dot"></div>
+                <div className="ak-gallery-ornament-line right"></div>
+              </div>
+              <div className="ak-section-subtitle">Moments & Memories</div>
+              <h2 className="ak-section-title">Cafe Gallery</h2>
+              <img src="/images/patterns/lotus-divider.svg" alt="Lotus Divider" className="ak-lotus-divider" style={{ marginTop: '14px', width: '60px', opacity: 0.6 }} />
+            </div>
+          </div>
+
+          <div className="ak-gallery-slider-wrap ak-reveal-fade" style={{ animationDelay: '0.2s' }}>
+            <Swiper
+              modules={[Autoplay, Navigation]}
+              spaceBetween={20}
+              slidesPerView={1}
+              centeredSlides={true}
+              loop={true}
+              autoplay={{
+                delay: 4000,
+                disableOnInteraction: false,
+              }}
+              navigation={true}
+              breakpoints={{
+                640: { slidesPerView: 3, spaceBetween: 20 },
+                992: { slidesPerView: 5, spaceBetween: 30 },
+                1400: { slidesPerView: 5, spaceBetween: 30 }
+              }}
+              className="gallery-swiper"
+            >
+              {displayGalleryImages.map((img, idx) => (
+                <SwiperSlide key={`${img.id}-${idx}`}>
+                  <div
+                    className="ak-gallery-slide-item"
+                    onClick={() => setSelectedGalleryImage(img)}
+                  >
+                    <img
+                      src={imageUrl(img.image)}
+                      alt={img.image_title || 'Gallery Image'}
+                    />
+                    <div className="ak-gallery-icon-view">
+                      <Star size={20} />
+                    </div>
+                    <div className="ak-gallery-overlay">
+                      {img.image_title && (
+                        <div className="ak-gallery-overlay-title">{img.image_title}</div>
+                      )}
+                      {img.image_type && (
+                        <div className="ak-gallery-overlay-type">{img.image_type}</div>
+                      )}
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </section>
+      )}
+
+      <div className="ak-height-100"></div>
+
       <DarkFooter />
+
+      {/* Lightbox Overlay */}
+      <div 
+        className={`ak-lightbox-overlay ${selectedGalleryImage ? 'active' : ''}`}
+        onClick={() => setSelectedGalleryImage(null)}
+      >
+        {selectedGalleryImage && (
+          <div className="ak-lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <button 
+              className="ak-lightbox-close"
+              onClick={() => setSelectedGalleryImage(null)}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <img 
+              src={imageUrl(selectedGalleryImage.image)} 
+              alt={selectedGalleryImage.image_title || 'Gallery Image'} 
+              className="ak-lightbox-img"
+            />
+            {(selectedGalleryImage.image_title || selectedGalleryImage.image_type) && (
+              <div className="ak-lightbox-info">
+                {selectedGalleryImage.image_title && (
+                  <h4 className="ak-lightbox-title">{selectedGalleryImage.image_title}</h4>
+                )}
+                {selectedGalleryImage.image_type && (
+                  <span className="ak-lightbox-type">{selectedGalleryImage.image_type}</span>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

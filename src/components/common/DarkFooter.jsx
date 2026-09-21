@@ -1,13 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail } from 'lucide-react';
 
 export default function DarkFooter() {
+  const [contactInfo, setContactInfo] = useState(null);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const res = await fetch('http://localhost:3000/api/contactInfo');
+        const result = await res.json();
+        if (result.success && result.data) {
+          setContactInfo(result.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch contact info:', err);
+      }
+    };
+    fetchContactInfo();
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -73,14 +88,20 @@ export default function DarkFooter() {
               Rooted in ancient Ayurvedic traditions, Madhura's Cafe brings you therapeutic recipes, sattvic ingredients, and a serene ambiance to restore your mind, body, and spirit.
             </p>
             <div className="ak-footer-socials">
+              <a href="#whatsapp" aria-label="WhatsApp">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+              </a>
               <a href="#facebook" aria-label="Facebook">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+              </a>
+              <a href="#instagram" aria-label="Instagram">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
               </a>
               <a href="#twitter" aria-label="Twitter">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
               </a>
-              <a href="#instagram" aria-label="Instagram">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              <a href="#pinterest" aria-label="Pinterest">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.25 2.652 7.876 6.386 9.32-.083-.79-.158-2.007.033-2.883.172-.787 1.11-4.7 1.11-4.7s-.284-.567-.284-1.408c0-1.319.765-2.304 1.717-2.304.811 0 1.203.609 1.203 1.34 0 .816-.52 2.036-.788 3.167-.224.945.474 1.717 1.404 1.717 1.683 0 2.975-1.776 2.975-4.34 0-2.268-1.63-3.85-3.953-3.85-2.695 0-4.275 2.023-4.275 4.108 0 .816.314 1.69.706 2.164.077.094.088.176.065.267-.074.306-.24.97-.272 1.107-.043.18-.14.22-.326.134-1.22-.56-1.982-2.316-1.982-3.727 0-3.033 2.203-5.817 6.353-5.817 3.332 0 5.922 2.373 5.922 5.539 0 3.313-2.088 5.98-4.985 5.98-1.026 0-1.99-.533-2.322-1.164l-.634 2.417c-.228.874-.845 1.967-1.26 2.635 1.05.308 2.167.475 3.32.475 5.523 0 10-4.477 10-10S17.523 2 12 2z"></path></svg>
               </a>
             </div>
           </div>
@@ -103,20 +124,19 @@ export default function DarkFooter() {
             <ul className="ak-footer-contact">
               <li>
                 <MapPin size={18} />
-                <span>Madhura Traditional Herbal Cafe<br/>Heritage Square, India</span>
+                <span style={{ whiteSpace: 'pre-line' }}>{contactInfo?.location_text || "Madhura Traditional Herbal Cafe\nHeritage Square, India"}</span>
               </li>
               <li>
                 <Phone size={18} />
-                <span><a href="tel:1-800-915-6271">+91 (800) 915-6271</a></span>
+                <span style={{ whiteSpace: 'pre-line' }}>{contactInfo?.phone_text || "+91 (800) 915-6271"}</span>
               </li>
               <li>
                 <Mail size={18} />
-                <span><a href="mailto:namaste@madhuracafe.com">namaste@madhuracafe.com</a></span>
+                <span style={{ whiteSpace: 'pre-line' }}>{contactInfo?.email_text || "namaste@madhuracafe.com"}</span>
               </li>
             </ul>
-            <div className="ak-footer-hours" style={{ marginTop: '20px' }}>
-              <p>Sun - Thu: 10:00 AM - 10:30 PM</p>
-              <p>Fri - Sat: 10:00 AM - 11:30 PM</p>
+            <div className="ak-footer-hours" style={{ marginTop: '20px', whiteSpace: 'pre-line' }}>
+              <p>{contactInfo?.working_hours_text || "Sun - Thu: 10:00 AM - 10:30 PM\nFri - Sat: 10:00 AM - 11:30 PM"}</p>
             </div>
           </div>
 

@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import DarkHeader from '../components/common/DarkHeader';
 import DarkFooter from '../components/common/DarkFooter';
 import { Search, Calendar, User, MessageCircle } from 'lucide-react';
 import '../styles/dark.css';
+import { apiUrl, imageUrl } from '../config/api';
 
 const popularItems = [
   {
@@ -27,12 +28,40 @@ const popularItems = [
 ];
 
 export default function DarkBlogDetails() {
+  const { id } = useParams();
+  const [blog, setBlog] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch blog details
+  useEffect(() => {
+    if (id) {
+      setLoading(true);
+      fetch(apiUrl(`/api/blogs/${id}`))
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            setBlog(data.data);
+          }
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error("Failed to fetch blog details", err);
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
+    }
+  }, [id]);
+
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
+    // Wait until content is loaded to attach observers
+    if (loading) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -46,13 +75,19 @@ export default function DarkBlogDetails() {
       { threshold: 0.15 }
     );
 
-    const elements = document.querySelectorAll(
-      '.ak-reveal, .ak-reveal-left, .ak-reveal-right, .ak-reveal-scale, .ak-reveal-fade'
-    );
-    elements.forEach((el) => observer.observe(el));
+    // Use a small timeout to ensure DOM has updated with dynamic content
+    const timeoutId = setTimeout(() => {
+      const elements = document.querySelectorAll(
+        '.ak-reveal, .ak-reveal-left, .ak-reveal-right, .ak-reveal-scale, .ak-reveal-fade'
+      );
+      elements.forEach((el) => observer.observe(el));
+    }, 100);
 
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+    };
+  }, [loading, blog]);
 
   return (
     <div className="elegencia-dark-theme">
@@ -65,7 +100,7 @@ export default function DarkBlogDetails() {
           <div className="about-hero-breadcrumb ak-reveal-fade">
             <Link to="/">Home</Link> / <Link to="/blog">Blog</Link> / <span>Details</span>
           </div>
-          <h1 className="about-hero-title ak-reveal">Single Blog</h1>
+          <h1 className="about-hero-title ak-reveal">Blog Details</h1>
         </div>
       </section>
 
@@ -76,46 +111,38 @@ export default function DarkBlogDetails() {
           
           {/* Left Column: Blog Content */}
           <div className="ak-menu-details-content">
-            
-            <h2 className="ak-reveal" style={{ fontSize: '2.5rem', color: '#FFFFFF', marginBottom: '15px', lineHeight: 1.2 }}>
-              Indulge in Exquisite Dining
-            </h2>
-            
-            <div className="ak-reveal delay-1" style={{ display: 'flex', gap: '20px', marginBottom: '30px', color: 'var(--ak-gold)', fontSize: '0.9rem', flexWrap: 'wrap' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Calendar size={16} /> 12 June, 2026</div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><User size={16} /> By Admin</div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><MessageCircle size={16} /> 3 Comments</div>
-            </div>
+            {loading ? (
+              <div style={{ color: 'var(--ak-gold)', padding: '50px 0', fontSize: '1.2rem' }}>Loading blog details...</div>
+            ) : !blog ? (
+              <div style={{ color: 'var(--ak-text-muted)', padding: '50px 0', fontSize: '1.2rem' }}>Blog not found.</div>
+            ) : (
+              <>
+                <h2 className="ak-reveal" style={{ fontSize: '2.5rem', color: '#FFFFFF', marginBottom: '15px', lineHeight: 1.2 }}>
+                  {blog.title}
+                </h2>
+                
+                <div className="ak-reveal delay-1" style={{ display: 'flex', gap: '20px', marginBottom: '30px', color: 'var(--ak-gold)', fontSize: '0.9rem', flexWrap: 'wrap' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Calendar size={16} /> {new Date(blog.publish_date).toLocaleDateString()}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><User size={16} /> By {blog.author}</div>
+                  {blog.tags && <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>Tag: {blog.tags}</div>}
+                </div>
 
-            <div className="ak-reveal-scale delay-2" style={{ marginBottom: '40px', borderRadius: '12px', overflow: 'hidden' }}>
-              <img
-                src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1200&q=80"
-                alt="Chef preparing food"
-                style={{ width: '100%', height: '500px', objectFit: 'cover' }}
-                className="ak-food-image-hover"
-              />
-            </div>
+                <div className="ak-reveal-scale delay-2" style={{ marginBottom: '40px', borderRadius: '12px', overflow: 'hidden' }}>
+                  <img
+                    src={imageUrl(blog.banner_image || '')}
+                    alt={blog.title}
+                    style={{ width: '100%', height: '500px', objectFit: 'cover' }}
+                    className="ak-food-image-hover"
+                  />
+                </div>
 
-            <p className="ak-reveal" style={{ fontSize: '1.05rem', color: 'var(--ak-text-muted)', marginBottom: '24px', lineHeight: 1.8 }}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages.
-            </p>
-
-            <p className="ak-reveal" style={{ fontSize: '1.05rem', color: 'var(--ak-text-muted)', marginBottom: '40px', lineHeight: 1.8 }}>
-              Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.
-            </p>
-
-            <blockquote className="ak-reveal" style={{ borderLeft: '4px solid var(--ak-gold)', paddingLeft: '24px', margin: '40px 0', fontStyle: 'italic', fontSize: '1.4rem', color: '#FFF', fontFamily: 'var(--ak-font-title)', lineHeight: 1.6 }}>
-              "The culinary arts of Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
-            </blockquote>
-
-            <h3 className="ak-reveal" style={{ fontSize: '1.8rem', color: '#FFFFFF', marginBottom: '20px', lineHeight: 1.2 }}>
-              A Symphony of Flavors
-            </h3>
-
-            <p className="ak-reveal" style={{ fontSize: '1.05rem', color: 'var(--ak-text-muted)', marginBottom: '40px', lineHeight: 1.8 }}>
-              There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
-            </p>
-
+                <div 
+                  className="ak-reveal blog-dynamic-content" 
+                  style={{ fontSize: '1.05rem', color: 'var(--ak-text-muted)', marginBottom: '40px', lineHeight: 1.8 }}
+                  dangerouslySetInnerHTML={{ __html: blog.full_content }}
+                />
+              </>
+            )}
           </div>
 
           {/* Right Column: Sidebar */}

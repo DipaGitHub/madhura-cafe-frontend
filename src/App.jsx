@@ -9,10 +9,12 @@ import DarkMenuDetails from './pages/DarkMenuDetails';
 import DarkBlog from './pages/DarkBlog';
 import DarkBlogDetails from './pages/DarkBlogDetails';
 import DarkContact from './pages/DarkContact';
+import FloatingSocials from './components/common/FloatingSocials';
 
 export default function App() {
   return (
     <BrowserRouter>
+      <FloatingSocials />
       <Routes>
         {/* Primary Dark Theme Routes */}
         <Route path="/" element={<DarkHome />} />
@@ -24,6 +26,7 @@ export default function App() {
         <Route path="/menu/:id" element={<DarkMenuDetails />} />
         <Route path="/blog" element={<DarkBlog />} />
         <Route path="/blog-details" element={<DarkBlogDetails />} />
+        <Route path="/blog-details/:id" element={<DarkBlogDetails />} />
         <Route path="/contact" element={<DarkContact />} />
 
         {/* Route aliases redirecting to dark theme */}

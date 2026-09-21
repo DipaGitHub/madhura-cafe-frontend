@@ -185,10 +185,10 @@ export default function DarkMenu() {
       <section className="about-hero-banner">
         <div className="about-hero-overlay"></div>
         <div className="container" style={{ position: 'relative', zIndex: 3 }}>
-          <div className="about-hero-breadcrumb ak-reveal-fade">
+          <div className="about-hero-breadcrumb">
             <Link to="/">Home</Link> / <span>Our Menu</span>
           </div>
-          <h1 className="about-hero-title ak-reveal">Our Menu</h1>
+          <h1 className="about-hero-title">Our Menu</h1>
         </div>
       </section>
 

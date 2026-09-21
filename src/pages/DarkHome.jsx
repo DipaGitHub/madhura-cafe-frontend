@@ -156,6 +156,12 @@ export default function DarkHome() {
   const [testiIdx, setTestiIdx] = useState(0);
   const [showcaseItems, setShowcaseItems] = useState(fallbackFoodShowcaseItems);
   const [homeMenuItems, setHomeMenuItems] = useState([]);
+  const [latestBlogs, setLatestBlogs] = useState([]);
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [selectedGalleryImage, setSelectedGalleryImage] = useState(null);
+  const [testimonials, setTestimonials] = useState([]);
+  const [specialities, setSpecialities] = useState(null);
+  const [openingHours, setOpeningHours] = useState(null);
   const [showcaseIdx, setShowcaseIdx] = useState(0);
   const [scrollY, setScrollY] = useState(0);
 
@@ -265,11 +271,76 @@ export default function DarkHome() {
       }
     };
 
+    const fetchLatestBlogs = async () => {
+      try {
+        const res = await fetch(apiUrl('/api/blogs'));
+        const result = await res.json();
+        if (result.success && result.data && result.data.length > 0) {
+          setLatestBlogs(result.data.slice(0, 3));
+        }
+      } catch (err) {
+        console.error('Failed to fetch latest blogs:', err);
+      }
+    };
+
+    const fetchTestimonials = async () => {
+      try {
+        const res = await fetch(apiUrl('/api/testimonials'));
+        const result = await res.json();
+        if (result.status === 200 && result.data && result.data.length > 0) {
+          setTestimonials(result.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch testimonials:', err);
+      }
+    };
+
+    const fetchSpecialities = async () => {
+      try {
+        const res = await fetch(apiUrl('/api/specialities'));
+        const result = await res.json();
+        if (result.success && result.data) {
+          setSpecialities(result.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch specialities:', err);
+      }
+    };
+
+    const fetchOpeningHours = async () => {
+      try {
+        const res = await fetch(apiUrl('/api/openingHours'));
+        const result = await res.json();
+        if (result.success && result.data) {
+          setOpeningHours(result.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch opening hours:', err);
+      }
+    };
+
+    const fetchGallery = async () => {
+      try {
+        const res = await fetch(apiUrl('/api/gallery'));
+        const result = await res.json();
+        if (result.success && result.data && result.data.length > 0) {
+          setGalleryImages(result.data.slice(0, 8));
+        }
+      } catch (err) {
+        console.error('Failed to fetch gallery:', err);
+      }
+    };
+
     fetchBanners();
     fetchUpdates();
     fetchAbout();
     fetchFeatured();
     fetchHomeMenuItems();
+    fetchLatestBlogs();
+    fetchGallery();
+    fetchTestimonials();
+    fetchSpecialities();
+    fetchOpeningHours();
   }, []);
 
   // Automatic hero slider rotation (faster)
@@ -303,7 +374,7 @@ export default function DarkHome() {
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, [homeMenuItems, showcaseItems, aboutData]);
+  }, [homeMenuItems, showcaseItems, aboutData, latestBlogs, galleryImages]);
 
   const prevHeroSlide = () => {
     setSlideDirection('prev');
@@ -318,6 +389,21 @@ export default function DarkHome() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Ensure enough items for Swiper loop to work correctly with slidesPerView: 5
+  let displayShowcaseItems = [...showcaseItems];
+  if (displayShowcaseItems.length > 0) {
+    while (displayShowcaseItems.length < 6) {
+      displayShowcaseItems = [...displayShowcaseItems, ...showcaseItems];
+    }
+  }
+
+  let displayGalleryImages = [...galleryImages];
+  if (displayGalleryImages.length > 0) {
+    while (displayGalleryImages.length < 6) {
+      displayGalleryImages = [...displayGalleryImages, ...galleryImages];
+    }
+  }
 
   return (
     <div className="elegencia-dark-theme">
@@ -464,22 +550,24 @@ export default function DarkHome() {
             modules={[Autoplay, Navigation, Pagination]}
             spaceBetween={28}
             slidesPerView={1}
+            centeredSlides={true}
+            loop={true}
             autoplay={{ delay: 3000, disableOnInteraction: false }}
             navigation={{ nextEl: '.showcase-next', prevEl: '.showcase-prev' }}
             pagination={{ clickable: true, el: '.showcase-pagination', bulletClass: 'ak-slider-dot', bulletActiveClass: 'active' }}
             breakpoints={{
-              640: { slidesPerView: 2 },
-              1024: { slidesPerView: 4 }
+              640: { slidesPerView: 3, spaceBetween: 20 },
+              1024: { slidesPerView: 5, spaceBetween: 30 }
             }}
             className="ak-slider-food-grid ak-staggered-grid"
             style={{ paddingBottom: '20px' }}
           >
-            {showcaseItems.map((item, idx) => (
-              <SwiperSlide key={item.id}>
+            {displayShowcaseItems.map((item, idx) => (
+              <SwiperSlide key={`${item.id}-${idx}`}>
                 <Link
                   to={`/menu-details/${item.id}`}
                   className="ak-food-showcase-item"
-                  style={{ animationDelay: `${idx * 0.15}s` }}
+                  style={{ animationDelay: `${(idx % 5) * 0.15}s` }}
                 >
                   <div className="ak-showcase-img-holder">
                     <img src={item.img} alt={item.title} className="ak-showcase-img" />
@@ -567,13 +655,13 @@ export default function DarkHome() {
               <div style={{ position: 'relative' }}>
                 <img src="/images/patterns/tulsi-leaf.svg" alt="Tulsi" className="ak-tulsi-ornament" style={{ top: -20, left: -20, width: 40 }} />
                 <p className="ak-reveal delay-1">
-                  Welcome to our restaurant, where culinary artistry meets exceptional dining experiences. At Madhura's Cafe, we strive to create a gastronomic haven that tantalizes your taste buds.
+                  {specialities ? specialities.description : "Welcome to our restaurant, where culinary artistry meets exceptional dining experiences. At Madhura's Cafe, we strive to create a gastronomic haven that tantalizes your taste buds."}
                 </p>
               </div>
               <div className="ak-height-50"></div>
               <div className="img-one ak-parallax-img-wrap ak-reveal-scale delay-2">
                 <img
-                  src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=80"
+                  src={specialities?.image1_url ? (specialities.image1_url.startsWith('http') ? specialities.image1_url : imageUrl(specialities.image1_url)) : "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=80"}
                   alt="Specialty dish 1"
                   className="ak-parallax-img"
                   style={{ transform: `scale(1.08) translateY(${Math.min(Math.max((scrollY - 2200) * -0.06, -35), 35)}px)` }}
@@ -591,7 +679,7 @@ export default function DarkHome() {
             <div className="best-item-section-3">
               <div className="img-two ak-parallax-img-wrap ak-reveal-right delay-4">
                 <img
-                  src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=800&q=80"
+                  src={specialities?.image2_url ? (specialities.image2_url.startsWith('http') ? specialities.image2_url : imageUrl(specialities.image2_url)) : "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=800&q=80"}
                   alt="Chef Crafting Experience"
                   className="ak-parallax-img"
                   style={{ transform: `scale(1.08) translateY(${Math.min(Math.max((scrollY - 2200) * 0.07, -35), 35)}px)` }}
@@ -620,17 +708,19 @@ export default function DarkHome() {
             navigation={{ nextEl: '.testi-next', prevEl: '.testi-prev' }}
             loop={true}
           >
-            {darkTestimonials.map((testi, idx) => (
-              <SwiperSlide key={idx}>
+            {testimonials.map((testi, idx) => (
+              <SwiperSlide key={testi.id || idx}>
                 <div className="ak-reveal-fade in-view">
-                  <img
-                    src={testi.img}
-                    className="testimonial-info-img"
-                    alt={testi.name}
-                  />
-                  <h6 className="testimonial-info-title">{testi.name}</h6>
-                  <p className="short-title">{testi.role}</p>
-                  <p className="testimonial-info-subtitle">{testi.quote}</p>
+                  {testi.image_url && (
+                    <img
+                      src={testi.image_url.startsWith('http') ? testi.image_url : imageUrl(testi.image_url)}
+                      className="testimonial-info-img"
+                      alt={testi.client_name}
+                    />
+                  )}
+                  <h6 className="testimonial-info-title">{testi.client_name}</h6>
+                  <p className="short-title">{testi.client_position || testi.client_company || 'Guest'}</p>
+                  <p className="testimonial-info-subtitle">{testi.comment}</p>
                 </div>
               </SwiperSlide>
             ))}
@@ -668,8 +758,8 @@ export default function DarkHome() {
         <div className="opening-hour-grid">
           <div className="opening-hour-img-section ak-parallax-img-wrap">
             <img
-              src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=85"
-              alt="Opening Hours Ambiance"
+              src={openingHours?.image_url ? (openingHours.image_url.startsWith('http') ? openingHours.image_url : imageUrl(openingHours.image_url)) : "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=85"}
+              alt={openingHours?.title || "Opening Hours Ambiance"}
               className="ak-parallax-img"
               style={{ transform: `scale(1.15) translateY(${Math.min(Math.max((scrollY - 2000) * 0.08, -40), 40)}px)` }}
             />
@@ -677,27 +767,191 @@ export default function DarkHome() {
 
           <div className="opening-hour-text-section">
             <div className="ak-section-heading">
-              <h2 className="ak-section-title">Opening Hours</h2>
+              <h2 className="ak-section-title">{openingHours?.title || "Opening Hours"}</h2>
             </div>
             <div className="ak-height-30"></div>
             <p className="opening-hour-subtext">
-              Experience the tranquility and warmth of traditional Indian wellness hospitality throughout our open hours.
+              {openingHours?.description || "Experience the tranquility and warmth of traditional Indian wellness hospitality throughout our open hours."}
             </p>
             <div className="ak-height-30"></div>
             <div className="opening-hour-date">
-              <p>SUNDAY - THURSDAY: 11:30AM - 11PM</p>
-              <div className="opening-hour-hr"></div>
-              <p>FRIDAY & SATURDAY: 11:30AM - 12AM</p>
+              <p>{openingHours?.hours_1 || "SUNDAY - THURSDAY: 11:30AM - 11PM"}</p>
+              {openingHours?.hours_2 && (
+                <>
+                  <div className="opening-hour-hr"></div>
+                  <p>{openingHours.hours_2}</p>
+                </>
+              )}
             </div>
-
           </div>
         </div>
       </div>
 
       <div className="ak-height-100"></div>
 
+      {/* Dynamic Blog Section */}
+      {latestBlogs.length > 0 && (
+        <section className="container">
+          <div className="ak-section-heading ak-type-1">
+            <div className="ak-section-subtitle">Wisdom & Healing Notes</div>
+            <h2 className="ak-section-title">From Our Journal</h2>
+          </div>
+          <div className="ak-height-45"></div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '30px' }}>
+            {latestBlogs.map((post, idx) => (
+              <article
+                key={post.id}
+                className="ak-reveal"
+                style={{
+                  animationDelay: `${idx * 0.15}s`,
+                  background: 'var(--ak-card-bg)',
+                  border: '1px solid rgba(255, 210, 141, 0.15)',
+                  borderRadius: '4px',
+                  overflow: 'hidden',
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <div style={{ height: '220px', overflow: 'hidden' }}>
+                  <img
+                    src={imageUrl(post.banner_image || '')}
+                    alt={post.title}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    className="ak-food-image-hover"
+                  />
+                </div>
+                <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', fontSize: '0.82rem', color: 'var(--ak-gold)' }}>
+                    <span>{post.tags}</span>
+                    <span style={{ color: 'var(--ak-text-muted)' }}>{new Date(post.publish_date).toLocaleDateString()}</span>
+                  </div>
+                  <h3 style={{ fontSize: '1.35rem', color: '#FFFFFF', margin: '0 0 12px', lineHeight: 1.3 }}>
+                    {post.title}
+                  </h3>
+                  <p style={{ fontSize: '0.92rem', color: 'var(--ak-text-muted)', marginBottom: '20px', flexGrow: 1 }}>
+                    {post.short_description || (post.full_content ? post.full_content.replace(/<[^>]+>/g, '').substring(0, 100) + '...' : '')}
+                  </p>
+                  <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.84rem', color: '#FFFFFF' }}>By {post.author}</span>
+                    <Link to={`/blog-details/${post.id}`} className="text-btn1" style={{ fontSize: '0.8rem' }}>
+                      Read Article →
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="ak-height-50"></div>
+          <div style={{ textAlign: 'center' }}>
+            <div className="text-btn">
+              <Link className="text-btn1" to="/blog">View All Articles</Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <div className="ak-height-100"></div>
+
+      {/* Dynamic Gallery Section (Slider) */}
+      {displayGalleryImages.length > 0 && (
+        <section className="ak-gallery-section">
+          <div className="container">
+            <div className="ak-gallery-heading-wrap ak-reveal">
+              <div className="ak-gallery-ornament">
+                <div className="ak-gallery-ornament-line"></div>
+                <div className="ak-gallery-ornament-dot"></div>
+                <div className="ak-gallery-ornament-line right"></div>
+              </div>
+              <div className="ak-section-subtitle">Moments & Memories</div>
+              <h2 className="ak-section-title">Cafe Gallery</h2>
+              <img src="/images/patterns/lotus-divider.svg" alt="Lotus Divider" className="ak-lotus-divider" style={{ marginTop: '14px', width: '60px', opacity: 0.6 }} />
+            </div>
+          </div>
+
+          <div className="ak-gallery-slider-wrap ak-reveal-fade" style={{ animationDelay: '0.2s' }}>
+            <Swiper
+              modules={[Autoplay, Navigation]}
+              spaceBetween={20}
+              slidesPerView={1}
+              centeredSlides={true}
+              loop={true}
+              autoplay={{
+                delay: 4000,
+                disableOnInteraction: false,
+              }}
+              navigation={true}
+              breakpoints={{
+                640: { slidesPerView: 3, spaceBetween: 20 },
+                992: { slidesPerView: 5, spaceBetween: 30 },
+                1400: { slidesPerView: 5, spaceBetween: 30 }
+              }}
+              className="gallery-swiper"
+            >
+              {displayGalleryImages.map((img, idx) => (
+                <SwiperSlide key={`${img.id}-${idx}`}>
+                  <div
+                    className="ak-gallery-slide-item"
+                    onClick={() => setSelectedGalleryImage(img)}
+                  >
+                    <img
+                      src={imageUrl(img.image)}
+                      alt={img.image_title || 'Gallery Image'}
+                    />
+                    <div className="ak-gallery-icon-view">
+                      <Star size={20} />
+                    </div>
+                    <div className="ak-gallery-overlay">
+                      {img.image_title && (
+                        <div className="ak-gallery-overlay-title">{img.image_title}</div>
+                      )}
+                      {img.image_type && (
+                        <div className="ak-gallery-overlay-type">{img.image_type}</div>
+                      )}
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </section>
+      )}
+
+      <div className="ak-height-100"></div>
+
       {/* Footer */}
       <DarkFooter />
+
+      {/* Lightbox Overlay */}
+      <div 
+        className={`ak-lightbox-overlay ${selectedGalleryImage ? 'active' : ''}`}
+        onClick={() => setSelectedGalleryImage(null)}
+      >
+        {selectedGalleryImage && (
+          <div className="ak-lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <button 
+              className="ak-lightbox-close"
+              onClick={() => setSelectedGalleryImage(null)}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <img 
+              src={imageUrl(selectedGalleryImage.image)} 
+              alt={selectedGalleryImage.image_title || 'Gallery Image'} 
+              className="ak-lightbox-img"
+            />
+            {(selectedGalleryImage.image_title || selectedGalleryImage.image_type) && (
+              <div className="ak-lightbox-info">
+                {selectedGalleryImage.image_title && (
+                  <h4 className="ak-lightbox-title">{selectedGalleryImage.image_title}</h4>
+                )}
+                {selectedGalleryImage.image_type && (
+                  <span className="ak-lightbox-type">{selectedGalleryImage.image_type}</span>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

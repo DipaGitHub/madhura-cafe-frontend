@@ -16,6 +16,22 @@ export default function DarkContact() {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [contactInfo, setContactInfo] = useState(null);
+
+  React.useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const res = await fetch('http://localhost:3000/api/contactInfo');
+        const result = await res.json();
+        if (result.success && result.data) {
+          setContactInfo(result.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch contact info:', err);
+      }
+    };
+    fetchContactInfo();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,34 +63,34 @@ export default function DarkContact() {
         {/* Contact Info Cards */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px', marginBottom: '70px' }}>
           <div style={{ background: 'var(--ak-card-bg)', padding: '30px 24px', border: '1px solid rgba(255,210,141,0.2)', textAlign: 'center' }}>
-            <MapPin size={32} color="var(--ak-gold)" style={{ marginBottom: '14px' }} />
+            <MapPin size={32} color="var(--ak-gold)" style={{ marginBottom: '14px', marginInline: 'auto' }} />
             <h4 style={{ color: '#FFFFFF', fontSize: '1.2rem', marginBottom: '8px' }}>Our Location</h4>
-            <p style={{ color: 'var(--ak-text-muted)', fontSize: '0.92rem', textAlign: 'center' }}>
-              Madhura Herbal Heritage Cafe<br />Civil Lines, Jaipur, India
+            <p style={{ color: 'var(--ak-text-muted)', fontSize: '0.92rem', textAlign: 'center', whiteSpace: 'pre-line' }}>
+              {contactInfo?.location_text || "Madhura Herbal Heritage Cafe\nCivil Lines, Jaipur, India"}
             </p>
           </div>
 
           <div style={{ background: 'var(--ak-card-bg)', padding: '30px 24px', border: '1px solid rgba(255,210,141,0.2)', textAlign: 'center' }}>
-            <Phone size={32} color="var(--ak-gold)" style={{ marginBottom: '14px' }} />
+            <Phone size={32} color="var(--ak-gold)" style={{ marginBottom: '14px', marginInline: 'auto' }} />
             <h4 style={{ color: '#FFFFFF', fontSize: '1.2rem', marginBottom: '8px' }}>Phone Numbers</h4>
-            <p style={{ color: 'var(--ak-text-muted)', fontSize: '0.92rem', textAlign: 'center' }}>
-              +91 (800) 915-6271<br />+91 (800) 915-6272
+            <p style={{ color: 'var(--ak-text-muted)', fontSize: '0.92rem', textAlign: 'center', whiteSpace: 'pre-line' }}>
+              {contactInfo?.phone_text || "+91 (800) 915-6271\n+91 (800) 915-6272"}
             </p>
           </div>
 
           <div style={{ background: 'var(--ak-card-bg)', padding: '30px 24px', border: '1px solid rgba(255,210,141,0.2)', textAlign: 'center' }}>
-            <Mail size={32} color="var(--ak-gold)" style={{ marginBottom: '14px' }} />
+            <Mail size={32} color="var(--ak-gold)" style={{ marginBottom: '14px', marginInline: 'auto' }} />
             <h4 style={{ color: '#FFFFFF', fontSize: '1.2rem', marginBottom: '8px' }}>Email Address</h4>
-            <p style={{ color: 'var(--ak-text-muted)', fontSize: '0.92rem', textAlign: 'center' }}>
-              info@madhuracafe.com<br />namaste@madhuracafe.com
+            <p style={{ color: 'var(--ak-text-muted)', fontSize: '0.92rem', textAlign: 'center', whiteSpace: 'pre-line' }}>
+              {contactInfo?.email_text || "info@madhuracafe.com\nnamaste@madhuracafe.com"}
             </p>
           </div>
 
           <div style={{ background: 'var(--ak-card-bg)', padding: '30px 24px', border: '1px solid rgba(255,210,141,0.2)', textAlign: 'center' }}>
-            <Clock size={32} color="var(--ak-gold)" style={{ marginBottom: '14px' }} />
+            <Clock size={32} color="var(--ak-gold)" style={{ marginBottom: '14px', marginInline: 'auto' }} />
             <h4 style={{ color: '#FFFFFF', fontSize: '1.2rem', marginBottom: '8px' }}>Working Hours</h4>
-            <p style={{ color: 'var(--ak-text-muted)', fontSize: '0.92rem', textAlign: 'center' }}>
-              Mon - Sun: 10:00 AM - 11:00 PM<br />Kitchen Closes at 10:30 PM
+            <p style={{ color: 'var(--ak-text-muted)', fontSize: '0.92rem', textAlign: 'center', whiteSpace: 'pre-line' }}>
+              {contactInfo?.working_hours_text || "Mon - Sun: 10:00 AM - 11:00 PM\nKitchen Closes at 10:30 PM"}
             </p>
           </div>
         </div>

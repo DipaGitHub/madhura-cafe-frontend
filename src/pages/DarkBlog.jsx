@@ -1,40 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import DarkHeader from '../components/common/DarkHeader';
 import DarkFooter from '../components/common/DarkFooter';
 import '../styles/dark.css';
-
-const blogPosts = [
-  {
-    id: 1,
-    title: 'The Ancient Science of Food as Medicine in Ayurvedic Cafes',
-    date: 'October 14, 2026',
-    author: 'Vaidya Dr. Sharma',
-    summary: 'Discover how traditional herbs like Brahmi, Ashwagandha, and Shatavari transform everyday meals into therapeutic nourishment for the mind and body.',
-    img: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=600&q=80',
-    tag: 'Ayurveda & Health'
-  },
-  {
-    id: 2,
-    title: 'Why Golden Milk with Turmeric and Black Pepper is a Daily Superfood',
-    date: 'October 08, 2026',
-    author: 'Chef Ananya Rao',
-    summary: 'The bio-enhancing synergy of piperine with organic curcumin creates the ultimate cellular shield against oxidative stress and inflammation.',
-    img: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=80',
-    tag: 'Nutrition'
-  },
-  {
-    id: 3,
-    title: 'Balancing Your Tridosha (Vata, Pitta, Kapha) Through Seasonal Diet',
-    date: 'September 28, 2026',
-    author: 'Madhura Wellness Team',
-    summary: 'Learn how aligning your culinary choices with natural seasonal cycles promotes restorative vitality and glowing longevity.',
-    img: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80',
-    tag: 'Holistic Living'
-  }
-];
+import { apiUrl, imageUrl } from '../config/api';
 
 export default function DarkBlog() {
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(apiUrl('/api/blogs'))
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setBlogPosts(data.data);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to fetch blogs", err);
+        setLoading(false);
+      });
+  }, []);
+
+  // IntersectionObserver for scroll animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    const elements = document.querySelectorAll('.ak-reveal, .ak-reveal-left, .ak-reveal-right, .ak-reveal-scale, .ak-reveal-fade');
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [blogPosts]);
+
   return (
     <div className="elegencia-dark-theme">
       <DarkHeader />
@@ -44,9 +51,9 @@ export default function DarkBlog() {
         <div className="about-hero-overlay"></div>
         <div className="container" style={{ position: 'relative', zIndex: 3 }}>
           <div className="about-hero-breadcrumb">
-            <Link to="/">Home</Link> / <span>Our Journal & Blog</span>
+            <Link to="/">Home</Link> / <span>Our Journal &amp; Blog</span>
           </div>
-          <h1 className="about-hero-title">Ayurvedic Journal & Insights</h1>
+          <h1 className="about-hero-title">Ayurvedic Journal &amp; Insights</h1>
         </div>
       </section>
 
@@ -64,45 +71,51 @@ export default function DarkBlog() {
         <div className="ak-height-45"></div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '30px' }}>
-          {blogPosts.map((post) => (
-            <article
-              key={post.id}
-              style={{
-                background: 'var(--ak-card-bg)',
-                border: '1px solid rgba(255, 210, 141, 0.15)',
-                borderRadius: '4px',
-                overflow: 'hidden',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              <div style={{ height: '220px', overflow: 'hidden' }}>
-                <img
-                  src={post.img}
-                  alt={post.title}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                />
-              </div>
-              <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', fontSize: '0.82rem', color: 'var(--ak-gold)' }}>
-                  <span>{post.tag}</span>
-                  <span style={{ color: 'var(--ak-text-muted)' }}>{post.date}</span>
+          {loading ? (
+            <div style={{ color: 'var(--ak-gold)', textAlign: 'center', gridColumn: '1 / -1', padding: '50px 0' }}>Loading blogs...</div>
+          ) : blogPosts.length === 0 ? (
+            <div style={{ color: 'var(--ak-text-muted)', textAlign: 'center', gridColumn: '1 / -1', padding: '50px 0' }}>No blogs found.</div>
+          ) : (
+            blogPosts.map((post) => (
+              <article
+                key={post.id}
+                style={{
+                  background: 'var(--ak-card-bg)',
+                  border: '1px solid rgba(255, 210, 141, 0.15)',
+                  borderRadius: '4px',
+                  overflow: 'hidden',
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <div style={{ height: '220px', overflow: 'hidden' }}>
+                  <img
+                    src={imageUrl(post.banner_image || '')}
+                    alt={post.title}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
                 </div>
-                <h3 style={{ fontSize: '1.35rem', color: '#FFFFFF', margin: '0 0 12px', lineHeight: 1.3 }}>
-                  {post.title}
-                </h3>
-                <p style={{ fontSize: '0.92rem', color: 'var(--ak-text-muted)', marginBottom: '20px', flexGrow: 1 }}>
-                  {post.summary}
-                </p>
-                <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontSize: '0.84rem', color: '#FFFFFF' }}>By {post.author}</span>
-                  <Link to="/blog-details" className="text-btn1" style={{ fontSize: '0.8rem' }}>
-                    Read Article →
-                  </Link>
+                <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', fontSize: '0.82rem', color: 'var(--ak-gold)' }}>
+                    <span>{post.tags}</span>
+                    <span style={{ color: 'var(--ak-text-muted)' }}>{new Date(post.publish_date).toLocaleDateString()}</span>
+                  </div>
+                  <h3 style={{ fontSize: '1.35rem', color: '#FFFFFF', margin: '0 0 12px', lineHeight: 1.3 }}>
+                    {post.title}
+                  </h3>
+                  <p style={{ fontSize: '0.92rem', color: 'var(--ak-text-muted)', marginBottom: '20px', flexGrow: 1 }}>
+                    {post.short_description || (post.full_content ? post.full_content.replace(/<[^>]+>/g, '').substring(0, 100) + '...' : '')}
+                  </p>
+                  <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '14px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.84rem', color: '#FFFFFF' }}>By {post.author}</span>
+                    <Link to={`/blog-details/${post.id}`} className="text-btn1" style={{ fontSize: '0.8rem' }}>
+                      Read Article →
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            ))
+          )}
         </div>
       </section>
 
