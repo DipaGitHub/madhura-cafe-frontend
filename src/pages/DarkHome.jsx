@@ -80,10 +80,37 @@ const defaultHeroSlides = [
   }
 ];
 
-const MenuRow = ({ item, idx, scrollY }) => {
+const ParallaxElement = ({ as: Component = 'div', style, offset = 0, speed = 0.08, min = -40, max = 40, baseTransform = '', ...props }) => {
+  const ref = useRef(null);
+  
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (!ref.current) {
+            ticking = false;
+            return;
+          }
+          const transformY = Math.min(Math.max((window.scrollY - offset) * speed, min), max);
+          ref.current.style.transform = `${baseTransform} translateY(${transformY}px)`.trim();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [offset, speed, min, max, baseTransform]);
+
+  return <Component ref={ref} style={style} {...props} />;
+};
+
+const MenuRow = ({ item, idx }) => {
   const rowRef = useRef(null);
+  const lineRef = useRef(null);
   const [mouseX, setMouseX] = useState('50%');
-  const [lineWidth, setLineWidth] = useState(0);
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -92,15 +119,31 @@ const MenuRow = ({ item, idx, scrollY }) => {
   };
 
   useEffect(() => {
-    if (!rowRef.current) return;
-    const rect = rowRef.current.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-
-    let progress = (windowHeight - rect.top) / (windowHeight * 0.4);
-    progress = Math.max(0, Math.min(1, progress));
-
-    setLineWidth(progress * 100);
-  }, [scrollY]);
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (!rowRef.current || !lineRef.current) {
+            ticking = false;
+            return;
+          }
+          const rect = rowRef.current.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+          let progress = (windowHeight - rect.top) / (windowHeight * 0.4);
+          progress = Math.max(0, Math.min(1, progress));
+          
+          lineRef.current.style.width = `${progress * 100}%`;
+          lineRef.current.style.opacity = progress > 0 ? 1 : 0;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <Link
@@ -131,7 +174,7 @@ const MenuRow = ({ item, idx, scrollY }) => {
           <div className="food-menu-hr-wrap">
             <div
               className="food-menu-hr style-1"
-              style={{ width: `${lineWidth}%`, opacity: lineWidth > 0 ? 1 : 0 }}
+              ref={lineRef}
             ></div>
           </div>
           <div className="food-menu-price">
@@ -163,24 +206,7 @@ export default function DarkHome() {
   const [specialities, setSpecialities] = useState(null);
   const [openingHours, setOpeningHours] = useState(null);
   const [showcaseIdx, setShowcaseIdx] = useState(0);
-  const [scrollY, setScrollY] = useState(0);
 
-  // Smooth scroll listener for Parallax effects
-  useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setScrollY(window.scrollY);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Fetch dynamic banners from API
   useEffect(() => {
@@ -352,7 +378,7 @@ export default function DarkHome() {
     }, 4500);
 
     return () => clearInterval(timer);
-  }, [heroIdx, heroSlides.length]);
+  }, [heroSlides.length]);
 
   // IntersectionObserver for all reveal animations site-wide
   useEffect(() => {
@@ -413,13 +439,15 @@ export default function DarkHome() {
       {/* Hero Section with Full Background & Animation */}
       <section className="ak-hero-wrapper-section hero-fullbleed-stage">
         {/* Full Hero Background Image with Ken Burns animation */}
-        <div
-          className={`hero-fullbleed-bg-slide animate-${slideDirection}`}
-          key={`hero-bg-${heroIdx}`}
-          style={{ backgroundImage: `url(${heroSlides[heroIdx].bg})` }}
-        >
-          <div className="hero-fullbleed-overlay"></div>
-        </div>
+        {heroSlides.map((slide, idx) => (
+          <div
+            key={`hero-bg-${idx}`}
+            className={`hero-fullbleed-bg-slide ${idx === heroIdx ? 'active' : ''}`}
+            style={{ backgroundImage: `url(${slide.bg})` }}
+          >
+            <div className="hero-fullbleed-overlay"></div>
+          </div>
+        ))}
 
         {/* Side Arrow Navigation (Left & Right) */}
         <button
@@ -439,19 +467,24 @@ export default function DarkHome() {
 
         {/* Hero Centered Content */}
         <div className="hero-centered-content-container">
-          <div className="hero-centered-slide-card" key={`hero-text-${heroIdx}`}>
-            <p className="hero-slide-subtitle">{heroSlides[heroIdx].subtitle}</p>
-            <h1 className="hero-slide-main-title">{heroSlides[heroIdx].title}</h1>
-            <p className="hero-slide-description">{heroSlides[heroIdx].text}</p>
-            <div className="hero-slide-buttons">
-              <a href="#menu" className="hero-btn-gold-solid">
-                {heroSlides[heroIdx].btn1}
-              </a>
-              <a href="#contact" className="hero-btn-outline">
-                {heroSlides[heroIdx].btn2}
-              </a>
+          {heroSlides.map((slide, idx) => (
+            <div 
+              key={`hero-text-${idx}`} 
+              className={`hero-centered-slide-card ${idx === heroIdx ? 'active' : ''}`}
+            >
+              <p className="hero-slide-subtitle">{slide.subtitle}</p>
+              <h1 className="hero-slide-main-title">{slide.title}</h1>
+              <p className="hero-slide-description">{slide.text}</p>
+              <div className="hero-slide-buttons">
+                <a href="#menu" className="hero-btn-gold-solid">
+                  {slide.btn1}
+                </a>
+                <a href="#contact" className="hero-btn-outline">
+                  {slide.btn2}
+                </a>
+              </div>
             </div>
-          </div>
+          ))}
 
           {/* Bottom Dots Indicator */}
           <div className="hero-slide-dots">
@@ -527,11 +560,16 @@ export default function DarkHome() {
           </div>
 
           <div className="about-media-right ak-parallax-img-wrap ak-reveal-left">
-            <img
+            <ParallaxElement
+              as="img"
               src={aboutData?.image_url ? imageUrl(aboutData.image_url) : "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=1200&q=85"}
               alt={aboutData?.title || "Traditional Indian Culinary Preparation"}
               className="ak-parallax-img"
-              style={{ transform: `scale(1.15) translateY(${Math.min(Math.max((scrollY - 500) * 0.08, -40), 40)}px)` }}
+              baseTransform="scale(1.15)"
+              offset={500}
+              speed={0.08}
+              min={-40}
+              max={40}
             />
           </div>
         </div>
@@ -606,9 +644,12 @@ export default function DarkHome() {
       {/* Ayurvedic Delicacies Menu Section: Positioned directly after Food Items with Magnetic Hover Animation */}
       <section id="menu" className="ak-menu-parallax-section">
         {/* Subtle Parallax Botanical Background Pattern */}
-        <div
+        <ParallaxElement
           className="ak-menu-parallax-bg-texture"
-          style={{ transform: `translateY(${Math.min(Math.max((scrollY - 1200) * 0.07, -40), 40)}px)` }}
+          offset={1200}
+          speed={0.07}
+          min={-40}
+          max={40}
         />
 
         <div className="ak-height-120"></div>
@@ -620,7 +661,7 @@ export default function DarkHome() {
 
           <div className="ak-menu-list ak-interactive-menu-list">
             {homeMenuItems.length > 0 ? homeMenuItems.map((item, idx) => (
-              <MenuRow key={idx} item={item} idx={idx} scrollY={scrollY} />
+              <MenuRow key={idx} item={item} idx={idx} />
             )) : (
               <div className="text-center py-10 text-muted-foreground">Loading menu items...</div>
             )}
@@ -660,11 +701,16 @@ export default function DarkHome() {
               </div>
               <div className="ak-height-50"></div>
               <div className="img-one ak-parallax-img-wrap ak-reveal-scale delay-2">
-                <img
+                <ParallaxElement
+                  as="img"
                   src={specialities?.image1_url ? (specialities.image1_url.startsWith('http') ? specialities.image1_url : imageUrl(specialities.image1_url)) : "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=80"}
                   alt="Specialty dish 1"
                   className="ak-parallax-img"
-                  style={{ transform: `scale(1.08) translateY(${Math.min(Math.max((scrollY - 2200) * -0.06, -35), 35)}px)` }}
+                  baseTransform="scale(1.08)"
+                  offset={2200}
+                  speed={-0.06}
+                  min={-35}
+                  max={35}
                 />
               </div>
             </div>
@@ -678,11 +724,16 @@ export default function DarkHome() {
 
             <div className="best-item-section-3">
               <div className="img-two ak-parallax-img-wrap ak-reveal-right delay-4">
-                <img
+                <ParallaxElement
+                  as="img"
                   src={specialities?.image2_url ? (specialities.image2_url.startsWith('http') ? specialities.image2_url : imageUrl(specialities.image2_url)) : "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=800&q=80"}
                   alt="Chef Crafting Experience"
                   className="ak-parallax-img"
-                  style={{ transform: `scale(1.08) translateY(${Math.min(Math.max((scrollY - 2200) * 0.07, -35), 35)}px)` }}
+                  baseTransform="scale(1.08)"
+                  offset={2200}
+                  speed={0.07}
+                  min={-35}
+                  max={35}
                 />
               </div>
             </div>
@@ -757,11 +808,16 @@ export default function DarkHome() {
       <div className="ak-bg-secendary ak-opening-fullbleed ak-parallax-container">
         <div className="opening-hour-grid">
           <div className="opening-hour-img-section ak-parallax-img-wrap">
-            <img
+            <ParallaxElement
+              as="img"
               src={openingHours?.image_url ? (openingHours.image_url.startsWith('http') ? openingHours.image_url : imageUrl(openingHours.image_url)) : "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=85"}
               alt={openingHours?.title || "Opening Hours Ambiance"}
               className="ak-parallax-img"
-              style={{ transform: `scale(1.15) translateY(${Math.min(Math.max((scrollY - 2000) * 0.08, -40), 40)}px)` }}
+              baseTransform="scale(1.15)"
+              offset={2000}
+              speed={0.08}
+              min={-40}
+              max={40}
             />
           </div>
 

@@ -4,6 +4,7 @@ import DarkHeader from '../components/common/DarkHeader';
 import DarkFooter from '../components/common/DarkFooter';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import '../styles/dark.css';
+import { apiUrl } from '../config/api';
 
 export default function DarkContact() {
   const [formData, setFormData] = useState({
@@ -21,7 +22,7 @@ export default function DarkContact() {
   React.useEffect(() => {
     const fetchContactInfo = async () => {
       try {
-        const res = await fetch('http://localhost:3000/api/contactInfo');
+        const res = await fetch(apiUrl('/api/contactInfo'));
         const result = await res.json();
         if (result.success && result.data) {
           setContactInfo(result.data);

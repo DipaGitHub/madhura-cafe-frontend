@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail } from 'lucide-react';
+import { apiUrl } from '../../config/api';
 
 export default function DarkFooter() {
   const [contactInfo, setContactInfo] = useState(null);
@@ -12,7 +13,7 @@ export default function DarkFooter() {
   useEffect(() => {
     const fetchContactInfo = async () => {
       try {
-        const res = await fetch('http://localhost:3000/api/contactInfo');
+        const res = await fetch(apiUrl('/api/contactInfo'));
         const result = await res.json();
         if (result.success && result.data) {
           setContactInfo(result.data);
