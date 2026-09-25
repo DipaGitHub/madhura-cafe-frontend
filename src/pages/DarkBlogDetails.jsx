@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import DarkHeader from '../components/common/DarkHeader';
 import DarkFooter from '../components/common/DarkFooter';
-import { Search, Calendar, User, MessageCircle } from 'lucide-react';
+import { Search, Calendar, User, MessageCircle, ArrowRight } from 'lucide-react';
 import '../styles/dark.css';
 import { apiUrl, imageUrl } from '../config/api';
 
@@ -186,8 +186,8 @@ export default function DarkBlogDetails() {
                   </Link>
                 ))}
               </div>
-              <Link to="/menu" style={{ display: 'inline-block', marginTop: '24px', color: 'var(--ak-gold)', fontSize: '0.95rem', fontWeight: '600', textDecoration: 'none', borderBottom: '1px solid var(--ak-gold)', paddingBottom: '2px' }}>
-                View More &rarr;
+              <Link to="/blog" className="premium-btn-outline" style={{ marginTop: '24px', width: '100%' }}>
+                View More <ArrowRight size={18} />
               </Link>
             </div>
 

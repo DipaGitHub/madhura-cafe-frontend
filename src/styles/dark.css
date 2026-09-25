@@ -43,6 +43,54 @@
   transform: scale(1.1);
 }
 
+/* Premium Buttons */
+.premium-btn,
+.premium-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--ak-font-sans);
+}
+
+.premium-btn {
+  background: var(--ak-gold);
+  color: #0A0D0E !important;
+  border: 1px solid var(--ak-gold);
+  box-shadow: 0 4px 15px rgba(255, 210, 141, 0.15);
+}
+
+.premium-btn:hover {
+  background: var(--ak-gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 210, 141, 0.3);
+  color: #0A0D0E !important;
+}
+
+.premium-btn-outline {
+  background: transparent;
+  color: var(--ak-gold) !important;
+  border: 1px solid rgba(255, 210, 141, 0.35);
+}
+
+.premium-btn-outline:hover {
+  background: rgba(255, 210, 141, 0.08);
+  border-color: var(--ak-gold);
+  transform: translateY(-2px);
+  color: var(--ak-gold) !important;
+}
+
 @keyframes floatAyurvedicTextureGPU {
   from {
     transform: translate(0, 0);

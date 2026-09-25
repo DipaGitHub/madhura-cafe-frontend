@@ -246,7 +246,7 @@ export default function DarkAbout() {
       <div className="ak-height-150"></div>
       <div className="ak-bg-secendary ak-opening-fullbleed ak-reveal-fade">
         <div className="opening-hour-grid">
-          <div className="opening-hour-img-section">
+          <div className="opening-hour-img-section ak-reveal-left">
             <img
               src={openingHours?.image_url ? (openingHours.image_url.startsWith('http') ? openingHours.image_url : imageUrl(openingHours.image_url)) : "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=85"}
               alt={openingHours?.title || "Opening Hours Table Ambiance"}

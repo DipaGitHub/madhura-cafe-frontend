@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import DarkHeader from '../components/common/DarkHeader';
 import DarkFooter from '../components/common/DarkFooter';
-import { Search, CheckCircle2, Loader2 } from 'lucide-react';
+import { Search, CheckCircle2, Loader2, ArrowLeft, ArrowRight } from 'lucide-react';
 import '../styles/dark.css';
 import { apiUrl, imageUrl } from '../config/api';
 
@@ -226,8 +226,8 @@ export default function DarkMenuDetails() {
 
             {/* CTA */}
             <div className="ak-reveal delay-2" style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }}>
-              <Link to="/contact#contact-form" className="text-btn1">ORDER AT TABLE</Link>
-              <Link to="/menu" className="text-btn1" style={{ background: 'transparent', border: '1px solid rgba(229,169,60,0.3)', color: 'var(--ak-gold)' }}>† Back to Menu</Link>
+              <Link to="/contact#contact-form" className="premium-btn">ORDER AT TABLE</Link>
+              <Link to="/menu" className="premium-btn-outline">Back to Menu <ArrowRight size={18} /></Link>
             </div>
           </div>
 
@@ -260,8 +260,8 @@ export default function DarkMenuDetails() {
                     <SidebarItemCard key={catItem.id} item={catItem} />
                   ))}
                 </div>
-                <Link to="/menu" style={{ display: 'inline-block', marginTop: '24px', color: 'var(--ak-gold)', fontSize: '0.95rem', fontWeight: '600', textDecoration: 'none', borderBottom: '1px solid var(--ak-gold)', paddingBottom: '2px' }}>
-                  View Full Menu †’
+                <Link to="/menu" className="premium-btn-outline" style={{ marginTop: '24px', width: '100%' }}>
+                  View Full Menu <ArrowRight size={18} />
                 </Link>
               </div>
             )}
@@ -277,8 +277,8 @@ export default function DarkMenuDetails() {
                     <SidebarItemCard key={popItem.id} item={popItem} />
                   ))}
                 </div>
-                <Link to="/menu" style={{ display: 'inline-block', marginTop: '24px', color: 'var(--ak-gold)', fontSize: '0.95rem', fontWeight: '600', textDecoration: 'none', borderBottom: '1px solid var(--ak-gold)', paddingBottom: '2px' }}>
-                  View More †’
+                <Link to="/menu" className="premium-btn-outline" style={{ marginTop: '24px', width: '100%' }}>
+                  View More <ArrowRight size={18} />
                 </Link>
               </div>
             )}

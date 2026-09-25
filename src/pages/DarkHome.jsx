@@ -766,7 +766,7 @@ export default function DarkHome() {
       <div className="ak-height-150"></div>
       <div className="ak-bg-secendary ak-opening-fullbleed ak-parallax-container">
         <div className="opening-hour-grid">
-          <div className="opening-hour-img-section ak-parallax-img-wrap">
+          <div className="opening-hour-img-section ak-parallax-img-wrap ak-reveal-left">
             <ParallaxElement
               as="img"
               src={openingHours?.image_url ? (openingHours.image_url.startsWith('http') ? openingHours.image_url : imageUrl(openingHours.image_url)) : "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=85"}
@@ -780,7 +780,7 @@ export default function DarkHome() {
             />
           </div>
 
-          <div className="opening-hour-text-section">
+          <div className="opening-hour-text-section ak-reveal-right">
             <div className="ak-section-heading">
               <h2 className="ak-section-title">{openingHours?.title || "Opening Hours"}</h2>
             </div>
