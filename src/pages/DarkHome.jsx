@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Play, ArrowUp, Star } from 'lucide-react';
 import DarkHeader from '../components/common/DarkHeader';
 import DarkFooter from '../components/common/DarkFooter';
+import Premium3DCarousel from '../components/Premium3DCarousel';
+import Preloader from '../components/Preloader';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -190,7 +192,10 @@ const MenuRow = ({ item, idx }) => {
   );
 };
 
+let isFirstLoad = true;
+
 export default function DarkHome() {
+  const [isAppLoading, setIsAppLoading] = useState(isFirstLoad);
   const [heroSlides, setHeroSlides] = useState(defaultHeroSlides);
   const [updates, setUpdates] = useState([]);
   const [aboutData, setAboutData] = useState(null);
@@ -367,6 +372,17 @@ export default function DarkHome() {
     fetchTestimonials();
     fetchSpecialities();
     fetchOpeningHours();
+
+    // Ensure preloader stays for a minimum of 2 seconds for the premium animation effect
+    // only on the first visit or hard reload. Subsequent client-side navigations to Home won't show it.
+    if (isFirstLoad) {
+      setTimeout(() => {
+        setIsAppLoading(false);
+        isFirstLoad = false;
+      }, 2000);
+    } else {
+      setIsAppLoading(false);
+    }
   }, []);
 
   // Automatic hero slider rotation (faster)
@@ -433,6 +449,8 @@ export default function DarkHome() {
 
   return (
     <div className="elegencia-dark-theme">
+      <Preloader isLoading={isAppLoading} />
+      
       {/* 2-Tier Header */}
       <DarkHeader />
 
@@ -559,17 +577,11 @@ export default function DarkHome() {
             </div>
           </div>
 
-          <div className="about-media-right ak-parallax-img-wrap ak-reveal-left">
-            <ParallaxElement
-              as="img"
+          <div className="about-media-right ak-premium-zoom-container ak-reveal-left">
+            <img
               src={aboutData?.image_url ? imageUrl(aboutData.image_url) : "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=1200&q=85"}
               alt={aboutData?.title || "Traditional Indian Culinary Preparation"}
-              className="ak-parallax-img"
-              baseTransform="scale(1.15)"
-              offset={500}
-              speed={0.08}
-              min={-40}
-              max={40}
+              className="ak-premium-zoom-img"
             />
           </div>
         </div>
@@ -584,60 +596,7 @@ export default function DarkHome() {
             <h2 className="ak-section-title">Therapeutic Food Delicacies</h2>
           </div>
 
-          <Swiper
-            modules={[Autoplay, Navigation, Pagination]}
-            spaceBetween={28}
-            slidesPerView={1}
-            centeredSlides={true}
-            loop={true}
-            autoplay={{ delay: 3000, disableOnInteraction: false }}
-            navigation={{ nextEl: '.showcase-next', prevEl: '.showcase-prev' }}
-            pagination={{ clickable: true, el: '.showcase-pagination', bulletClass: 'ak-slider-dot', bulletActiveClass: 'active' }}
-            breakpoints={{
-              640: { slidesPerView: 3, spaceBetween: 20 },
-              1024: { slidesPerView: 5, spaceBetween: 30 }
-            }}
-            className="ak-slider-food-grid ak-staggered-grid"
-            style={{ paddingBottom: '20px' }}
-          >
-            {displayShowcaseItems.map((item, idx) => (
-              <SwiperSlide key={`${item.id}-${idx}`}>
-                <Link
-                  to={`/menu-details/${item.id}`}
-                  className="ak-food-showcase-item"
-                  style={{ animationDelay: `${(idx % 5) * 0.15}s` }}
-                >
-                  <div className="ak-showcase-img-holder">
-                    <img src={item.img} alt={item.title} className="ak-showcase-img" />
-                    <span className="ak-showcase-pill-badge">{item.category}</span>
-
-                    {/* Dark Vignette & Hover Reveal Card */}
-                    <div className="ak-showcase-hover-overlay">
-                      <div className="ak-showcase-hover-card">
-                        <h5 className="ak-showcase-title">{item.title}</h5>
-                        <p className="ak-showcase-benefit">{item.benefit}</p>
-                        <p className="ak-showcase-desc">{item.desc}</p>
-                        <div className="ak-showcase-view-more">
-                          <span>View Details &rarr;</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-
-          {/* Slider Pagination Controls */}
-          <div className="ak-slider-nav-row" style={{ marginTop: '20px' }}>
-            <button className="hero-swiper-btn showcase-prev" style={{ width: 44, height: 44 }} aria-label="Previous Showcase">
-              <ChevronLeft size={20} />
-            </button>
-            <div className="showcase-pagination ak-slider-dots"></div>
-            <button className="hero-swiper-btn showcase-next" style={{ width: 44, height: 44 }} aria-label="Next Showcase">
-              <ChevronRight size={20} />
-            </button>
-          </div>
+          <Premium3DCarousel items={displayShowcaseItems} />
         </div>
       </section>
 

@@ -1,0 +1,118 @@
+.madhura-preloader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0A0D0E; /* Dark theme background */
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+  opacity: 1;
+  visibility: visible;
+}
+
+.madhura-preloader-overlay.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.madhura-preloader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.madhura-logo-wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.madhura-preloader-logo {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  object-fit: cover;
+  animation: pulseLogo 2s infinite ease-in-out;
+  z-index: 2;
+  box-shadow: 0 0 15px rgba(255, 210, 141, 0.2);
+}
+
+.madhura-loader-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: spinRing 2s linear infinite;
+  z-index: 1;
+}
+
+.madhura-loader-ring circle {
+  fill: none;
+  stroke: rgba(255, 210, 141, 0.8); /* Premium Gold color */
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 50;
+  animation: dashRing 3s ease-in-out infinite alternate;
+}
+
+.madhura-preloader-text {
+  font-family: 'Cinzel', serif;
+  color: #FFD28D;
+  font-size: 14px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  margin-left: 6px; /* offset for letter spacing */
+}
+
+.madhura-preloader-text .dot {
+  animation: blinkDot 1.4s infinite;
+  opacity: 0;
+  margin-left: 2px;
+  letter-spacing: 2px;
+}
+
+.madhura-preloader-text .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.madhura-preloader-text .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.madhura-preloader-text .dot:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+@keyframes pulseLogo {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; box-shadow: 0 0 25px rgba(255, 210, 141, 0.5); }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+@keyframes spinRing {
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes dashRing {
+  0% { stroke-dashoffset: 250; }
+  100% { stroke-dashoffset: 50; }
+}
+
+@keyframes blinkDot {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}

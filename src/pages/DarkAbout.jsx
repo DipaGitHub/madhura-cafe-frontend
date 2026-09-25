@@ -172,12 +172,11 @@ export default function DarkAbout() {
             </div>
           </div>
 
-          <div className="about-media-right ak-parallax-img-wrap ak-reveal-left">
+          <div className="about-media-right ak-premium-zoom-container ak-reveal-left">
             <img
               src={aboutData?.image_url ? imageUrl(aboutData.image_url) : "https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=1200&q=85"}
               alt={aboutData?.title || "Traditional Indian Culinary Preparation"}
-              className="ak-parallax-img"
-              style={{ transform: 'scale(1.05)' }}
+              className="ak-premium-zoom-img"
             />
           </div>
         </div>
