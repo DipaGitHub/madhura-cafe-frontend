@@ -130,7 +130,7 @@ export default function DarkMenu() {
               title: cat.name,
               subtitle: cat.description,
               parallaxImg: cat.image_url
-                ? (cat.image_url.startsWith('http') ? cat.image_url : cat.image_url)
+                ? (cat.image_url.startsWith('http') ? cat.image_url : imageUrl(cat.image_url))
                 : FALLBACK_PARALLAX,
               items: catItems.map(item => ({
                 id: item.id,
