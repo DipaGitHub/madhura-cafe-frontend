@@ -3066,8 +3066,8 @@
 /* Sticky Category Tabs */
 .sticky-category-tabs-container {
   position: sticky;
-  top: 75px;
-  z-index: 99;
+  top: 0;
+  z-index: 1000;
   background-color: var(--ak-primary);
   border-bottom: 1px solid var(--ak-border-gold);
   border-top: 1px solid var(--ak-border-gold);
@@ -3110,10 +3110,48 @@
   border-color: var(--ak-gold);
 }
 
-@media (max-width: 991px) {
-  .sticky-category-tabs-container {
-    top: 60px; /* Adjust for mobile header height if necessary */
-  }
+.sticky-category-tabs-wrap {
+  position: relative;
+}
+
+.category-tab-btn.active {
+  background: rgba(255, 210, 141, 0.15);
+  color: var(--ak-gold);
+  border-color: var(--ak-gold);
+}
+
+.category-tab-arrow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 56px;
+  z-index: 2;
+  border: none;
+  cursor: pointer;
+  color: var(--ak-gold);
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+.category-tab-arrow.left {
+  left: 0;
+  justify-content: flex-start;
+  padding-left: 8px;
+  background: linear-gradient(to right, var(--ak-primary) 40%, transparent);
+}
+
+.category-tab-arrow.right {
+  right: 0;
+  justify-content: flex-end;
+  padding-right: 8px;
+  background: linear-gradient(to left, var(--ak-primary) 40%, transparent);
+}
+
+.category-tab-arrow.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 

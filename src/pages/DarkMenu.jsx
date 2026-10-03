@@ -118,7 +118,61 @@ export default function DarkMenu() {
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
 
+  // Carousel arrows + active tab tracking
+  const barRef = useRef(null);
+  const [activeId, setActiveId] = useState(null);
+  const [canLeft, setCanLeft] = useState(false);
+  const [canRight, setCanRight] = useState(false);
+
+  const updateArrows = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanLeft(el.scrollLeft > 4);
+    setCanRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  };
+
+  const scrollTabs = (dir) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * el.clientWidth * 0.6, behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    updateArrows();
+    window.addEventListener('resize', updateArrows);
+    return () => window.removeEventListener('resize', updateArrows);
+  }, [menuData]);
+
+  useEffect(() => {
+    if (menuData.length === 0) return;
+    const onScroll = () => {
+      const barH = barRef.current ? barRef.current.offsetHeight : 60;
+      let current = null;
+      for (const cat of menuData) {
+        const el = document.getElementById(cat.id.toString());
+        if (el && el.getBoundingClientRect().top <= barH + 40) current = cat.id;
+      }
+      setActiveId(current);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [menuData]);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el || activeId === null) return;
+    const btn = el.querySelector(`[data-tab-id="${activeId}"]`);
+    if (btn) {
+      el.scrollTo({
+        left: btn.offsetLeft - (el.clientWidth - btn.offsetWidth) / 2,
+        behavior: 'smooth'
+      });
+    }
+  }, [activeId]);
+
   // Smooth Scroll Listener
+
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
@@ -222,31 +276,52 @@ export default function DarkMenu() {
 
       {/* Sticky Category Tabs */}
       {!isLoading && menuData.length > 0 && (
-        <div className="sticky-category-tabs-container">
-          <div 
-            className={`sticky-category-tabs-scroll ${isDown ? 'active' : ''}`}
-            ref={scrollRef}
-            onMouseDown={onMouseDown}
-            onMouseLeave={onMouseLeave}
-            onMouseUp={onMouseUp}
-            onMouseMove={onMouseMove}
-          >
-            {menuData.map(category => (
-              <button
-                key={`tab-${category.id}`}
-                className="category-tab-btn"
-                onClick={() => {
-                  const element = document.getElementById(category.id.toString());
-                  if (element) {
-                    // Offset for header + sticky tabs
-                    const y = element.getBoundingClientRect().top + window.scrollY - 140;
-                    window.scrollTo({ top: y, behavior: 'smooth' });
-                  }
-                }}
-              >
-                {category.title}
-              </button>
-            ))}
+        <div className="sticky-category-tabs-container" ref={barRef}>
+          <div className="sticky-category-tabs-wrap">
+            <button
+              type="button"
+              aria-label="Scroll categories left"
+              className={`category-tab-arrow left ${canLeft ? '' : 'hidden'}`}
+              onClick={() => scrollTabs(-1)}
+            >
+              ‹
+            </button>
+            <div 
+              className={`sticky-category-tabs-scroll ${isDown ? 'active' : ''}`}
+              ref={scrollRef}
+              onScroll={updateArrows}
+              onMouseDown={onMouseDown}
+              onMouseLeave={onMouseLeave}
+              onMouseUp={onMouseUp}
+              onMouseMove={onMouseMove}
+            >
+              {menuData.map(category => (
+                <button
+                  key={`tab-${category.id}`}
+                  data-tab-id={category.id}
+                  className={`category-tab-btn ${activeId === category.id ? 'active' : ''}`}
+                  onClick={() => {
+                    const element = document.getElementById(category.id.toString());
+                    if (element) {
+                      // Offset by the sticky bar's real height
+                      const barH = barRef.current ? barRef.current.offsetHeight : 60;
+                      const y = element.getBoundingClientRect().top + window.scrollY - barH;
+                      window.scrollTo({ top: y, behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  {category.title}
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              aria-label="Scroll categories right"
+              className={`category-tab-arrow right ${canRight ? '' : 'hidden'}`}
+              onClick={() => scrollTabs(1)}
+            >
+              ›
+            </button>
           </div>
         </div>
       )}
