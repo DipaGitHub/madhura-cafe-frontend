@@ -3243,3 +3243,16 @@
   }
 }
 
+/* Scroll To Top Button CSS */
+.float-btn.scroll-top {
+  background: var(--ak-gold);
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.float-btn.scroll-top:hover {
+  background: #FFF;
+  color: #000;
+}
+
