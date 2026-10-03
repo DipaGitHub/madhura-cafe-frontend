@@ -3241,6 +3241,69 @@
     border-radius: 6px;
     font-size: 0.75rem;
   }
+
+  /* Header Fixes */
+  .brand-text {
+    display: none;
+  }
+  .header-brand-link {
+    gap: 8px;
+  }
+  .nav-toggles .premium-btn {
+    padding: 6px 10px !important;
+    font-size: 0.65rem !important;
+  }
+  .dark-header-logo-img {
+    width: 38px;
+    height: 38px;
+  }
+  .navbar-container {
+    padding: 0 8px;
+  }
+
+  /* Testimonial Fixes */
+  .testimonial-section {
+    padding: 24px 16px !important;
+    gap: 20px !important;
+  }
+  .testimonial-quote-icon {
+    display: none !important;
+  }
+  .testimonial-info-subtitle {
+    font-size: 1.05rem !important;
+    line-height: 1.5 !important;
+  }
+  .testimonial-info-title {
+    font-size: 1.15rem !important;
+  }
+  .testimonial-info-img {
+    width: 75px !important;
+    height: 75px !important;
+  }
+
+  /* Gallery Arrows Fix */
+  .gallery-swiper .swiper-button-next,
+  .gallery-swiper .swiper-button-prev {
+    transform: scale(0.65);
+  }
+  .gallery-swiper .swiper-button-next {
+    right: 5px !important;
+  }
+  .gallery-swiper .swiper-button-prev {
+    left: 5px !important;
+  }
+
+  /* Opening Hours Fix */
+  .opening-hour-grid {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .opening-hour-img-section {
+    min-height: 350px;
+  }
+  .opening-hour-text-section {
+    padding: 40px 20px !important;
+  }
 }
 
 /* Scroll To Top Button CSS */
