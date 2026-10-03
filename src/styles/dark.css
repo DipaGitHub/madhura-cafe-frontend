@@ -3068,8 +3068,7 @@
   position: sticky;
   top: 75px;
   z-index: 99;
-  background-color: rgba(10, 13, 14, 0.95);
-  backdrop-filter: blur(10px);
+  background-color: var(--ak-primary);
   border-bottom: 1px solid var(--ak-border-gold);
   border-top: 1px solid var(--ak-border-gold);
   padding: 10px 0;
