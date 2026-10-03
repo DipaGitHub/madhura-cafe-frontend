@@ -8,7 +8,7 @@
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /frontend/
+    RewriteBase /
 
     # Never rewrite existing files or directories
     RewriteCond %{REQUEST_FILENAME} -f [OR]
