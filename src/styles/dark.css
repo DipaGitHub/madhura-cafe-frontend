@@ -93,12 +93,19 @@
 
 @keyframes floatAyurvedicTextureGPU {
   from {
-    transform: translate(0, 0);
+    background-position: 0px 0px;
   }
 
   to {
-    transform: translate(280px, 400px);
+    background-position: 280px 280px;
   }
+}
+
+.elegencia-dark-theme {
+  background-color: var(--ak-primary);
+  color: var(--ak-text-white);
+  min-height: 100vh;
+  position: relative;
 }
 
 .elegencia-dark-theme::before {
