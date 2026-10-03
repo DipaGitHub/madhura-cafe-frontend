@@ -131,7 +131,7 @@ export default function DarkAbout() {
       {/* Spacing Gap between Banner and Exquisite Dining */}
       <div className="ak-height-150"></div>
 
-      {/* Section 1: Our Ayurvedic Heritage */}
+      {/* Section 1: Our  Heritage */}
       <section className="ak-about-bg-color ak-royalty-fullbleed">
         <div className="about-section ak-about-1">
           <div className="about-text-section ak-reveal-right">
@@ -149,10 +149,10 @@ export default function DarkAbout() {
             </div>
             <div className="ak-height-30"></div>
             <img src="/images/patterns/lotus-divider.svg" alt="Lotus" style={{ width: '80px', marginBottom: '20px' }} />
-            
+
             {aboutData ? (
-              <div 
-                className="about-subtext" 
+              <div
+                className="about-subtext"
                 style={{ color: 'var(--ak-text-muted)' }}
                 dangerouslySetInnerHTML={{ __html: aboutData.description }}
               />
@@ -167,7 +167,7 @@ export default function DarkAbout() {
                 </p>
               </>
             )}
-            
+
             <div className="ak-height-50"></div>
             <div className="text-btn">
               <Link className="text-btn1" to="/menu">Discover Our Menu</Link>
@@ -195,15 +195,15 @@ export default function DarkAbout() {
               <img src="/images/patterns/lotus-divider.svg" alt="Lotus Divider" className="ak-lotus-divider" style={{ marginTop: '14px', width: '60px', opacity: 0.6, margin: '14px auto 0' }} />
             </div>
             <div className="ak-height-50"></div>
-            
+
             <div className="founders-list">
               {founders.map((founder, index) => (
                 <div key={founder.id || index} className={`founder-card ${index % 2 !== 0 ? 'row-reverse' : ''}`}>
                   <div className="founder-image-col ak-reveal-left">
                     <div className="founder-image-wrapper">
-                      <img 
-                        src={founder.image_url ? imageUrl(founder.image_url) : "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80"} 
-                        alt={founder.name} 
+                      <img
+                        src={founder.image_url ? imageUrl(founder.image_url) : "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80"}
+                        alt={founder.name}
                         className="founder-img"
                       />
                       {founder.image_quote && (
@@ -216,11 +216,11 @@ export default function DarkAbout() {
                   <div className="founder-content-col ak-reveal-right">
                     <h3 className="founder-name">{founder.name}</h3>
                     <div className="founder-designation">{founder.designation}</div>
-                      <div 
-                        className="founder-description-html" 
-                        style={{ color: 'var(--ak-text-muted)' }}
-                        dangerouslySetInnerHTML={{ __html: founder.description }} 
-                      />
+                    <div
+                      className="founder-description-html"
+                      style={{ color: 'var(--ak-text-muted)' }}
+                      dangerouslySetInnerHTML={{ __html: founder.description }}
+                    />
                     {founder.contact_info && (
                       <div className="founder-contact">
                         <span className="contact-icon" style={{ color: 'var(--ak-gold)', marginRight: '8px' }}>📞</span>
@@ -306,21 +306,21 @@ export default function DarkAbout() {
       <DarkFooter />
 
       {/* Lightbox Overlay */}
-      <div 
+      <div
         className={`ak-lightbox-overlay ${selectedGalleryImage ? 'active' : ''}`}
         onClick={() => setSelectedGalleryImage(null)}
       >
         {selectedGalleryImage && (
           <div className="ak-lightbox-content" onClick={(e) => e.stopPropagation()}>
-            <button 
+            <button
               className="ak-lightbox-close"
               onClick={() => setSelectedGalleryImage(null)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
-            <img 
-              src={imageUrl(selectedGalleryImage.image)} 
-              alt={selectedGalleryImage.image_title || 'Gallery Image'} 
+            <img
+              src={imageUrl(selectedGalleryImage.image)}
+              alt={selectedGalleryImage.image_title || 'Gallery Image'}
               className="ak-lightbox-img"
             />
             {(selectedGalleryImage.image_title || selectedGalleryImage.image_type) && (

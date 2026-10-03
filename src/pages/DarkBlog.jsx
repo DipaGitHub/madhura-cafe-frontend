@@ -53,7 +53,7 @@ export default function DarkBlog() {
           <div className="about-hero-breadcrumb">
             <Link to="/">Home</Link> / <span>Our Journal &amp; Blog</span>
           </div>
-          <h1 className="about-hero-title">Ayurvedic Journal &amp; Insights</h1>
+          <h1 className="about-hero-title"> Journal &amp; Insights</h1>
         </div>
       </section>
 

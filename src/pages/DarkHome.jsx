@@ -84,7 +84,7 @@ const defaultHeroSlides = [
 
 const ParallaxElement = ({ as: Component = 'div', style, offset = 0, speed = 0.08, min = -40, max = 40, baseTransform = '', ...props }) => {
   const ref = useRef(null);
-  
+
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
@@ -133,7 +133,7 @@ const MenuRow = ({ item, idx }) => {
           const windowHeight = window.innerHeight;
           let progress = (windowHeight - rect.top) / (windowHeight * 0.4);
           progress = Math.max(0, Math.min(1, progress));
-          
+
           lineRef.current.style.width = `${progress * 100}%`;
           lineRef.current.style.opacity = progress > 0 ? 1 : 0;
           ticking = false;
@@ -141,7 +141,7 @@ const MenuRow = ({ item, idx }) => {
         ticking = true;
       }
     };
-    
+
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -450,7 +450,7 @@ export default function DarkHome() {
   return (
     <div className="elegencia-dark-theme">
       <Preloader isLoading={isAppLoading} />
-      
+
       {/* 2-Tier Header */}
       <DarkHeader />
 
@@ -486,8 +486,8 @@ export default function DarkHome() {
         {/* Hero Centered Content */}
         <div className="hero-centered-content-container">
           {heroSlides.map((slide, idx) => (
-            <div 
-              key={`hero-text-${idx}`} 
+            <div
+              key={`hero-text-${idx}`}
               className={`hero-centered-slide-card ${idx === heroIdx ? 'active' : ''}`}
             >
               <p className="hero-slide-subtitle">{slide.subtitle}</p>
@@ -527,7 +527,7 @@ export default function DarkHome() {
         </div>
       </div>
 
-      {/* About Section: Our Ayurvedic Heritage */}
+      {/* About Section: Our  Heritage */}
       <div className="ak-height-100"></div>
       <section className="ak-about-bg-color ak-royalty-fullbleed ak-parallax-container">
         <div className="about-section ak-about-1">
@@ -546,10 +546,10 @@ export default function DarkHome() {
             </div>
             <div className="ak-height-30"></div>
             <img src="/images/patterns/lotus-divider.svg" alt="Lotus" style={{ width: '80px', marginBottom: '20px' }} />
-            
+
             {aboutData ? (
-              <div 
-                className="about-subtext" 
+              <div
+                className="about-subtext"
                 style={{ color: 'var(--ak-text-muted)' }}
                 dangerouslySetInnerHTML={{ __html: aboutData.short_description || aboutData.description }}
               />
@@ -931,21 +931,21 @@ export default function DarkHome() {
       <DarkFooter />
 
       {/* Lightbox Overlay */}
-      <div 
+      <div
         className={`ak-lightbox-overlay ${selectedGalleryImage ? 'active' : ''}`}
         onClick={() => setSelectedGalleryImage(null)}
       >
         {selectedGalleryImage && (
           <div className="ak-lightbox-content" onClick={(e) => e.stopPropagation()}>
-            <button 
+            <button
               className="ak-lightbox-close"
               onClick={() => setSelectedGalleryImage(null)}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
-            <img 
-              src={imageUrl(selectedGalleryImage.image)} 
-              alt={selectedGalleryImage.image_title || 'Gallery Image'} 
+            <img
+              src={imageUrl(selectedGalleryImage.image)}
+              alt={selectedGalleryImage.image_title || 'Gallery Image'}
               className="ak-lightbox-img"
             />
             {(selectedGalleryImage.image_title || selectedGalleryImage.image_type) && (
