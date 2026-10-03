@@ -45,7 +45,7 @@ export default function DarkHeader() {
           {/* Left: Brand Logo & Title */}
           <Link to="/" className="header-brand-link animate-slide-left">
             <img
-              src="/madhura-cafe-logo.png"
+              src={`${import.meta.env.BASE_URL}madhura-cafe-logo.png`}
               alt="Madhura's Cafe"
               className="dark-header-logo-img"
             />

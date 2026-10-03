@@ -13,7 +13,7 @@ import FloatingSocials from './components/common/FloatingSocials';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <FloatingSocials />
       <Routes>
         {/* Primary Dark Theme Routes */}

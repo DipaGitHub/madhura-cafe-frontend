@@ -126,7 +126,7 @@ export default function LightHome() {
         <div className="container d-flex align-items-center justify-content-between flex-wrap flex-xl-nowrap">
           <Link className="logo h3" to="/design-1">
             <span className="logo_img">
-              <img src="/madhura-cafe-logo.png" alt="Madhura Cafe" />
+              <img src={`${import.meta.env.BASE_URL}madhura-cafe-logo.png`} alt="Madhura Cafe" />
             </span>
             Madhura
           </Link>

@@ -10,7 +10,7 @@ const Preloader = ({ isLoading }) => {
           <svg className="madhura-loader-ring" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="45" />
           </svg>
-          <img src="/madhura-cafe-logo.png" alt="Madhura's Cafe" className="madhura-preloader-logo" />
+          <img src={`${import.meta.env.BASE_URL}madhura-cafe-logo.png`} alt="Madhura's Cafe" className="madhura-preloader-logo" />
         </div>
         <div className="madhura-preloader-text">
           <span>Loading</span>

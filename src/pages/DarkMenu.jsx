@@ -346,7 +346,7 @@ export default function DarkMenu() {
             <div className="ak-menu-category-content">
               <div className="ak-menu-category-subtitle ak-reveal">{category.subtitle}</div>
               <h2 className="ak-menu-category-title ak-reveal delay-1">{category.title}</h2>
-              <img src="/images/patterns/lotus-divider.svg" alt="Lotus Divider" className="ak-lotus-divider ak-reveal delay-2" style={{ marginTop: '15px' }} />
+              <img src={`${import.meta.env.BASE_URL}images/patterns/lotus-divider.svg`} alt="Lotus Divider" className="ak-lotus-divider ak-reveal delay-2" style={{ marginTop: '15px' }} />
             </div>
           </div>
 

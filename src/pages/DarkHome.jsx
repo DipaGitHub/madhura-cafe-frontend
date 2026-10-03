@@ -545,7 +545,7 @@ export default function DarkHome() {
               </h2>
             </div>
             <div className="ak-height-30"></div>
-            <img src="/images/patterns/lotus-divider.svg" alt="Lotus" style={{ width: '80px', marginBottom: '20px' }} />
+            <img src={`${import.meta.env.BASE_URL}images/patterns/lotus-divider.svg`} alt="Lotus" style={{ width: '80px', marginBottom: '20px' }} />
 
             {aboutData ? (
               <div
@@ -643,11 +643,11 @@ export default function DarkHome() {
                   <span className="gold-accent">Specialties</span>
                 </h2>
                 <div className="ak-height-30"></div>
-                <img src="/images/patterns/lotus-divider.svg" alt="Lotus Divider" className="ak-lotus-divider" />
+                <img src={`${import.meta.env.BASE_URL}images/patterns/lotus-divider.svg`} alt="Lotus Divider" className="ak-lotus-divider" />
               </div>
               <div className="ak-height-30"></div>
               <div style={{ position: 'relative' }}>
-                <img src="/images/patterns/tulsi-leaf.svg" alt="Tulsi" className="ak-tulsi-ornament" style={{ top: -20, left: -20, width: 40 }} />
+                <img src={`${import.meta.env.BASE_URL}images/patterns/tulsi-leaf.svg`} alt="Tulsi" className="ak-tulsi-ornament" style={{ top: -20, left: -20, width: 40 }} />
                 <p className="ak-reveal delay-1">
                   {specialities ? specialities.description : "Welcome to our restaurant, where culinary artistry meets exceptional dining experiences. At Madhura's Cafe, we strive to create a gastronomic haven that tantalizes your taste buds."}
                 </p>
@@ -873,7 +873,7 @@ export default function DarkHome() {
               </div>
               <div className="ak-section-subtitle">Moments & Memories</div>
               <h2 className="ak-section-title">Cafe Gallery</h2>
-              <img src="/images/patterns/lotus-divider.svg" alt="Lotus Divider" className="ak-lotus-divider" style={{ marginTop: '14px', width: '60px', opacity: 0.6 }} />
+              <img src={`${import.meta.env.BASE_URL}images/patterns/lotus-divider.svg`} alt="Lotus Divider" className="ak-lotus-divider" style={{ marginTop: '14px', width: '60px', opacity: 0.6 }} />
             </div>
           </div>
 

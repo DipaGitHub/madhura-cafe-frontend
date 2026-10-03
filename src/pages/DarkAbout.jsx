@@ -148,7 +148,7 @@ export default function DarkAbout() {
               </h2>
             </div>
             <div className="ak-height-30"></div>
-            <img src="/images/patterns/lotus-divider.svg" alt="Lotus" style={{ width: '80px', marginBottom: '20px' }} />
+            <img src={`${import.meta.env.BASE_URL}images/patterns/lotus-divider.svg`} alt="Lotus" style={{ width: '80px', marginBottom: '20px' }} />
 
             {aboutData ? (
               <div
@@ -192,7 +192,7 @@ export default function DarkAbout() {
             <div className="ak-section-heading" style={{ textAlign: 'center' }}>
               <div className="ak-section-subtitle">OUR LEADERSHIP</div>
               <h2 className="ak-section-title">Meet Our Founders</h2>
-              <img src="/images/patterns/lotus-divider.svg" alt="Lotus Divider" className="ak-lotus-divider" style={{ marginTop: '14px', width: '60px', opacity: 0.6, margin: '14px auto 0' }} />
+              <img src={`${import.meta.env.BASE_URL}images/patterns/lotus-divider.svg`} alt="Lotus Divider" className="ak-lotus-divider" style={{ marginTop: '14px', width: '60px', opacity: 0.6, margin: '14px auto 0' }} />
             </div>
             <div className="ak-height-50"></div>
 
@@ -249,7 +249,7 @@ export default function DarkAbout() {
               </div>
               <div className="ak-section-subtitle">Moments & Memories</div>
               <h2 className="ak-section-title">Cafe Gallery</h2>
-              <img src="/images/patterns/lotus-divider.svg" alt="Lotus Divider" className="ak-lotus-divider" style={{ marginTop: '14px', width: '60px', opacity: 0.6 }} />
+              <img src={`${import.meta.env.BASE_URL}images/patterns/lotus-divider.svg`} alt="Lotus Divider" className="ak-lotus-divider" style={{ marginTop: '14px', width: '60px', opacity: 0.6 }} />
             </div>
           </div>
 

@@ -49,7 +49,7 @@ export default function DarkFooter() {
 
       {/* Top Decorator */}
       <div className="ak-footer-top-decorator ak-reveal-fade">
-        <img src="/images/patterns/lotus-divider.svg" alt="Lotus" style={{ width: '120px', margin: '0 auto', display: 'block', opacity: 0.7 }} />
+        <img src={`${import.meta.env.BASE_URL}images/patterns/lotus-divider.svg`} alt="Lotus" style={{ width: '120px', margin: '0 auto', display: 'block', opacity: 0.7 }} />
       </div>
 
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
@@ -146,7 +146,7 @@ export default function DarkFooter() {
 
         {/* Copyright */}
         <div className="copy-right-section ak-reveal-fade" style={{ borderTop: '1px solid rgba(255,210,141,0.15)', marginTop: '50px', paddingTop: '30px', textAlign: 'center', position: 'relative' }}>
-          <img src="/images/patterns/spice-mortar.svg" alt="Spice Mortar" style={{ position: 'absolute', left: '50%', top: '-20px', transform: 'translateX(-50%)', width: '40px', background: '#0A0D0E', padding: '0 10px', opacity: 0.6 }} />
+          <img src={`${import.meta.env.BASE_URL}images/patterns/spice-mortar.svg`} alt="Spice Mortar" style={{ position: 'absolute', left: '50%', top: '-20px', transform: 'translateX(-50%)', width: '40px', background: '#0A0D0E', padding: '0 10px', opacity: 0.6 }} />
           <p className="text-uppercase" style={{ color: 'var(--ak-text-muted)', fontSize: '0.85rem', letterSpacing: '0.1em' }}>&copy; {new Date().getFullYear()} Madhura Cafe. All Rights Reserved.</p>
         </div>
       </div>
