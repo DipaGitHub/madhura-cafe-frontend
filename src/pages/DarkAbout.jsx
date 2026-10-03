@@ -35,7 +35,7 @@ export default function DarkAbout() {
 
   const [galleryImages, setGalleryImages] = useState([]);
   const [selectedGalleryImage, setSelectedGalleryImage] = useState(null);
-  const [openingHours, setOpeningHours] = useState(null);
+  const [founders, setFounders] = useState([]);
 
   // Scroll to top on mount
   useEffect(() => {
@@ -65,21 +65,21 @@ export default function DarkAbout() {
       }
     };
 
-    const fetchOpeningHours = async () => {
+    const fetchFounders = async () => {
       try {
-        const res = await fetch(apiUrl('/api/openingHours'));
+        const res = await fetch(apiUrl('/api/founders'));
         const result = await res.json();
         if (result.success && result.data) {
-          setOpeningHours(result.data);
+          setFounders(result.data);
         }
       } catch (err) {
-        console.error('Failed to fetch opening hours:', err);
+        console.error('Failed to fetch founders:', err);
       }
     };
 
     fetchAbout();
     fetchGallery();
-    fetchOpeningHours();
+    fetchFounders();
   }, []);
 
   let displayGalleryImages = [...galleryImages];
@@ -110,7 +110,7 @@ export default function DarkAbout() {
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, [aboutData, galleryImages, openingHours]);
+  }, [aboutData, galleryImages, founders]);
 
   return (
     <div className="elegencia-dark-theme">
@@ -182,98 +182,54 @@ export default function DarkAbout() {
         </div>
       </section>
 
-      {/* Section 2: Testimonials & Client Endorsement */}
-      <section id="testimonials" className="ak-testimonial-section ak-reveal-scale">
-        <div className="ak-height-150"></div>
-        <div className="container ak-testimonial-container" style={{ position: 'relative', border: '1px solid var(--ak-border-gold)', padding: '40px', borderRadius: '8px', background: 'rgba(10, 13, 14, 0.4)' }}>
-          {/* Left Decorative Quote Icon */}
-          <div className="testimonial-quote-icon">
-            <svg width="60" height="70" viewBox="0 0 60 70" fill="none">
-              <path d="M4 68L9 58C23 52 30 38 30 18V0H4V26H8C8 40 2 50 4 68ZM38 68L43 58C57 52 64 38 64 18V0H38V26H42C42 40 36 50 38 68Z" fill="#FFD28D" fillOpacity="0.25"/>
-            </svg>
-          </div>
-
-          <Swiper
-            modules={[Autoplay, Navigation]}
-            slidesPerView={1}
-            autoplay={{ delay: 3500, disableOnInteraction: false }}
-            navigation={{ nextEl: '.about-testi-next', prevEl: '.about-testi-prev' }}
-            loop={true}
-          >
-            {darkTestimonials.map((testi, idx) => (
-              <SwiperSlide key={idx}>
-                <div className="ak-reveal-fade in-view">
-                  <img
-                    src={testi.img}
-                    className="testimonial-info-img"
-                    alt={testi.name}
-                  />
-                  <h6 className="testimonial-info-title">{testi.name}</h6>
-                  <p className="short-title">{testi.role}</p>
-                  <p className="testimonial-info-subtitle">{testi.quote}</p>
+      {/* Section 2: Meet Our Founders */}
+      {founders && founders.length > 0 && (
+        <section className="ak-founders-section ak-reveal-scale">
+          <div className="ak-height-150"></div>
+          <div className="container">
+            <div className="ak-section-heading" style={{ textAlign: 'center' }}>
+              <div className="ak-section-subtitle">OUR LEADERSHIP</div>
+              <h2 className="ak-section-title">Meet Our Founders</h2>
+              <img src="/images/patterns/lotus-divider.svg" alt="Lotus Divider" className="ak-lotus-divider" style={{ marginTop: '14px', width: '60px', opacity: 0.6, margin: '14px auto 0' }} />
+            </div>
+            <div className="ak-height-50"></div>
+            
+            <div className="founders-list">
+              {founders.map((founder, index) => (
+                <div key={founder.id || index} className={`founder-card ${index % 2 !== 0 ? 'row-reverse' : ''}`}>
+                  <div className="founder-image-col ak-reveal-left">
+                    <div className="founder-image-wrapper">
+                      <img 
+                        src={founder.image_url ? imageUrl(founder.image_url) : "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80"} 
+                        alt={founder.name} 
+                        className="founder-img"
+                      />
+                      {founder.image_quote && (
+                        <div className="founder-quote-overlay">
+                          <p>"{founder.image_quote}"</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="founder-content-col ak-reveal-right">
+                    <h3 className="founder-name">{founder.name}</h3>
+                    <div className="founder-designation">{founder.designation}</div>
+                    <div className="founder-description">
+                      <p style={{ whiteSpace: 'pre-wrap', color: 'var(--ak-text-muted)' }}>{founder.description}</p>
+                    </div>
+                    {founder.contact_info && (
+                      <div className="founder-contact">
+                        <span className="contact-icon" style={{ color: 'var(--ak-gold)', marginRight: '8px' }}>📞</span>
+                        <a href={`tel:${founder.contact_info}`} style={{ color: 'var(--ak-text-white)' }}>{founder.contact_info}</a>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-
-          {/* Right Decorative Quote Icon */}
-          <div className="testimonial-quote-icon" style={{ position: 'absolute', right: 0, top: '40px' }}>
-            <svg width="60" height="70" viewBox="0 0 60 70" fill="none">
-              <path d="M4 68L9 58C23 52 30 38 30 18V0H4V26H8C8 40 2 50 4 68ZM38 68L43 58C57 52 64 38 64 18V0H38V26H42C42 40 36 50 38 68Z" fill="#FFD28D" fillOpacity="0.25"/>
-            </svg>
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 16, marginTop: 30 }}>
-          <button
-            className="hero-swiper-btn about-testi-prev"
-            style={{ width: 48, height: 48 }}
-            aria-label="Previous Testimonial"
-          >
-            <ChevronLeft size={20} />
-          </button>
-          <button
-            className="hero-swiper-btn about-testi-next"
-            style={{ width: 48, height: 48 }}
-            aria-label="Next Testimonial"
-          >
-            <ChevronRight size={20} />
-          </button>
-        </div>
-      </section>
-
-      {/* Section 3: Opening Hours Split Layout */}
-      <div className="ak-height-150"></div>
-      <div className="ak-bg-secendary ak-opening-fullbleed ak-reveal-fade">
-        <div className="opening-hour-grid">
-          <div className="opening-hour-img-section ak-reveal-left">
-            <img
-              src={openingHours?.image_url ? (openingHours.image_url.startsWith('http') ? openingHours.image_url : imageUrl(openingHours.image_url)) : "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=85"}
-              alt={openingHours?.title || "Opening Hours Table Ambiance"}
-            />
-          </div>
-
-          <div className="opening-hour-text-section ak-reveal-right">
-            <div className="ak-section-heading">
-              <h2 className="ak-section-title">{openingHours?.title || "Opening Hours"}</h2>
-            </div>
-            <div className="ak-height-30"></div>
-            <p className="opening-hour-subtext">
-              {openingHours?.description || "Experience the tranquility and warmth of traditional Indian wellness hospitality throughout our open hours."}
-            </p>
-            <div className="ak-height-30"></div>
-            <div className="opening-hour-date">
-              <p>{openingHours?.hours_1 || "SUNDAY - THURSDAY: 11:30AM - 11PM"}</p>
-              {openingHours?.hours_2 && (
-                <>
-                  <div className="opening-hour-hr"></div>
-                  <p>{openingHours.hours_2}</p>
-                </>
-              )}
+              ))}
             </div>
           </div>
-        </div>
-      </div>
+        </section>
+      )}
 
       <div className="ak-height-150"></div>
 
