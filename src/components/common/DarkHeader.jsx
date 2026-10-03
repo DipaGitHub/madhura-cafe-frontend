@@ -55,8 +55,18 @@ export default function DarkHeader() {
             </ul>
           </nav>
 
+          {/* Explore Menu Button (Desktop) */}
+          <div className="header-explore-btn-container hidden md:block" style={{ marginLeft: '20px' }}>
+            <Link to="/menu" className="premium-btn" style={{ padding: '8px 16px', fontSize: '0.8rem' }}>
+              Explore Menu
+            </Link>
+          </div>
+
           {/* Mobile Toggle Button */}
           <div className="nav-toggles">
+            <Link to="/menu" className="premium-btn explore-menu-mobile" style={{ padding: '6px 12px', fontSize: '0.7rem', marginRight: '10px' }}>
+              Menu
+            </Link>
             <button
               className="dark-mobile-toggle-btn"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

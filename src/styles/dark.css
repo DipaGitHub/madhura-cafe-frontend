@@ -3050,3 +3050,15 @@
   color: var(--ak-text-white);
 }
 
+
+@media (max-width: 991px) {
+  .header-explore-btn-container {
+    display: none !important;
+  }
+}
+@media (min-width: 992px) {
+  .explore-menu-mobile {
+    display: none !important;
+  }
+}
+

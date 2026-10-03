@@ -493,14 +493,6 @@ export default function DarkHome() {
               <p className="hero-slide-subtitle">{slide.subtitle}</p>
               <h1 className="hero-slide-main-title">{slide.title}</h1>
               <p className="hero-slide-description">{slide.text}</p>
-              <div className="hero-slide-buttons">
-                <a href="#menu" className="hero-btn-gold-solid">
-                  {slide.btn1}
-                </a>
-                <a href="#contact" className="hero-btn-outline">
-                  {slide.btn2}
-                </a>
-              </div>
             </div>
           ))}
 
