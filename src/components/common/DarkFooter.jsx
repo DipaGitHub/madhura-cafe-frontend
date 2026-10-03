@@ -46,14 +46,14 @@ export default function DarkFooter() {
   return (
     <footer id="contact" className="ak-footer ak-footer-redesign">
       <div className="ak-footer-texture-bg"></div>
-      
+
       {/* Top Decorator */}
       <div className="ak-footer-top-decorator ak-reveal-fade">
         <img src="/images/patterns/lotus-divider.svg" alt="Lotus" style={{ width: '120px', margin: '0 auto', display: 'block', opacity: 0.7 }} />
       </div>
 
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-        
+
         {/* Scroll To Top Crest */}
         <div className="footer-top-crest ak-reveal" style={{ marginTop: '30px', marginBottom: '60px' }}>
           <button
@@ -81,12 +81,13 @@ export default function DarkFooter() {
 
         {/* 3-Column Footer Main */}
         <div className="ak-footer-grid">
-          
+
           {/* Column 1: About & Social */}
           <div className="ak-footer-col ak-reveal delay-1">
             <h4 className="ak-footer-heading">Our Philosophy</h4>
             <p className="ak-footer-text">
-              Rooted in ancient Ayurvedic traditions, Madhura's Cafe brings you therapeutic recipes, sattvic ingredients, and a serene ambiance to restore your mind, body, and spirit.
+              Madhura’s Cafe is created to celebrate that heritage.
+              We explore the flavours that belong to India — from traditional beverages and regional recipes to indigenous ingredients, forgotten food traditions and distinctive culinary practices from across the country.
             </p>
             <div className="ak-footer-socials">
               <a href="#whatsapp" aria-label="WhatsApp">

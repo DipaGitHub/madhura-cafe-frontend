@@ -151,9 +151,11 @@ export default function DarkAbout() {
             <img src="/images/patterns/lotus-divider.svg" alt="Lotus" style={{ width: '80px', marginBottom: '20px' }} />
             
             {aboutData ? (
-              <p className="about-subtext" style={{ color: 'var(--ak-text-muted)', whiteSpace: 'pre-wrap' }}>
-                {aboutData.description}
-              </p>
+              <div 
+                className="about-subtext" 
+                style={{ color: 'var(--ak-text-muted)' }}
+                dangerouslySetInnerHTML={{ __html: aboutData.description }}
+              />
             ) : (
               <>
                 <p className="about-subtext" style={{ color: 'var(--ak-text-muted)' }}>
@@ -214,9 +216,11 @@ export default function DarkAbout() {
                   <div className="founder-content-col ak-reveal-right">
                     <h3 className="founder-name">{founder.name}</h3>
                     <div className="founder-designation">{founder.designation}</div>
-                    <div className="founder-description">
-                      <p style={{ whiteSpace: 'pre-wrap', color: 'var(--ak-text-muted)' }}>{founder.description}</p>
-                    </div>
+                      <div 
+                        className="founder-description-html" 
+                        style={{ color: 'var(--ak-text-muted)' }}
+                        dangerouslySetInnerHTML={{ __html: founder.description }} 
+                      />
                     {founder.contact_info && (
                       <div className="founder-contact">
                         <span className="contact-icon" style={{ color: 'var(--ak-gold)', marginRight: '8px' }}>📞</span>

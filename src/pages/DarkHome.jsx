@@ -556,9 +556,11 @@ export default function DarkHome() {
             <img src="/images/patterns/lotus-divider.svg" alt="Lotus" style={{ width: '80px', marginBottom: '20px' }} />
             
             {aboutData ? (
-              <p className="about-subtext" style={{ color: 'var(--ak-text-muted)', whiteSpace: 'pre-wrap' }}>
-                {aboutData.description}
-              </p>
+              <div 
+                className="about-subtext" 
+                style={{ color: 'var(--ak-text-muted)' }}
+                dangerouslySetInnerHTML={{ __html: aboutData.short_description || aboutData.description }}
+              />
             ) : (
               <>
                 <p className="about-subtext" style={{ color: 'var(--ak-text-muted)' }}>
