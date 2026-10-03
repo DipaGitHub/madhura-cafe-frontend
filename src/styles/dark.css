@@ -3026,3 +3026,27 @@
   margin-bottom: 0.5em;
 }
 
+
+.html-description p {
+  margin-bottom: 1em;
+}
+.html-description ul {
+  list-style-type: disc;
+  margin-left: 1.5em;
+  margin-bottom: 1em;
+}
+.html-description ol {
+  list-style-type: decimal;
+  margin-left: 1.5em;
+  margin-bottom: 1em;
+}
+.html-description h3 {
+  color: var(--ak-text-white);
+  font-size: 1.2rem;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+.html-description strong {
+  color: var(--ak-text-white);
+}
+

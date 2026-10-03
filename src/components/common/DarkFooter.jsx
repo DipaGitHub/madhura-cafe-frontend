@@ -114,8 +114,8 @@ export default function DarkFooter() {
             <ul className="ak-footer-links">
               <li><Link to="/">Home</Link></li>
               <li><Link to="/about">Our Story</Link></li>
-              <li><Link to="/menu">Ayurvedic Menu</Link></li>
-              <li><Link to="/blog">Wellness Journal</Link></li>
+              <li><Link to="/menu">Menu</Link></li>
+              <li><Link to="/blog">Blogs</Link></li>
               <li><Link to="/contact">Contact Us</Link></li>
             </ul>
           </div>

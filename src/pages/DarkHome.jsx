@@ -184,7 +184,7 @@ const MenuRow = ({ item, idx }) => {
           </div>
         </div>
         <div className="food-menu-section-2">
-          <div><p>{item.sub}</p></div>
+          <div dangerouslySetInnerHTML={{ __html: item.sub }} className="html-description" />
           <div className="food-menu-extra-badge"><p>{item.extra}</p></div>
         </div>
       </div>

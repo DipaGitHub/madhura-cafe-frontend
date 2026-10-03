@@ -77,7 +77,7 @@ const MenuRow = ({ item, idx }) => {
           </div>
         </div>
         <div className="food-menu-section-2">
-          <div><p>{item.description}</p></div>
+          <div dangerouslySetInnerHTML={{ __html: item.description }} className="html-description" />
           <div className="food-menu-extra-badge"><p>{item.badge}</p></div>
         </div>
       </div>

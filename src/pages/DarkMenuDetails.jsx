@@ -194,15 +194,19 @@ export default function DarkMenuDetails() {
             )}
 
             {/* Short Description */}
-            <p className="ak-reveal delay-2" style={{ fontSize: '1.05rem', color: 'var(--ak-text-muted)', marginBottom: '24px', lineHeight: 1.8 }}>
-              {item.short_description}
-            </p>
+            <div 
+              className="ak-reveal delay-2 html-description" 
+              style={{ fontSize: '1.05rem', color: 'var(--ak-text-muted)', marginBottom: '24px', lineHeight: 1.8 }}
+              dangerouslySetInnerHTML={{ __html: item.short_description }}
+            />
 
             {/* Long Description */}
             {item.long_description && (
-              <p className="ak-reveal delay-3" style={{ fontSize: '1.05rem', color: 'var(--ak-text-muted)', marginBottom: '36px', lineHeight: 1.8 }}>
-                {item.long_description}
-              </p>
+              <div 
+                className="ak-reveal delay-3 html-description" 
+                style={{ fontSize: '1.05rem', color: 'var(--ak-text-muted)', marginBottom: '36px', lineHeight: 1.8 }}
+                dangerouslySetInnerHTML={{ __html: item.long_description }}
+              />
             )}
 
             {/* Ingredients */}
