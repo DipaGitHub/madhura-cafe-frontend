@@ -3062,3 +3062,58 @@
   }
 }
 
+
+/* Sticky Category Tabs */
+.sticky-category-tabs-container {
+  position: sticky;
+  top: 75px;
+  z-index: 99;
+  background-color: rgba(10, 13, 14, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--ak-border-gold);
+  border-top: 1px solid var(--ak-border-gold);
+  padding: 10px 0;
+}
+
+.sticky-category-tabs-scroll {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 12px;
+  padding: 0 20px;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.sticky-category-tabs-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+.category-tab-btn {
+  background: transparent;
+  color: var(--ak-text-muted);
+  border: 1px solid rgba(255, 210, 141, 0.35);
+  padding: 8px 24px;
+  border-radius: 4px;
+  font-family: var(--ak-font-sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.category-tab-btn:hover {
+  background: rgba(255, 210, 141, 0.1);
+  color: var(--ak-gold);
+  border-color: var(--ak-gold);
+}
+
+@media (max-width: 991px) {
+  .sticky-category-tabs-container {
+    top: 60px; /* Adjust for mobile header height if necessary */
+  }
+}
+

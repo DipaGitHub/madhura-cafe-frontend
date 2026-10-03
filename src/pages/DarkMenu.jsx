@@ -192,6 +192,30 @@ export default function DarkMenu() {
         </div>
       </section>
 
+      {/* Sticky Category Tabs */}
+      {!isLoading && menuData.length > 0 && (
+        <div className="sticky-category-tabs-container">
+          <div className="sticky-category-tabs-scroll">
+            {menuData.map(category => (
+              <button
+                key={`tab-${category.id}`}
+                className="category-tab-btn"
+                onClick={() => {
+                  const element = document.getElementById(category.id.toString());
+                  if (element) {
+                    // Offset for header + sticky tabs
+                    const y = element.getBoundingClientRect().top + window.scrollY - 140;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                  }
+                }}
+              >
+                {category.title}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Categories with Parallax */}
       {isLoading ? (
         <div className="container" style={{ padding: '100px 0', textAlign: 'center' }}>
