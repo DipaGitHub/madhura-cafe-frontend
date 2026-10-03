@@ -90,6 +90,34 @@ export default function DarkMenu() {
   const [menuData, setMenuData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Drag-to-scroll state for categories
+  const scrollRef = useRef(null);
+  const [isDown, setIsDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const onMouseDown = (e) => {
+    setIsDown(true);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
+
+  const onMouseLeave = () => {
+    setIsDown(false);
+  };
+
+  const onMouseUp = () => {
+    setIsDown(false);
+  };
+
+  const onMouseMove = (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 2; // Scroll-fast
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
+
   // Smooth Scroll Listener
   useEffect(() => {
     let ticking = false;
@@ -195,7 +223,14 @@ export default function DarkMenu() {
       {/* Sticky Category Tabs */}
       {!isLoading && menuData.length > 0 && (
         <div className="sticky-category-tabs-container">
-          <div className="sticky-category-tabs-scroll">
+          <div 
+            className={`sticky-category-tabs-scroll ${isDown ? 'active' : ''}`}
+            ref={scrollRef}
+            onMouseDown={onMouseDown}
+            onMouseLeave={onMouseLeave}
+            onMouseUp={onMouseUp}
+            onMouseMove={onMouseMove}
+          >
             {menuData.map(category => (
               <button
                 key={`tab-${category.id}`}

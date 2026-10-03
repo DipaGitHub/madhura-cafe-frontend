@@ -3116,3 +3116,11 @@
   }
 }
 
+
+.sticky-category-tabs-scroll {
+  cursor: grab;
+}
+.sticky-category-tabs-scroll.active {
+  cursor: grabbing;
+}
+
