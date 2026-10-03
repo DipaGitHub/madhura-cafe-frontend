@@ -152,7 +152,7 @@ export default function DarkAbout() {
 
             {aboutData ? (
               <div
-                className="about-subtext"
+                className="about-subtext html-description"
                 style={{ color: 'var(--ak-text-muted)' }}
                 dangerouslySetInnerHTML={{ __html: aboutData.description }}
               />

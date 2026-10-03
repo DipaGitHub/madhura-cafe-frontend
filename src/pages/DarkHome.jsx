@@ -549,7 +549,7 @@ export default function DarkHome() {
 
             {aboutData ? (
               <div
-                className="about-subtext"
+                className="about-subtext html-description"
                 style={{ color: 'var(--ak-text-muted)' }}
                 dangerouslySetInnerHTML={{ __html: aboutData.short_description || aboutData.description }}
               />
@@ -623,7 +623,7 @@ export default function DarkHome() {
           <div className="ak-height-50"></div>
           <div style={{ textAlign: 'center' }}>
             <div className="text-btn">
-              <Link className="text-btn1" to="/menu">Explore Full Ayurvedic Menu</Link>
+              <Link className="text-btn1" to="/menu">Explore Our Menu</Link>
             </div>
           </div>
         </div>

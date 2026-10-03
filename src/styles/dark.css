@@ -3162,3 +3162,8 @@
   cursor: grabbing;
 }
 
+/* Ensure rich text editor content matches dark theme text color */
+.html-description * { 
+  color: var(--ak-text-muted) !important; 
+  background-color: transparent !important; 
+}
