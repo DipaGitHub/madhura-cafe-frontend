@@ -1,10 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { X, Menu as MenuIcon } from 'lucide-react';
+import { apiUrl, imageUrl } from '../../config/api';
 
 export default function DarkHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [menuPdfUrl, setMenuPdfUrl] = useState(null);
   const location = useLocation();
+
+  useEffect(() => {
+    const fetchPdf = async () => {
+      try {
+        const res = await fetch(apiUrl('/api/aboutUs'));
+        const json = await res.json();
+        if (json.success && json.data && json.data.menu_pdf_url) {
+          setMenuPdfUrl(imageUrl(json.data.menu_pdf_url));
+        }
+      } catch (e) {
+        console.error('Failed to fetch menu pdf:', e);
+      }
+    };
+    fetchPdf();
+  }, []);
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -57,16 +74,28 @@ export default function DarkHeader() {
 
           {/* Explore Menu Button (Desktop) */}
           <div className="header-explore-btn-container hidden md:block" style={{ marginLeft: '20px' }}>
-            <Link to="/menu" className="premium-btn" style={{ padding: '8px 16px', fontSize: '0.8rem' }}>
-              Explore Menu
-            </Link>
+            {menuPdfUrl ? (
+              <a href={menuPdfUrl} target="_blank" rel="noopener noreferrer" className="premium-btn" style={{ padding: '8px 16px', fontSize: '0.8rem' }}>
+                Explore Menu
+              </a>
+            ) : (
+              <Link to="/menu" className="premium-btn" style={{ padding: '8px 16px', fontSize: '0.8rem' }}>
+                Explore Menu
+              </Link>
+            )}
           </div>
 
           {/* Mobile Toggle Button */}
           <div className="nav-toggles">
-            <Link to="/menu" className="premium-btn explore-menu-mobile" style={{ padding: '6px 12px', fontSize: '0.7rem', marginRight: '10px' }}>
-              Menu
-            </Link>
+            {menuPdfUrl ? (
+              <a href={menuPdfUrl} target="_blank" rel="noopener noreferrer" className="premium-btn explore-menu-mobile" style={{ padding: '6px 12px', fontSize: '0.7rem', marginRight: '10px' }}>
+                Menu
+              </a>
+            ) : (
+              <Link to="/menu" className="premium-btn explore-menu-mobile" style={{ padding: '6px 12px', fontSize: '0.7rem', marginRight: '10px' }}>
+                Menu
+              </Link>
+            )}
             <button
               className="dark-mobile-toggle-btn"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
