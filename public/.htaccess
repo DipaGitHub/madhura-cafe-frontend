@@ -10,6 +10,10 @@
     RewriteEngine On
     RewriteBase /
 
+    # Never rewrite requests to /backend (allows API & backend routes to pass through)
+    RewriteCond %{REQUEST_URI} ^/backend [NC]
+    RewriteRule ^ - [L]
+
     # Never rewrite existing files or directories
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d

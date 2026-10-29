@@ -5,6 +5,7 @@ import DarkFooter from '../components/common/DarkFooter';
 import { Search, CheckCircle2, Loader2, ArrowLeft, ArrowRight } from 'lucide-react';
 import '../styles/dark.css';
 import { apiUrl, imageUrl } from '../config/api';
+import usePageBanner from '../hooks/usePageBanner';
 
 const getImageUrl = (url) => {
   if (!url) return '';
@@ -34,12 +35,29 @@ const SidebarItemCard = ({ item }) => (
 export default function DarkMenuDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { bannerUrl } = usePageBanner('Menu');
 
   const [item, setItem] = useState(null);
   const [categoryItems, setCategoryItems] = useState([]);
   const [popularItems, setPopularItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [menuPdfUrl, setMenuPdfUrl] = useState(null);
+
+  useEffect(() => {
+    const fetchPdf = async () => {
+      try {
+        const res = await fetch(apiUrl('/api/aboutUs'));
+        const json = await res.json();
+        if (json.success && json.data && json.data.menu_pdf_url) {
+          setMenuPdfUrl(imageUrl(json.data.menu_pdf_url));
+        }
+      } catch (e) {
+        console.error('Failed to fetch menu pdf:', e);
+      }
+    };
+    fetchPdf();
+  }, []);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -138,7 +156,7 @@ export default function DarkMenuDetails() {
       <DarkHeader />
 
       {/* Hero Banner */}
-      <section className="about-hero-banner">
+      <section className="about-hero-banner" style={{ backgroundImage: bannerUrl ? `url("${bannerUrl}")` : "none" }}>
         <div className="about-hero-overlay"></div>
         <div className="container" style={{ position: 'relative', zIndex: 3 }}>
           <div className="about-hero-breadcrumb ak-reveal-fade">
@@ -230,7 +248,21 @@ export default function DarkMenuDetails() {
 
             {/* CTA */}
             <div className="ak-reveal delay-2" style={{ display: 'flex', gap: '18px', flexWrap: 'wrap' }}>
-              <Link to="/contact#contact-form" className="premium-btn">ORDER AT TABLE</Link>
+              {menuPdfUrl ? (
+                <a
+                  href={menuPdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                  className="premium-btn"
+                >
+                  DOWNLOAD BROCHURE
+                </a>
+              ) : (
+                <Link to="/menu" className="premium-btn">
+                  DOWNLOAD BROCHURE
+                </Link>
+              )}
               <Link to="/menu" className="premium-btn-outline">Back to Menu <ArrowRight size={18} /></Link>
             </div>
           </div>

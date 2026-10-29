@@ -194,6 +194,13 @@ const MenuRow = ({ item, idx }) => {
 
 let isFirstLoad = true;
 
+const getInitials = (name) => {
+  if (!name) return 'M';
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+};
+
 export default function DarkHome() {
   const [isAppLoading, setIsAppLoading] = useState(isFirstLoad);
   const [heroSlides, setHeroSlides] = useState(defaultHeroSlides);
@@ -284,10 +291,10 @@ export default function DarkHome() {
 
     const fetchHomeMenuItems = async () => {
       try {
-        const res = await fetch(apiUrl('/api/menus?popular=true'));
+        const res = await fetch(apiUrl('/api/menus?limit=10'));
         const result = await res.json();
         if (result.success && result.data && result.data.length > 0) {
-          const formatted = result.data.map(item => ({
+          const formatted = result.data.slice(0, 10).map(item => ({
             id: item.id,
             name: item.title,
             sub: item.short_description,
@@ -535,7 +542,11 @@ export default function DarkHome() {
             <div className="ak-section-heading">
               <div className="ak-section-subtitle">About Us</div>
               <h2 className="ak-section-title">
-                {aboutData ? aboutData.title : (
+                {aboutData?.home_title ? (
+                  aboutData.home_title
+                ) : aboutData?.title ? (
+                  aboutData.title
+                ) : (
                   <>
                     <span className="text-white">Our Ayurvedic</span>
                     <br />
@@ -586,8 +597,8 @@ export default function DarkHome() {
         <div className="ak-height-100"></div>
         <div className="container-fluid">
           <div className="ak-section-heading ak-type-1">
-            <div className="ak-section-subtitle">Vedic Healing & Wellness</div>
-            <h2 className="ak-section-title">Therapeutic Food Delicacies</h2>
+            <div className="ak-section-subtitle">A Taste of India, A Touch of Tradition</div>
+            <h2 className="ak-section-title">INDIA, FROM ITS ROOTS TO YOUR TABLE</h2>
           </div>
 
           <Premium3DCarousel items={displayShowcaseItems} />
@@ -710,18 +721,43 @@ export default function DarkHome() {
             slidesPerView={1}
             autoplay={{ delay: 3500, disableOnInteraction: false }}
             navigation={{ nextEl: '.testi-next', prevEl: '.testi-prev' }}
-            loop={true}
+            loop={testimonials.length > 1}
           >
             {testimonials.map((testi, idx) => (
               <SwiperSlide key={testi.id || idx}>
                 <div className="ak-reveal-fade in-view">
-                  {testi.image_url && (
+                  {testi.image_url ? (
                     <img
                       src={testi.image_url.startsWith('http') ? testi.image_url : imageUrl(testi.image_url)}
                       className="testimonial-info-img"
                       alt={testi.client_name}
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        const fallback = e.currentTarget.parentElement?.querySelector('.testimonial-initials-avatar');
+                        if (fallback) fallback.style.display = 'flex';
+                      }}
                     />
-                  )}
+                  ) : null}
+                  <div
+                    className="testimonial-initials-avatar"
+                    style={{
+                      display: testi.image_url ? 'none' : 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '70px',
+                      height: '70px',
+                      borderRadius: '50%',
+                      margin: '0 auto 16px',
+                      background: 'linear-gradient(135deg, rgba(255, 210, 141, 0.25), rgba(99, 57, 24, 0.7))',
+                      border: '2px solid var(--ak-gold)',
+                      color: 'var(--ak-gold)',
+                      fontSize: '1.4rem',
+                      fontWeight: 700,
+                      letterSpacing: '1px'
+                    }}
+                  >
+                    {getInitials(testi.client_name)}
+                  </div>
                   <h6 className="testimonial-info-title">{testi.client_name}</h6>
                   <p className="short-title">{testi.client_position || testi.client_company || 'Guest'}</p>
                   <p className="testimonial-info-subtitle">{testi.comment}</p>

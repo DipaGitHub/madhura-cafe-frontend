@@ -5,6 +5,7 @@ import DarkFooter from '../components/common/DarkFooter';
 import { Search, Calendar, User, MessageCircle, ArrowRight } from 'lucide-react';
 import '../styles/dark.css';
 import { apiUrl, imageUrl } from '../config/api';
+import usePageBanner from '../hooks/usePageBanner';
 
 const popularItems = [
   {
@@ -29,6 +30,7 @@ const popularItems = [
 
 export default function DarkBlogDetails() {
   const { id } = useParams();
+  const { bannerUrl } = usePageBanner('Blog');
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -94,7 +96,7 @@ export default function DarkBlogDetails() {
       <DarkHeader />
 
       {/* Hero Banner */}
-      <section className="about-hero-banner">
+      <section className="about-hero-banner" style={{ backgroundImage: bannerUrl ? `url("${bannerUrl}")` : "none" }}>
         <div className="about-hero-overlay"></div>
         <div className="container" style={{ position: 'relative', zIndex: 3 }}>
           <div className="about-hero-breadcrumb ak-reveal-fade">

@@ -6,6 +6,7 @@ import '../styles/dark.css';
 
 // Dynamic data fetched from API
 import { apiUrl, imageUrl } from '../config/api';
+import usePageBanner from '../hooks/usePageBanner';
 
 // Fallback parallax image if a category has no image set
 const FALLBACK_PARALLAX = '/images/parallax/indian_thali_main_1789822013314.jpg';
@@ -86,6 +87,7 @@ const MenuRow = ({ item, idx }) => {
 };
 
 export default function DarkMenu() {
+  const { bannerUrl } = usePageBanner('Menu');
   const [scrollY, setScrollY] = useState(0);
   const [menuData, setMenuData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -264,7 +266,7 @@ export default function DarkMenu() {
       <DarkHeader />
 
       {/* Page Title Banner */}
-      <section className="about-hero-banner">
+      <section className="about-hero-banner" style={{ backgroundImage: bannerUrl ? `url("${bannerUrl}")` : "none" }}>
         <div className="about-hero-overlay"></div>
         <div className="container" style={{ position: 'relative', zIndex: 3 }}>
           <div className="about-hero-breadcrumb">
@@ -340,11 +342,16 @@ export default function DarkMenu() {
           {/* Category Parallax Banner */}
           <div 
             className="ak-menu-category-parallax" 
-            style={{ backgroundImage: `url(${category.parallaxImg})` }}
+            style={{ backgroundImage: `url("${category.parallaxImg}")` }}
           >
             <div className="ak-menu-category-overlay"></div>
             <div className="ak-menu-category-content">
-              <div className="ak-menu-category-subtitle ak-reveal">{category.subtitle}</div>
+              {category.subtitle && category.subtitle.replace(/<[^>]*>/g, '').trim() ? (
+                <div
+                  className="ak-menu-category-subtitle ak-reveal"
+                  dangerouslySetInnerHTML={{ __html: category.subtitle }}
+                />
+              ) : null}
               <h2 className="ak-menu-category-title ak-reveal delay-1">{category.title}</h2>
               <img src={`${import.meta.env.BASE_URL}images/patterns/lotus-divider.svg`} alt="Lotus Divider" className="ak-lotus-divider ak-reveal delay-2" style={{ marginTop: '15px' }} />
             </div>

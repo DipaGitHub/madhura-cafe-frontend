@@ -1986,7 +1986,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-image: url('/banner-top-all.png');
+  background-color: #000; /* Fallback color */
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -1996,7 +1996,9 @@
 .about-hero-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(10, 13, 14, 0.45) 0%, rgba(10, 13, 14, 0.88) 100%);
+  background: radial-gradient(circle at center, rgba(10, 13, 14, 0.55) 0%, rgba(10, 13, 14, 0.92) 100%);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: 1;
 }
 

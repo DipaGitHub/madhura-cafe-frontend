@@ -8,6 +8,7 @@ import { Autoplay, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { apiUrl, imageUrl } from '../config/api';
+import usePageBanner from '../hooks/usePageBanner';
 import '../styles/dark.css';
 const darkTestimonials = [
   {
@@ -32,6 +33,7 @@ const darkTestimonials = [
 
 export default function DarkAbout() {
   const [aboutData, setAboutData] = useState(null);
+  const { bannerUrl } = usePageBanner('About Us');
 
   const [galleryImages, setGalleryImages] = useState([]);
   const [selectedGalleryImage, setSelectedGalleryImage] = useState(null);
@@ -118,7 +120,7 @@ export default function DarkAbout() {
       <DarkHeader />
 
       {/* Hero / Page Title Banner with Ambient Glass Table Background */}
-      <section className="about-hero-banner">
+      <section className="about-hero-banner" style={{ backgroundImage: bannerUrl ? `url("${bannerUrl}")` : "none" }}>
         <div className="about-hero-overlay"></div>
         <div className="container" style={{ position: 'relative', zIndex: 3 }}>
           <div className="about-hero-breadcrumb">
@@ -184,8 +186,8 @@ export default function DarkAbout() {
         </div>
       </section>
 
-      {/* Section 2: Meet Our Founders */}
-      {founders && founders.length > 0 && (
+      {/* Section 2: Meet Our Founders (Commented out for future use) */}
+      {/* {founders && founders.length > 0 && (
         <section className="ak-founders-section ak-reveal-scale">
           <div className="ak-height-150"></div>
           <div className="container">
@@ -233,12 +235,12 @@ export default function DarkAbout() {
             </div>
           </div>
         </section>
-      )}
+      )} */}
 
-      <div className="ak-height-150"></div>
+      {/* <div className="ak-height-150"></div> */}
 
-      {/* Dynamic Gallery Section (Slider) */}
-      {displayGalleryImages.length > 0 && (
+      {/* Dynamic Gallery Section (Slider) (Commented out for future use) */}
+      {/* {displayGalleryImages.length > 0 && (
         <section className="ak-gallery-section">
           <div className="container">
             <div className="ak-gallery-heading-wrap ak-reveal">
@@ -299,7 +301,7 @@ export default function DarkAbout() {
             </Swiper>
           </div>
         </section>
-      )}
+      )} */}
 
       <div className="ak-height-100"></div>
 

@@ -5,8 +5,10 @@ import DarkFooter from '../components/common/DarkFooter';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import '../styles/dark.css';
 import { apiUrl } from '../config/api';
+import usePageBanner from '../hooks/usePageBanner';
 
 export default function DarkContact() {
+  const { bannerUrl } = usePageBanner('Contact Us');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,6 +19,8 @@ export default function DarkContact() {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
   const [contactInfo, setContactInfo] = useState(null);
 
   React.useEffect(() => {
@@ -38,9 +42,34 @@ export default function DarkContact() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setErrorMsg(null);
+    try {
+      const res = await fetch(apiUrl('/api/inquiries'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSubmitted(true);
+        setFormData({ name: '', email: '', phone: '', guests: '2', date: '2026-10-20', time: '19:00', message: '' });
+      } else {
+        setErrorMsg(data.message || 'Failed to send message. Please try again.');
+      }
+    } catch (err) {
+      console.error('Inquiry error:', err);
+      setErrorMsg('Failed to connect to server. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -48,7 +77,7 @@ export default function DarkContact() {
       <DarkHeader />
 
       {/* Hero Banner */}
-      <section className="about-hero-banner">
+      <section className="about-hero-banner" style={{ backgroundImage: bannerUrl ? `url("${bannerUrl}")` : "none" }}>
         <div className="about-hero-overlay"></div>
         <div className="container" style={{ position: 'relative', zIndex: 3 }}>
           <div className="about-hero-breadcrumb">
@@ -169,13 +198,21 @@ export default function DarkContact() {
                   required
                   placeholder="How can we help you?"
                   rows="4"
+                  value={formData.message}
+                  onChange={handleChange}
                   style={{ width: '100%', padding: '12px 16px', background: '#13181A', border: '1px solid rgba(255,210,141,0.2)', color: '#FFFFFF', borderRadius: '2px', resize: 'vertical' }}
                 ></textarea>
               </div>
 
+              {errorMsg && (
+                <div style={{ gridColumn: '1 / -1', color: '#ff6b6b', background: 'rgba(255, 107, 107, 0.1)', padding: '10px 16px', borderRadius: '4px', textAlign: 'center', fontSize: '0.9rem' }}>
+                  {errorMsg}
+                </div>
+              )}
+
               <div style={{ gridColumn: '1 / -1', textAlign: 'center', marginTop: '16px' }}>
-                <button type="submit" className="ak-btn style-5 color-yellow-bg">
-                  Send Message
+                <button type="submit" disabled={loading} className="ak-btn style-5 color-yellow-bg" style={{ opacity: loading ? 0.7 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}>
+                  {loading ? 'Sending Message...' : 'Send Message'}
                 </button>
               </div>
             </form>

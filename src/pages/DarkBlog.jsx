@@ -4,10 +4,12 @@ import DarkHeader from '../components/common/DarkHeader';
 import DarkFooter from '../components/common/DarkFooter';
 import '../styles/dark.css';
 import { apiUrl, imageUrl } from '../config/api';
+import usePageBanner from '../hooks/usePageBanner';
 
 export default function DarkBlog() {
   const [blogPosts, setBlogPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { bannerUrl } = usePageBanner('Blog');
 
   useEffect(() => {
     fetch(apiUrl('/api/blogs'))
@@ -47,7 +49,7 @@ export default function DarkBlog() {
       <DarkHeader />
 
       {/* Hero Banner */}
-      <section className="about-hero-banner">
+      <section className="about-hero-banner" style={{ backgroundImage: bannerUrl ? `url("${bannerUrl}")` : "none" }}>
         <div className="about-hero-overlay"></div>
         <div className="container" style={{ position: 'relative', zIndex: 3 }}>
           <div className="about-hero-breadcrumb">
