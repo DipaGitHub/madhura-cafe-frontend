@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { X, Menu as MenuIcon } from 'lucide-react';
+import { X, Menu as MenuIcon, ChevronDown } from 'lucide-react';
 import { apiUrl, imageUrl } from '../../config/api';
 
 export default function DarkHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const [menuPdfUrl, setMenuPdfUrl] = useState(null);
   const location = useLocation();
 
@@ -56,18 +58,59 @@ export default function DarkHeader() {
           <nav className="header-desktop-nav">
             <ul className="ak-nav_list">
               {navLinks.map((link, idx) => (
-                <li
-                  key={link.name}
-                  className="animate-slide-right-item"
-                  style={{ animationDelay: `${0.15 + idx * 0.08}s` }}
-                >
-                  <Link
-                    to={link.path}
-                    className={isActive(link.path) ? 'active' : ''}
+                link.name === 'About' ? (
+                  <li
+                    key={link.name}
+                    className="animate-slide-right-item dark-nav-has-dropdown"
+                    style={{ animationDelay: `${0.15 + idx * 0.08}s` }}
+                    onMouseEnter={() => setAboutDropdownOpen(true)}
+                    onMouseLeave={() => setAboutDropdownOpen(false)}
                   >
-                    {link.name}
-                  </Link>
-                </li>
+                    <div className="dark-nav-dropdown-trigger">
+                      <Link
+                        to={link.path}
+                        className={isActive(link.path) ? 'active' : ''}
+                      >
+                        {link.name}
+                      </Link>
+                      <ChevronDown size={14} className={`dark-nav-chevron ${aboutDropdownOpen ? 'open' : ''}`} />
+                    </div>
+
+                    <ul className={`dark-nav-dropdown-menu ${aboutDropdownOpen ? 'show' : ''}`}>
+                      <li>
+                        <Link
+                          to="/about"
+                          className={location.pathname === '/about' ? 'active' : ''}
+                          onClick={() => setAboutDropdownOpen(false)}
+                        >
+                          About Us
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/about/water-of-india"
+                          className={location.pathname === '/about/water-of-india' ? 'active' : ''}
+                          onClick={() => setAboutDropdownOpen(false)}
+                        >
+                          Water of India
+                        </Link>
+                      </li>
+                    </ul>
+                  </li>
+                ) : (
+                  <li
+                    key={link.name}
+                    className="animate-slide-right-item"
+                    style={{ animationDelay: `${0.15 + idx * 0.08}s` }}
+                  >
+                    <Link
+                      to={link.path}
+                      className={isActive(link.path) ? 'active' : ''}
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                )
               ))}
             </ul>
           </nav>
@@ -112,15 +155,54 @@ export default function DarkHeader() {
         <div className="dark-mobile-drawer">
           <ul className="dark-mobile-nav-list">
             {navLinks.map((link) => (
-              <li key={link.name}>
-                <Link
-                  to={link.path}
-                  className={isActive(link.path) ? 'active' : ''}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </Link>
-              </li>
+              link.name === 'About' ? (
+                <li key={link.name} className="dark-mobile-dropdown-item">
+                  <div
+                    className="dark-mobile-dropdown-header"
+                    onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
+                  >
+                    <span className={isActive(link.path) ? 'active' : ''}>
+                      {link.name}
+                    </span>
+                    <ChevronDown
+                      size={18}
+                      className={`dark-mobile-chevron ${mobileAboutOpen ? 'rotate' : ''}`}
+                    />
+                  </div>
+                  {mobileAboutOpen && (
+                    <ul className="dark-mobile-subnav-list">
+                      <li>
+                        <Link
+                          to="/about"
+                          className={location.pathname === '/about' ? 'active' : ''}
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          About Us
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/about/water-of-india"
+                          className={location.pathname === '/about/water-of-india' ? 'active' : ''}
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          Water of India
+                        </Link>
+                      </li>
+                    </ul>
+                  )}
+                </li>
+              ) : (
+                <li key={link.name}>
+                  <Link
+                    to={link.path}
+                    className={isActive(link.path) ? 'active' : ''}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              )
             ))}
           </ul>
         </div>

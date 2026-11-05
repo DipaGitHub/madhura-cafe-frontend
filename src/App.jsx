@@ -4,6 +4,7 @@ import LightHome from './pages/LightHome';
 import LightAbout from './pages/LightAbout';
 import DarkHome from './pages/DarkHome';
 import DarkAbout from './pages/DarkAbout';
+import WaterOfIndia from './pages/WaterOfIndia';
 import DarkMenu from './pages/DarkMenu';
 import DarkMenuDetails from './pages/DarkMenuDetails';
 import DarkBlog from './pages/DarkBlog';
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/" element={<DarkHome />} />
         <Route path="/home" element={<Navigate to="/" replace />} />
         <Route path="/about" element={<DarkAbout />} />
+        <Route path="/about/water-of-india" element={<WaterOfIndia />} />
         <Route path="/menu" element={<DarkMenu />} />
         <Route path="/menu-details" element={<DarkMenuDetails />} />
         <Route path="/menu-details/:id" element={<DarkMenuDetails />} />

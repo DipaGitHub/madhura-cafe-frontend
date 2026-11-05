@@ -1,0 +1,471 @@
+/* ========================================================
+   WATER OF INDIA - BRAND STORY PAGE STYLES
+   Scoped strictly under .woi-page-wrapper
+   ======================================================== */
+
+.woi-page-wrapper {
+  background-color: #0E0C0B;
+  color: #E6E1DA;
+  font-family: var(--ak-font-sans, 'Plus Jakarta Sans', sans-serif);
+  line-height: 1.8;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Typography Helpers */
+.woi-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.woi-section-label {
+  display: inline-block;
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #DFBE86;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.woi-section-label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1.35rem;
+  height: 1px;
+  background: #DFBE86;
+  transform: translateY(-50%);
+}
+
+.woi-center-label {
+  padding-left: 0;
+}
+
+.woi-center-label::before {
+  display: none;
+}
+
+.woi-heading-large {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 3.8vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1.25;
+  color: #FBF8F3;
+  margin-bottom: 2rem;
+}
+
+.woi-body-text {
+  font-size: 1.05rem;
+  color: #CCC4B8;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+  line-height: 1.85;
+}
+
+.woi-closing-accent {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 1.25rem;
+  color: #DFBE86;
+  margin-top: 2rem;
+  display: block;
+}
+
+/* Image Frames */
+.woi-image-frame {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65);
+}
+
+.woi-image-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(223, 190, 134, 0.25);
+  pointer-events: none;
+  border-radius: 4px;
+  transition: border-color 0.4s ease;
+}
+
+.woi-image-frame:hover::after {
+  border-color: rgba(223, 190, 134, 0.55);
+}
+
+.woi-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.woi-parallax-img-wrap {
+  overflow: hidden;
+}
+
+.woi-parallax-img-wrap img {
+  will-change: transform;
+}
+
+/* --------------------------------------------------------
+   SECTION 1: HERO BANNER
+   -------------------------------------------------------- */
+.woi-hero-section {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0E0C0B;
+  overflow: hidden;
+  padding: 120px 24px 80px;
+}
+
+.woi-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: brightness(0.68) contrast(1.05);
+  transform: scale(1.02);
+}
+
+.woi-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(14, 12, 11, 0.35) 0%, rgba(14, 12, 11, 0.88) 85%);
+  pointer-events: none;
+}
+
+.woi-hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.woi-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border: 1px solid rgba(223, 190, 134, 0.4);
+  background: rgba(14, 12, 11, 0.65);
+  backdrop-filter: blur(8px);
+  border-radius: 40px;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #DFBE86;
+  margin-bottom: 1.75rem;
+}
+
+.woi-emblem-wrap {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 1.5rem;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.6));
+}
+
+.woi-emblem-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.woi-hero-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.5rem, 6.5vw, 5.25rem);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #FBF8F3;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.woi-hero-main-tagline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  color: #DFBE86;
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+.woi-hero-sub-tagline {
+  font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+  color: #E2DBD0;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-bottom: 2rem;
+}
+
+.woi-hero-divider {
+  width: 60px;
+  height: 2px;
+  background: #DFBE86;
+  margin: 0 auto;
+  opacity: 0.7;
+}
+
+/* --------------------------------------------------------
+   EDITORIAL GRID SECTIONS
+   -------------------------------------------------------- */
+.woi-editorial-section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.woi-bg-espresso {
+  background-color: #120E0D;
+}
+
+.woi-bg-charcoal {
+  background-color: #0E0C0B;
+}
+
+.woi-editorial-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.woi-editorial-grid.reversed {
+  grid-template-columns: 1fr 1fr;
+}
+
+.woi-editorial-image-col {
+  position: relative;
+}
+
+.woi-editorial-text-col {
+  padding: 20px 10px;
+}
+
+.woi-ritual-box {
+  margin-top: 1.75rem;
+  padding: 18px 22px;
+  background: rgba(223, 190, 134, 0.04);
+  border-left: 2px solid #DFBE86;
+  border-radius: 0 4px 4px 0;
+}
+
+.woi-ritual-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.15rem;
+  color: #FBF8F3;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.woi-ritual-desc {
+  font-size: 0.95rem;
+  color: #C5BCB0;
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* --------------------------------------------------------
+   PHILOSOPHY PILLARS
+   -------------------------------------------------------- */
+.woi-pillars-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 2rem 0;
+}
+
+.woi-pillar-item {
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 2px solid #DFBE86;
+  border-radius: 0 2px 2px 0;
+}
+
+.woi-pillar-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.08rem;
+  color: #FBF8F3;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.woi-pillar-desc {
+  font-size: 0.92rem;
+  color: #C0B7AB;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* --------------------------------------------------------
+   DRINKING CULTURE LANDSCAPES
+   -------------------------------------------------------- */
+.woi-landscape-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 2rem 0;
+}
+
+.woi-landscape-card {
+  padding: 14px 16px;
+  background: rgba(223, 190, 134, 0.03);
+  border: 1px solid rgba(223, 190, 134, 0.18);
+  border-radius: 2px;
+}
+
+.woi-landscape-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.98rem;
+  color: #DFBE86;
+  margin-bottom: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.woi-landscape-desc {
+  font-size: 0.88rem;
+  color: #BFB6AA;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* --------------------------------------------------------
+   SECTION 6: THE COLLECTION
+   -------------------------------------------------------- */
+.woi-collection-categories {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin: 2.25rem 0 2.5rem;
+}
+
+.woi-category-card {
+  padding: 18px 20px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(223, 190, 134, 0.2);
+  border-left: 3px solid #DFBE86;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.woi-category-card:hover {
+  background: rgba(223, 190, 134, 0.06);
+  border-color: rgba(223, 190, 134, 0.45);
+  transform: translateX(4px);
+}
+
+.woi-cat-num {
+  font-size: 0.75rem;
+  color: #DFBE86;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.woi-cat-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.12rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #FBF8F3;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.woi-cat-desc {
+  font-size: 0.92rem;
+  color: #BFB5A8;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.woi-menu-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 36px;
+  background: #DFBE86;
+  color: #0E0C0B;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(223, 190, 134, 0.25);
+}
+
+.woi-menu-cta-btn:hover {
+  background: #FBF8F3;
+  color: #0E0C0B;
+  box-shadow: 0 12px 28px rgba(223, 190, 134, 0.4);
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------
+   RESPONSIVE BREAKPOINTS
+   -------------------------------------------------------- */
+@media (max-width: 991px) {
+  .woi-editorial-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .woi-editorial-grid.reversed {
+    grid-template-columns: 1fr;
+  }
+
+  .woi-editorial-section {
+    padding: 70px 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .woi-hero-section {
+    min-height: 85vh;
+    padding: 100px 16px 60px;
+  }
+
+  .woi-hero-title {
+    font-size: 2.35rem;
+  }
+
+  .woi-hero-main-tagline {
+    font-size: 1.35rem;
+  }
+
+  .woi-heading-large {
+    font-size: 1.85rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .woi-body-text {
+    font-size: 0.98rem;
+  }
+
+  .woi-landscape-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .woi-menu-cta-btn {
+    width: 100%;
+  }
+}
