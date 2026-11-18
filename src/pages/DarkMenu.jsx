@@ -92,6 +92,11 @@ export default function DarkMenu() {
   const [menuData, setMenuData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // Drag-to-scroll state for categories
   const scrollRef = useRef(null);
   const [isDown, setIsDown] = useState(false);

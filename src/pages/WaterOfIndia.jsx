@@ -41,6 +41,28 @@ export default function WaterOfIndia() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // IntersectionObserver for all reveal animations matching the rest of the site
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    const elements = document.querySelectorAll(
+      '.ak-reveal, .ak-reveal-left, .ak-reveal-right, .ak-reveal-scale, .ak-reveal-fade'
+    );
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="dark-page-wrapper woi-page-wrapper">
       <DarkHeader />
@@ -55,30 +77,30 @@ export default function WaterOfIndia() {
           <div className="woi-hero-overlay" />
 
           <div className="woi-hero-content">
-            <div className="woi-emblem-wrap">
+            <div className="woi-emblem-wrap ak-reveal-scale">
               <img
                 src={`${baseUrl}water-of-india/brand-emblem.png`}
                 alt="Water of India Emblem"
               />
             </div>
 
-            <div className="woi-brand-badge">
+            <div className="woi-brand-badge ak-reveal delay-1">
               <span>Fresh Elixirs</span>
               <span>•</span>
               <span>The Customer Collection</span>
             </div>
 
-            <h1 className="woi-hero-title">Water of India</h1>
+            <h1 className="woi-hero-title ak-reveal delay-2">Water of India</h1>
 
-            <p className="woi-hero-main-tagline">
+            <p className="woi-hero-main-tagline ak-reveal delay-3">
               A journey in every glass.
             </p>
 
-            <p className="woi-hero-sub-tagline">
+            <p className="woi-hero-sub-tagline ak-reveal delay-3">
               Rooted in Tradition. Crafted for Tomorrow.
             </p>
 
-            <div className="woi-hero-divider" />
+            <div className="woi-hero-divider ak-reveal-scale delay-4" />
           </div>
         </section>
 
@@ -86,7 +108,7 @@ export default function WaterOfIndia() {
         <section className="woi-editorial-section woi-bg-espresso">
           <div className="container">
             <div className="woi-editorial-grid">
-              <div className="woi-editorial-image-col">
+              <div className="woi-editorial-image-col ak-reveal-left">
                 <div className="woi-image-frame" style={{ height: '560px' }}>
                   <img
                     src={`${baseUrl}water-of-india/welcome.webp`}
@@ -96,7 +118,7 @@ export default function WaterOfIndia() {
                 </div>
               </div>
 
-              <div className="woi-editorial-text-col">
+              <div className="woi-editorial-text-col ak-reveal-right">
                 <span className="woi-section-label">Welcome</span>
                 <h2 className="woi-heading-large">
                   Come for a drink. Stay for the discovery.
@@ -112,14 +134,14 @@ export default function WaterOfIndia() {
                 </p>
 
                 {/* Narrative callout from PDF page 2 */}
-                <div className="woi-ritual-box">
+                <div className="woi-ritual-box ak-reveal delay-2">
                   <h3 className="woi-ritual-title">A Welcome, In Every Glass</h3>
                   <p className="woi-ritual-desc">
                     Across India, the act of offering a drink is an invitation to pause. A courtyard sharbat, a coastal cooler or a comforting cup of chai can carry the memory of a place. Water of India brings these familiar rituals into a contemporary café experience, where regional character and thoughtful presentation meet.
                   </p>
                 </div>
 
-                <span className="woi-closing-accent">
+                <span className="woi-closing-accent ak-reveal delay-3">
                   India’s Heritage in Every Glass.
                 </span>
               </div>
@@ -131,7 +153,7 @@ export default function WaterOfIndia() {
         <section ref={storyRef} className="woi-editorial-section woi-bg-charcoal">
           <div className="container">
             <div className="woi-editorial-grid">
-              <div className="woi-editorial-text-col">
+              <div className="woi-editorial-text-col ak-reveal-left">
                 <span className="woi-section-label">Our Story</span>
                 <h2 className="woi-heading-large">
                   Familiar roots. Fresh encounters.
@@ -143,18 +165,24 @@ export default function WaterOfIndia() {
                   The idea is simple: make room for the flavours that deserve to be remembered, shared and discovered again. Our menu brings cooling sharbat, comforting dairy drinks, grain-based preparations and aromatic teas into one collection.
                 </p>
 
-
+                {/* Narrative callout from PDF page 3 */}
+                <div className="woi-ritual-box ak-reveal delay-2">
+                  <h3 className="woi-ritual-title">The Ritual of a Welcome</h3>
+                  <p className="woi-ritual-desc">
+                    A glass offered to a guest is a small gesture with a generous spirit. Across homes, cafés and gathering places, drinks invite us to pause. From a cooling sharbat to a steaming cup of chai, this collection celebrates the pleasure of that invitation.
+                  </p>
+                </div>
 
                 <p className="woi-body-text" style={{ fontStyle: 'italic', color: '#DFBE86', marginTop: '1.25rem' }}>
                   You do not need to know every name before you order. Curiosity is a perfectly good place to begin.
                 </p>
 
-                <span className="woi-closing-accent">
+                <span className="woi-closing-accent ak-reveal delay-3">
                   A welcome. A conversation. A glass shared.
                 </span>
               </div>
 
-              <div className="woi-editorial-image-col">
+              <div className="woi-editorial-image-col ak-reveal-right">
                 <div className="woi-image-frame woi-parallax-img-wrap" style={{ height: '580px' }}>
                   <img
                     src={`${baseUrl}water-of-india/story-ritual.webp?v=3`}
@@ -179,7 +207,7 @@ export default function WaterOfIndia() {
         <section className="woi-editorial-section woi-bg-espresso">
           <div className="container">
             <div className="woi-editorial-grid reversed">
-              <div className="woi-editorial-text-col">
+              <div className="woi-editorial-text-col ak-reveal-left">
                 <span className="woi-section-label">Our Philosophy</span>
                 <h2 className="woi-heading-large">
                   Rooted in Tradition. Crafted for Tomorrow.
@@ -191,17 +219,37 @@ export default function WaterOfIndia() {
                   At Water of India, the experience is built around discovery: a familiar ingredient in a different expression, a new contrast of sweet and tangy, or the gentle comfort of a warm cup.
                 </p>
 
-
+                {/* 3 Philosophy Pillars from PDF page 4 */}
+                <div className="woi-pillars-list">
+                  <div className="woi-pillar-item ak-reveal delay-1">
+                    <h3 className="woi-pillar-title">Flavour with Character</h3>
+                    <p className="woi-pillar-desc">
+                      Bright citrus, mellow grains, fragrant spices and comforting dairy: each style offers a different way to explore the collection.
+                    </p>
+                  </div>
+                  <div className="woi-pillar-item ak-reveal delay-2">
+                    <h3 className="woi-pillar-title">Craft in the Details</h3>
+                    <p className="woi-pillar-desc">
+                      Thoughtful presentation brings familiar Indian drinking traditions into a contemporary café setting.
+                    </p>
+                  </div>
+                  <div className="woi-pillar-item ak-reveal delay-3">
+                    <h3 className="woi-pillar-title">A Moment to Savour</h3>
+                    <p className="woi-pillar-desc">
+                      Choose a favourite, discover something unfamiliar, and make time for a good conversation.
+                    </p>
+                  </div>
+                </div>
 
                 <p className="woi-body-text">
                   Our invitation is to slow down, notice the aroma, enjoy the texture and make the moment your own. A drink can be an everyday pleasure and a small journey at the same time.
                 </p>
-                <span className="woi-closing-accent">
+                <span className="woi-closing-accent ak-reveal delay-4">
                   A thoughtful pause, beautifully served.
                 </span>
               </div>
 
-              <div className="woi-editorial-image-col">
+              <div className="woi-editorial-image-col ak-reveal-right">
                 <div className="woi-image-frame" style={{ height: '620px' }}>
                   <img
                     src={`${baseUrl}water-of-india/philosophy.webp`}
@@ -218,7 +266,7 @@ export default function WaterOfIndia() {
         <section className="woi-editorial-section woi-bg-charcoal">
           <div className="container">
             <div className="woi-editorial-grid">
-              <div className="woi-editorial-image-col">
+              <div className="woi-editorial-image-col ak-reveal-left">
                 <div className="woi-image-frame" style={{ height: '620px' }}>
                   <img
                     src={`${baseUrl}water-of-india/culture.webp`}
@@ -228,7 +276,7 @@ export default function WaterOfIndia() {
                 </div>
               </div>
 
-              <div className="woi-editorial-text-col">
+              <div className="woi-editorial-text-col ak-reveal-right">
                 <span className="woi-section-label">Drinking Culture</span>
                 <h2 className="woi-heading-large">
                   India, one glass at a time.
@@ -236,6 +284,34 @@ export default function WaterOfIndia() {
                 <p className="woi-body-text">
                   Indian drinking culture is wonderfully varied. Some drinks are bright and fruit-led; others savoury, creamy, earthy or fragrant with spice. There is no single flavour that tells the whole story.
                 </p>
+
+                {/* 4 Landscape Flavor Pillars from PDF page 5 */}
+                <div className="woi-landscape-grid">
+                  <div className="woi-landscape-card ak-reveal delay-1">
+                    <h3 className="woi-landscape-title">Coastal Notes</h3>
+                    <p className="woi-landscape-desc">
+                      Coconut and kokum bring contrasting textures and tang to the collection.
+                    </p>
+                  </div>
+                  <div className="woi-landscape-card ak-reveal delay-2">
+                    <h3 className="woi-landscape-title">Orchard Notes</h3>
+                    <p className="woi-landscape-desc">
+                      Mango, bael, citrus and melon offer distinctive fruit-led expressions.
+                    </p>
+                  </div>
+                  <div className="woi-landscape-card ak-reveal delay-3">
+                    <h3 className="woi-landscape-title">Grain & Dairy</h3>
+                    <p className="woi-landscape-desc">
+                      Sattu, ragi, curd and milk introduce earthy, savoury and creamy possibilities.
+                    </p>
+                  </div>
+                  <div className="woi-landscape-card ak-reveal delay-4">
+                    <h3 className="woi-landscape-title">Tea & Spice</h3>
+                    <p className="woi-landscape-desc">
+                      Tea, ginger and aromatic spices create a comforting closing note.
+                    </p>
+                  </div>
+                </div>
 
                 <p className="woi-body-text">
                   Names, ingredients and serving customs can change between regions and households. That variety is part of the pleasure: the collection is an invitation to explore, rather than a claim that there is only one authentic version.
@@ -252,14 +328,14 @@ export default function WaterOfIndia() {
         <section className="woi-editorial-section woi-bg-espresso">
           <div className="container">
             <div className="woi-editorial-grid">
-              <div className="woi-editorial-text-col">
+              <div className="woi-editorial-text-col ak-reveal-left">
                 <span className="woi-section-label">The Collection</span>
                 <h2 className="woi-heading-large">
                   Choose your starting point.
                 </h2>
 
                 <div className="woi-collection-categories">
-                  <div className="woi-category-card">
+                  <div className="woi-category-card ak-reveal delay-1">
                     <span className="woi-cat-num">01</span>
                     <h3 className="woi-cat-title">Signature & Grain Classics</h3>
                     <p className="woi-cat-desc">
@@ -267,7 +343,7 @@ export default function WaterOfIndia() {
                     </p>
                   </div>
 
-                  <div className="woi-category-card">
+                  <div className="woi-category-card ak-reveal delay-2">
                     <span className="woi-cat-num">02</span>
                     <h3 className="woi-cat-title">Coolers & Regional Discoveries</h3>
                     <p className="woi-cat-desc">
@@ -275,7 +351,7 @@ export default function WaterOfIndia() {
                     </p>
                   </div>
 
-                  <div className="woi-category-card">
+                  <div className="woi-category-card ak-reveal delay-3">
                     <span className="woi-cat-num">03</span>
                     <h3 className="woi-cat-title">Creamy, Savoury & Fermented</h3>
                     <p className="woi-cat-desc">
@@ -283,7 +359,7 @@ export default function WaterOfIndia() {
                     </p>
                   </div>
 
-                  <div className="woi-category-card">
+                  <div className="woi-category-card ak-reveal delay-4">
                     <span className="woi-cat-num">04</span>
                     <h3 className="woi-cat-title">A Warmer Pause</h3>
                     <p className="woi-cat-desc">
@@ -292,13 +368,17 @@ export default function WaterOfIndia() {
                   </div>
                 </div>
 
-                <Link to="/menu" className="woi-menu-cta-btn">
+                <Link
+                  to="/menu"
+                  className="woi-menu-cta-btn ak-reveal delay-5"
+                  onClick={() => window.scrollTo(0, 0)}
+                >
                   <span>Explore Our Menu</span>
                   <ArrowRight size={18} />
                 </Link>
               </div>
 
-              <div className="woi-editorial-image-col">
+              <div className="woi-editorial-image-col ak-reveal-right">
                 <div className="woi-image-frame" style={{ height: '620px' }}>
                   <img
                     src={`${baseUrl}water-of-india/collection.webp`}

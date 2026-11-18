@@ -292,6 +292,13 @@
   background: rgba(255, 255, 255, 0.02);
   border-left: 2px solid #DFBE86;
   border-radius: 0 2px 2px 0;
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+.woi-pillar-item:hover {
+  background: rgba(223, 190, 134, 0.06);
+  border-left-color: #FBF8F3;
+  transform: translateX(4px);
 }
 
 .woi-pillar-title {
@@ -324,6 +331,14 @@
   background: rgba(223, 190, 134, 0.03);
   border: 1px solid rgba(223, 190, 134, 0.18);
   border-radius: 2px;
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.woi-landscape-card:hover {
+  background: rgba(223, 190, 134, 0.07);
+  border-color: rgba(223, 190, 134, 0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .woi-landscape-title {
